@@ -1,7 +1,28 @@
 {
   "folders": [
     {
-      "path": "."
+      "name": ".vscode",
+      "path": ".vscode"
+    },
+    {
+      "name": "python",
+      "path": "python"
+    },
+    {
+      "name": "test",
+      "path": "test"
+    },
+    {
+      "name": "include",
+      "path": "include"
+    },
+    {
+      "name": "src",
+      "path": "src"
+    },
+    {
+      "name": "template",
+      "path": "template"
     }
   ],
   "settings": {
@@ -94,7 +115,8 @@
       "typeindex": "cpp",
       "typeinfo": "cpp",
       "semaphore": "cpp",
-      "__nullptr": "cpp"
+      "__nullptr": "cpp",
+      "*.tpp": "cpp"
     }
   }
 }
