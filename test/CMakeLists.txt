@@ -1,15 +1,20 @@
 cmake_minimum_required(VERSION 3.11)
+
 project(
-  HelloWorld
+  Test
   VERSION 0.1
   DESCRIPTION "Hello World"
   LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-#add_subdirectory(src)
-add_executable(
-  test.out main.cpp
-)
-# add_subdirectory("vendor/rapidcheck")
-# target_link_libraries(my_target rapidcheck)
+set(Target "test.out")
+
+add_subdirectory("vendor/rapidcheck")
+
+# Target
+add_executable(${Target} main.cpp)
+
+target_link_libraries(${Target} rapidcheck)
+target_include_directories(${Target} PUBLIC ../include)

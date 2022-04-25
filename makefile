@@ -1,9 +1,11 @@
-CXX := c++
-CXXFLAGS := -Wall -Wextra -Werror -std=c++98 -pedantic
+.PHONY: test
 
-SRC := $(wildcard *.cpp)
-OBJ := $(SRC:.cpp=.o)
+TARGET := test/build/test.out
 
-.c.a:
-	$(CXX) $(CXXFLAGS) -c $< -o
-	$(AR)
+$(TARGET):
+	ninja -C test/build/
+
+ninja: $(TARGET)
+
+test: ninja
+	$(TARGET)
