@@ -3,9 +3,11 @@
     {
       "name": "Linux",
       "includePath": [
-        "${workspaceFolder}/template",
-        "${workspaceFolder}/include",
-        "/home/scarf/Repo/containers/template"
+        "${default}",
+        "${workspaceFolder}/../template",
+        "${workspaceFolder}/../include",
+        "/home/scarf/Repo/containers/template",
+        "/home/scarf/Repo/containers/include"
       ],
       "defines": [],
       "compilerPath": "/usr/bin/clang",
