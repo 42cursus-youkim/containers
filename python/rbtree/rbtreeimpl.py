@@ -23,15 +23,11 @@ class RBTree(Generic[T]):
     def __len__(self) -> int:
         return sum(1 for node in self if not node.is_nil)
 
-    def insert(self, value: T) -> None:
-        node = Node(value, color=NodeColor.RED)
-        self.root.insert(node)
-
     def _repr_svg_(self) -> str:
         "repr to Jupyter Notebook"
-        return self.graphviz()._repr_image_svg_xml()
+        return self.__graphviz()._repr_image_svg_xml()
 
-    def graphviz(self, *args: Any, **kwargs: Any) -> Digraph:
+    def __graphviz(self, *args: Any, **kwargs: Any) -> Digraph:
         def style(color: str):
             return {"color": color, "fillcolor": color}
 
@@ -72,3 +68,27 @@ class RBTree(Generic[T]):
                 digraph.edge(f"{node_id}:r", f"{id(node.right)}:v")
 
         return digraph
+
+    def insert(self, value: T) -> None:
+        def _walk(candidate: Node[T], node: Node[T]) -> Node[T]:
+            if candidate.is_nil:
+                raise ValueError("Cannot insert into nil node")
+            if node <= candidate:
+                if candidate.left.is_nil:
+                    return candidate
+                else:
+                    return _walk(candidate.left, node)
+            else:
+                if candidate.right.is_nil:
+                    return candidate
+                else:
+                    return _walk(candidate.right, node)
+
+        node = Node(value, color=NodeColor.RED)
+        parent = _walk(self.root, node)
+        if node <= parent:
+            parent.left = node
+        else:
+            parent.right = node
+
+        # self.root.insert(node)

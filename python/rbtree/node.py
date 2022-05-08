@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import IntEnum, auto
+from functools import total_ordering
 from typing import Generic, Iterator, TypeVar
 
 from termcolor import colored
@@ -18,6 +19,7 @@ class NodeColor(IntEnum):
 T = TypeVar("T", int, Comparable)
 
 
+@total_ordering
 @dataclass
 class Node(Generic[T]):
     value: T
@@ -48,23 +50,15 @@ class Node(Generic[T]):
         hl = "on_magenta" if self.is_black else "on_red"
         return colored(str(self.value), on_color=hl, attrs=["dark"])
 
+    def __lt__(self, other: Node[T]) -> bool:
+        return self.value < other.value
+
+    def __gt__(self, other: Node[T]) -> bool:
+        return self.value > other.value
+
     def in_order(self) -> Iterator[Node[T]]:
         if not self.is_nil:
             yield from self.left.in_order()
         yield self
         if not self.is_nil:
             yield from self.right.in_order()
-
-    def insert(self, node: Node[T]) -> None:
-        if self.is_nil:
-            raise ValueError("Cannot insert into nil node")
-        if node.value <= self.value:
-            if self.left.is_nil:
-                self.left = node
-            else:
-                self.left.insert(node)
-        else:
-            if self.right.is_nil:
-                self.right = node
-            else:
-                self.right.insert(node)
