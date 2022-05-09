@@ -15,3 +15,13 @@ implement following data structures in C++98:
 also implement:
 
 - Set (With RB-Tree)
+
+## Plans
+
+- [ ] Iterators
+- [ ] Pairs
+- [ ] Vector
+  - [ ] Stack
+- [ ] RB-Tree
+  - [ ] Map
+  - [ ] Set

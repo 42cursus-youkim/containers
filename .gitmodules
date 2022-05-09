@@ -1,3 +1,0 @@
-[submodule "vendor/rapidcheck"]
-	path = test/vendor/rapidcheck
-	url = git@github.com:emil-e/rapidcheck.git
