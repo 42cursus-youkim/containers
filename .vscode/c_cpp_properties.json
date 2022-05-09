@@ -4,10 +4,8 @@
       "name": "Linux",
       "includePath": [
         "${default}",
-        "${workspaceFolder}/../template",
-        "${workspaceFolder}/../include",
-        "/home/scarf/Repo/containers/template",
-        "/home/scarf/Repo/containers/include"
+        "${workspaceFolder}/template",
+        "${workspaceFolder}/include"
       ],
       "defines": [],
       "compilerPath": "/usr/bin/clang",
@@ -17,3 +15,4 @@
   ],
   "version": 4
 }
+ 

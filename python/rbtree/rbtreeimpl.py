@@ -69,26 +69,39 @@ class RBTree(Generic[T]):
 
         return digraph
 
+    @staticmethod
+    def recolor(node: Node[T], uncle: Node[T]) -> None:
+        print(f"{node.value = }")
+        node.parent.color = NodeColor.BLACK  # type: ignore FIXME
+        uncle.color = NodeColor.BLACK
+        # parent.parent.color = NodeColor.RED
+
+    @staticmethod
+    def restructure(node: Node[T]) -> None:
+        ...
+
     def insert(self, value: T) -> None:
-        def _walk(candidate: Node[T], node: Node[T]) -> Node[T]:
-            if candidate.is_nil:
-                raise ValueError("Cannot insert into nil node")
-            if node <= candidate:
-                if candidate.left.is_nil:
-                    return candidate
-                else:
-                    return _walk(candidate.left, node)
+        from time import sleep
+        def naive_insert(parent: Node[T], node: Node[T]) -> tuple[Node[T], Node[T]]:
+            "returns (inserted node, uncle node)"
+            if node <= parent:
+                parent.left = node
+                return parent.left, parent.right
             else:
-                if candidate.right.is_nil:
-                    return candidate
-                else:
-                    return _walk(candidate.right, node)
+                parent.right = node
+                return parent.right, parent.left
 
         node = Node(value, color=NodeColor.RED)
-        parent = _walk(self.root, node)
-        if node <= parent:
-            parent.left = node
+        parent = self.root.walk(node)
+        inserted, uncle = naive_insert(parent, node)
+        print(f"{inserted.value = } {uncle.value = }")
+        if uncle.is_black:
+            ...
+            # self.restructure()
         else:
-            parent.right = node
-
+            print(f'{uncle.value = }')
+            print("recolor!")
+            sleep(1)
+            self.recolor(inserted, uncle)
+        print(parent, parent.is_double_red())
         # self.root.insert(node)
