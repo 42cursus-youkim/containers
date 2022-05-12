@@ -27,16 +27,11 @@ struct pair {
   pair(const first_type& a, const second_type& b) : first(a), second(b) {}
 
   /// assignment operator.
-  pair& operator=(const pair& p) {
-    if (this != &p) {
-      first = p.first;
-      second = p.second;
-    }
-    return *this;
-  }
+  pair& operator=(const pair& p);
 };
 
 }  // namespace ft
+
 
 #include "pair.tpp"
 
