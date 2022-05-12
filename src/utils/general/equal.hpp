@@ -2,6 +2,8 @@
 #define GENERAL_EQUAL_HPP
 
 namespace ft {
+const bool means_same = 0;
+const bool means_diff = 1;
 
 /// check for equality
 template <class InputIterator1, class InputIterator2>
@@ -23,11 +25,11 @@ bool equal(InputIterator1 first1,
            InputIterator2 first2,
            BinaryPredicate predicate) {
   while (first1 != last1) {
-    if (not predicate(*first1, *first2)) {
+    if (predicate(*first1, *first2) == means_diff) {
       return false;
-      ++first1;
-      ++first2;
     }
+    ++first1;
+    ++first2;
     return true;
   }
 }
