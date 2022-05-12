@@ -1,3 +1,3 @@
-
-
-JOB := -j $(NPROCS)
+ifneq ($(PARALLEL), 0)
+  CXXFLAGS += -j $(NPROCS)
+endif

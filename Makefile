@@ -5,8 +5,9 @@ include make/parallel.mk
 
 INC := $(addprefix -I src/, containers/ utils/)
 
-CXXFLAGS := \
+CXXFLAGS = \
 	-Wall -Wextra -Werror -std=c++98 \
 	-Wpedantic -Wconversion -Wshadow \
 
 include make/test.mk
+
