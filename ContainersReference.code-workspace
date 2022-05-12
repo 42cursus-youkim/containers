@@ -107,7 +107,11 @@
       "__hash_table": "cpp",
       "__tree": "cpp",
       "__tuple": "cpp",
-      "filesystem": "cpp"
+      "filesystem": "cpp",
+      "__bit_reference": "cpp",
+      "__node_handle": "cpp",
+      "__memory": "cpp",
+      "locale": "cpp"
     }
   }
 }
