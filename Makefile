@@ -1,7 +1,7 @@
 TARGET := test.out
 include make/parallel.mk
 
-INC := $(addprefix -I src/, containers utils)
+INC := $(addprefix -I src/, containers/ utils/)
 
 CXX := c++
 CXXFLAGS := \
@@ -9,7 +9,7 @@ CXXFLAGS := \
 	-Wpedantic -Wconversion -Wshadow \
 
 $(TARGET):
-	$(CXX) $(CXXFLAGS) $(INC) test/main.cpp -o test.out
+	$(CXX) $(CXXFLAGS) $(INC) test/main.cpp -o $@
 
 run: $(TARGET)
 	./$(TARGET)

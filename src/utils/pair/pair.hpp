@@ -17,7 +17,6 @@ struct pair {
   second_type second;
 
   /// Constructors & Destructor
-
   /** @brief default constructor.
    *
    * value initialized.
@@ -26,9 +25,8 @@ struct pair {
 
   /** @brief copy constructor.
    *
-   *  @param a
+   *  @param ad
    */
-  template <class U, class V>
   pair(const first_type& a, const second_type& b) : first(a), second(b) {}
 
   /**
@@ -36,6 +34,7 @@ struct pair {
    *
    * @param pr
    */
+  template <class U, class V>
   pair(const pair<U, V>& pr) : first(pr.first), second(pr.second) {}
 
   // Operators
@@ -50,12 +49,7 @@ struct pair {
 
 }  // namespace ft
 
-template <class T1, class T2>
-ft::pair<T1, T2> make_pair(T1 x, T2 y) {
-  return (ft::pair<T1, T2>(x, y));
-}
-
-#include <utils/pair/make_pair.tpp>
-#include <utils/pair/relational_operator.tpp>
+#include "make_pair.tpp"
+#include "relational_operator.tpp"
 
 #endif  // PAIR_PAIR_HPP

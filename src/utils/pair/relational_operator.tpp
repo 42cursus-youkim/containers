@@ -10,7 +10,7 @@ inline bool operator==(const ft::pair<T1, T2>& left,
 template <class T1, class T2>
 inline bool operator!=(const ft::pair<T1, T2>& left,
                        const ft::pair<T1, T2>& right) {
-  return not left == right;
+  return not (left == right);
 }
 
 template <class T1, class T2>
@@ -29,13 +29,13 @@ inline bool operator>(const ft::pair<T1, T2>& left,
 template <class T1, class T2>
 inline bool operator<=(const ft::pair<T1, T2>& left,
                        const ft::pair<T1, T2>& right) {
-  return not left > right;
+  return not (left > right);
 }
 
 template <class T1, class T2>
 inline bool operator>=(const ft::pair<T1, T2>& left,
                        const ft::pair<T1, T2>& right) {
-  return not left < right;
+  return not (left < right);
 }
 
 #endif  // PAIR_RELATIONAL_OPERATOR_TPP
