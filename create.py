@@ -25,7 +25,7 @@ def main():
     ext = raw_path.suffix.replace(".", "_")
 
     path = Path(__file__).parent / "src" / str(raw_path)
-    
+
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(template.format(name=name.upper(), ext=ext.upper()))
 
