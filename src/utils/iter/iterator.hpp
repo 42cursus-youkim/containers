@@ -1,5 +1,5 @@
-#ifndef ITERATOR_ITERATOR_HPP
-#define ITERATOR_ITERATOR_HPP
+#ifndef ITER_ITERATOR_HPP
+#define ITER_ITERATOR_HPP
 
 #include <cstddef>
 
@@ -21,4 +21,4 @@ class iterator {
 
 }  // namespace ft
 
-#endif  // ITERATOR_ITERATOR_HPP
+#endif  // ITER_ITERATOR_HPP

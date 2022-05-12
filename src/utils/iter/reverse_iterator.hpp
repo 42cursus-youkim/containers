@@ -1,9 +1,11 @@
-#ifndef ITERATOR_REVERSE_ITERATOR_HPP
-#define ITERATOR_REVERSE_ITERATOR_HPP
+#ifndef ITER_REVERSE_ITERATOR_HPP
+#define ITER_REVERSE_ITERATOR_HPP
+
+#include "iterator.hpp"
 
 namespace ft {
 template <class Iterator>
-class reverse_iterator {
+class reverse_iterator : ft::iterator {
  public:
   typedef T value_type;
   typedef Distance difference_type;
@@ -11,11 +13,9 @@ class reverse_iterator {
   typedef Reference reference;
   typedef Category iterator_category;
 
-  public:
-  explicit reverse_iterator(const iterator_type &it) : current_(it) {}
-
-  // template <typename
+ public:
+  explicit reverse_iterator(const iterator_type& it) : current_(it) {}
 };
 }  // namespace ft
 
-#endif  // ITERATOR_REVERSE_ITERATOR_HPP
+#endif  // ITER_REVERSE_ITERATOR_HPP

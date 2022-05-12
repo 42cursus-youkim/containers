@@ -1,5 +1,5 @@
-#ifndef ITERATOR_TRAITS_HPP
-#define ITERATOR_TRAITS_HPP
+#ifndef ITER_TRAITS_HPP
+#define ITER_TRAITS_HPP
 
 #include "tag.hpp"
 
@@ -16,7 +16,7 @@ class iterator_traits {
 
 /// partial specialization for pointer types
 template <class T>
-class iterator_traits<T*>{
+class iterator_traits<T*> {
   typedef random_access_iterator_tag iterator_category;
   typedef T value_type;
   typedef ptrdiff_t difference_type;
@@ -26,7 +26,7 @@ class iterator_traits<T*>{
 
 /// partial specialization for constant pointer types
 template <class T>
-class iterator_traits<const T*>{
+class iterator_traits<const T*> {
   typedef random_access_iterator_tag iterator_category;
   typedef T value_type;
   typedef ptrdiff_t difference_type;
@@ -36,4 +36,4 @@ class iterator_traits<const T*>{
 
 }  // namespace ft
 
-#endif  // ITERATOR_TRAITS_HPP
+#endif  // ITER_TRAITS_HPP

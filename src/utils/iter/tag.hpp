@@ -1,5 +1,5 @@
-#ifndef ITERATOR_TAG_HPP
-#define ITERATOR_TAG_HPP
+#ifndef ITER_TAG_HPP
+#define ITER_TAG_HPP
 
 namespace ft {
 
@@ -14,4 +14,4 @@ struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 
 }  // namespace ft
 
-#endif  // ITERATOR_TAG_HPP
+#endif  // ITER_TAG_HPP
