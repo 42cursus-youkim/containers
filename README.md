@@ -6,20 +6,20 @@
 
 implement following data structures in C++98:
 
-- [ ] Map
-- [ ] Stack
-- [ ] Vector
+- Map
+- Stack
+- Vector
 
 also implement following algorithms in C++98:
 
-- [ ] iterators_traits
-- [ ] reverse_iterator
-- [ ] enable_if
-- [ ] is_integral
-- [ ] equal
-- [ ] lexicographical_compare
-- [ ] std::pair
-- [ ] std::make_pair
+- iterators_traits
+- reverse_iterator
+- enable_if
+- is_integral
+- equal
+- lexicographical_compare
+- std::pair
+- std::make_pair
 
 ## Bonus
 
