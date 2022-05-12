@@ -1,11 +1,12 @@
-- [ ] Map
-- [ ] Stack
-- [ ] Vector
-- [x] iterators_traits
-- [x] reverse_iterator
-- [x] enable_if
-- [x] is_integral
-- [x] equal
-- [ ] lexicographical_compare
-- [x] std::pair
-- [x] std::make_pair
+written / tested
+- [ ][ ] Map
+- [ ][ ] Stack
+- [ ][ ] Vector
+- [x][ ] iterators_traits
+- [x][ ] reverse_iterator
+- [x][ ] enable_if
+- [x][ ] is_integral
+- [x][ ] equal
+- [x][ ] lexicographical_compare
+- [x][ ] std::pair
+- [x][ ] std::make_pair

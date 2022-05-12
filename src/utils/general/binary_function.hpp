@@ -1,6 +1,8 @@
 #ifndef GENERAL_BINARY_FUNCTION_HPP
 #define GENERAL_BINARY_FUNCTION_HPP
 
+// FIXME: remove?
+
 namespace ft {
 template <class Arg1, class Arg2, class Result>
 struct binary_function {
