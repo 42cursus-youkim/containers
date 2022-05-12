@@ -35,6 +35,7 @@
 #include <iostream>
 #include "integral_constant.hpp"
 #include "is_integral.hpp"
+#include "pair.hpp"
 
 using std::cout;
 using std::string;
@@ -45,6 +46,12 @@ template <>
 struct factorial<0> : ft::integral_constant<int, 1> {};
 
 int main() {
+  ft::pair <int, string> p1 = ft::make_pair(1, "heello");
+  ft::pair <int, string> p2 = ft::make_pair(2, "world");
+
+  // compare p1 and p2
+  cout << (p1 < p2) << '\n';
+
   std::cout << factorial<5>::value
             << '\n';  // constexpr (no calculations on runtime)
 

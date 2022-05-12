@@ -2,10 +2,10 @@
 - [ ] Stack
 - [ ] Vector
 - [x] iterators_traits
-- [ ] reverse_iterator
+- [x] reverse_iterator
 - [x] enable_if
 - [x] is_integral
-- [ ] equal
+- [x] equal
 - [ ] lexicographical_compare
 - [x] std::pair
 - [x] std::make_pair
