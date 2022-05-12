@@ -1,9 +1,9 @@
 #ifndef GENERAL_EQUAL_HPP
 #define GENERAL_EQUAL_HPP
 
+#include "constants.hpp"
+
 namespace ft {
-const bool means_same = 0;
-const bool means_diff = 1;
 
 /// check for equality
 template <class InputIterator1, class InputIterator2>
