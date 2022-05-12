@@ -10,7 +10,8 @@ template <class Category,
           class Distance = ptrdiff_t,
           class Pointer = T*,
           class Reference = T&>
-struct iterator {
+class iterator {
+ public:
   typedef T value_type;
   typedef Distance difference_type;
   typedef Pointer pointer;
@@ -20,4 +21,4 @@ struct iterator {
 
 }  // namespace ft
 
-#endif // ITERATOR_ITERATOR_HPP
+#endif  // ITERATOR_ITERATOR_HPP

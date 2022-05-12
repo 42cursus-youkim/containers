@@ -1,7 +1,7 @@
 - [ ] Map
 - [ ] Stack
 - [ ] Vector
-- [ ] iterators_traits
+- [x] iterators_traits
 - [ ] reverse_iterator
 - [x] enable_if
 - [x] is_integral

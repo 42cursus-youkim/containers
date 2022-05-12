@@ -38,7 +38,6 @@ struct pair {
 
 }  // namespace ft
 
-#include "make_pair.tpp"
-#include "relational_operator.tpp"
+#include "pair.tpp"
 
 #endif  // PAIR_PAIR_HPP

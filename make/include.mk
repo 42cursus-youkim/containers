@@ -1,7 +1,8 @@
-INC_CONTAINERS := $(addprefix containers/, \
+INC_CONTAINERS := containers/
+# $(addprefix containers/, \
 	map/ set/ stack/ vector/)
 
 INC_UTILS := $(addprefix utils/, \
-	general/ iterator/ pair/ tmp/)
+	general/ iter/ pair/ tmp/)
 
 INC = $(addprefix -I src/, $(INC_CONTAINERS) $(INC_UTILS))
