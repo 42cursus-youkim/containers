@@ -16,12 +16,7 @@ also implement:
 
 - Set (With RB-Tree)
 
-## Plans
+## Design Choices
 
-- [ ] Iterators
-- [ ] Pairs
-- [ ] Vector
-  - [ ] Stack
-- [ ] RB-Tree
-  - [ ] Map
-  - [ ] Set
+###  typename vs class
+[](https://mariusbancila.ro/blog/2021/03/15/typename-or-class/)
