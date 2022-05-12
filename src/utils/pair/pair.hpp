@@ -16,30 +16,19 @@ struct pair {
   first_type first;
   second_type second;
 
-  /// Constructors & Destructor
-  /** @brief default constructor.
-   *
-   * value initialized.
-   */
+  /// default constructor, value initialized.
   pair() : first(), second() {}
 
-  /** @brief copy constructor.
-   *
-   *  @param ad
-   */
-  pair(const first_type& a, const second_type& b) : first(a), second(b) {}
-
-  /**
-   * @brief initialization constructor.
-   *
-   * @param pr
-   */
+  /// copy constructor.
   template <class U, class V>
   pair(const pair<U, V>& pr) : first(pr.first), second(pr.second) {}
 
-  // Operators
+  /// initialization constructor.
+  pair(const first_type& a, const second_type& b) : first(a), second(b) {}
+
+  /// assignment operator.
   pair& operator=(const pair& p) {
-    if (*this != &p) {
+    if (this != &p) {
       first = p.first;
       second = p.second;
     }
