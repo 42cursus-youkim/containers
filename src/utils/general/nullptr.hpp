@@ -1,5 +1,5 @@
-#ifndef __NULLPTR_H__
-#define __NULLPTR_H__
+#ifndef GENERAL_NULLPTR_HPP
+#define GENERAL_NULLPTR_HPP
 
 namespace ft {
 
@@ -25,6 +25,7 @@ const class {
   // address of it cannot be taken.
   void operator&() const;
 } nullptr = {};
+
 }  // namespace ft
 
-#endif  // __NULLPTR_H__
+#endif // GENERAL_NULLPTR_HPP

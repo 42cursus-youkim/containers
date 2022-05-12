@@ -1,5 +1,5 @@
-#ifndef __UTILS_H__
-#define __UTILS_H__
+#ifndef GENERAL_GENERAL_HPP
+#define GENERAL_GENERAL_HPP
 
 #include <sstream>
 #include <string>
@@ -16,4 +16,4 @@ std::string to_string(T value) {
 
 }  // namespace ft
 
-#endif  // __UTILS_H__
+#endif // GENERAL_GENERAL_HPP

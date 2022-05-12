@@ -1,5 +1,5 @@
-#ifndef EQUAL_HPP
-#define EQUAL_HPP
+#ifndef GENERAL_EQUAL_HPP
+#define GENERAL_EQUAL_HPP
 
 namespace ft {
 template <class InputIterator1, class InputIterator2>
@@ -12,4 +12,4 @@ bool equal(InputIterator1 first1,
            BinaryPredicate pred);
 }  // namespace ft
 
-#endif  // EQUAL_HPP
+#endif // GENERAL_EQUAL_HPP

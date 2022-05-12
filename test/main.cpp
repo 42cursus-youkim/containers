@@ -33,8 +33,8 @@
 //   return 0;
 // }
 #include <iostream>
-#include "../../src/utils/tmp/integral_constant.hpp"
-#include "../../src/utils/tmp/is_integral.hpp"
+#include "integral_constant.hpp"
+#include "is_integral.hpp"
 
 using std::cout;
 using std::string;

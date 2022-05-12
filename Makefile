@@ -2,8 +2,7 @@ TARGET := test.out
 
 include make/os.mk
 include make/parallel.mk
-
-INC := $(addprefix -I src/, containers/ utils/)
+include make/include.mk
 
 CXXFLAGS = \
 	-Wall -Wextra -Werror -std=c++98 \
