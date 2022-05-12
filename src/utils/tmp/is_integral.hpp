@@ -17,12 +17,12 @@
  * short int
  * int
  * long int
- * long long int
+ * long long int (C++11)
  * unsigned char
  * unsigned short int
  * unsigned int
  * unsigned long int
- * unsigned long long int
+ * unsigned long long int (C++11)
  */
 
 /// template specialization helper
@@ -44,12 +44,12 @@ IS_INTEGRAL(signed char)
 IS_INTEGRAL(short int)
 IS_INTEGRAL(int)
 IS_INTEGRAL(long int)
-IS_INTEGRAL(long long int)
+// IS_INTEGRAL(long long int)
 IS_INTEGRAL(unsigned char)
 IS_INTEGRAL(unsigned short int)
 IS_INTEGRAL(unsigned int)
 IS_INTEGRAL(unsigned long int)
-IS_INTEGRAL(unsigned long long int)
+// IS_INTEGRAL(unsigned long long int)
 
 }  // namespace ft
 

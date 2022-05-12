@@ -3,7 +3,7 @@ include make/parallel.mk
 
 INC := $(addprefix -I src/, containers/ utils/)
 
-CXX := c++
+CXX := clang++
 CXXFLAGS := \
 	-Wall -Wextra -Werror -std=c++98 \
 	-Wpedantic -Wconversion -Wshadow \
