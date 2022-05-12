@@ -99,7 +99,8 @@
       "typeinfo": "cpp",
       "variant": "cpp",
       "semaphore": "cpp",
-      "__nullptr": "cpp"
+      "__nullptr": "cpp",
+      "*.tpp": "cpp"
     }
   }
 }

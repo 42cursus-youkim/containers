@@ -1,0 +1,4 @@
+#ifndef PAIR_MAKE_PAIR_TPP
+#define PAIR_MAKE_PAIR_TPP
+
+#endif  // PAIR_MAKE_PAIR_TPP

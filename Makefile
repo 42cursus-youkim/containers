@@ -1,8 +1,7 @@
 TARGET := test.out
 include make/parallel.mk
 
-INC_PREFIX := -I include/
-INC := $(addprefix $(INC_PREFIX), containers iterator utils)
+INC := $(addprefix -I src/, containers utils)
 
 CXX := c++
 CXXFLAGS := \
@@ -11,6 +10,9 @@ CXXFLAGS := \
 
 $(TARGET):
 	$(CXX) $(CXXFLAGS) $(INC) test/main.cpp -o test.out
+
+run: $(TARGET)
+	./$(TARGET)
 
 all: $(TARGET)
 
