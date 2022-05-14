@@ -33,12 +33,12 @@
 //   return 0;
 // }
 #include <iostream>
+#include <memory>
 #include <pair/pair.hpp>
 #include <tmp/integral_constant.hpp>
 #include <tmp/is_integral.hpp>
 #include <vector/vector.hpp>
 #include "test/pair.hpp"
-#include <memory>
 
 using std::cout;
 using std::string;
@@ -53,7 +53,10 @@ int main() {
   for (ft::vector<int>::iterator it = v.begin(); it != v.end(); ++it) {
     cout << *it << '\n';
   }
-  
+
+  ft::vector<int> v1, v2;
+  cout << "v1 == v2? " << std::boolalpha << (v1 == v2) << '\n';
+
   // ft::vector<int> v(10, 1);
   // cout << v.front() << '\n';
   cout << v.size() << '\n';

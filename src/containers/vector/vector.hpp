@@ -125,16 +125,16 @@ class vector {
 };
 
 /// relational operators
-// template <class T, class Allocator>
-// bool operator==(const vector<T, Allocator>& lhs, const vector<T, Allocator>&
-// rhs); template <class T, class Allocator> bool operator!=(const vector<T,
-// Allocator>& lhs, const vector<T, Allocator>& rhs); template <class T, class
-// Allocator> bool operator<(const vector<T, Allocator>& lhs, const vector<T,
-// Allocator>& rhs); template <class T, class Allocator> bool operator<=(const
-// vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs); template <class
-// T, class Allocator> bool operator>(const vector<T, Allocator>& lhs, const
-// vector<T, Allocator>& rhs); template <class T, class Allocator> bool
-// operator>=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
+template <class T, class Allocator>
+bool operator==(const vector<T, Allocator>& lhs, const vector<T, Allocator>&
+rhs); template <class T, class Allocator> bool operator!=(const vector<T,
+Allocator>& lhs, const vector<T, Allocator>& rhs); template <class T, class
+Allocator> bool operator<(const vector<T, Allocator>& lhs, const vector<T,
+Allocator>& rhs); template <class T, class Allocator> bool operator<=(const
+vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs); template <class
+T, class Allocator> bool operator>(const vector<T, Allocator>& lhs, const
+vector<T, Allocator>& rhs); template <class T, class Allocator> bool
+operator>=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
 
 }  // namespace ft
 
