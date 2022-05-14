@@ -27,6 +27,7 @@ using std::string;
       log::val(specialMethod, GRN "is constructed"); \
   } while (0)
 
+
 namespace log {
 
 template <typename T>
@@ -79,5 +80,6 @@ void subject(T const& t) {
 }
 
 }  // namespace test
+#define TEST_SUBJECT test::subject(__func__)
 
 #endif  // __UTIL_H__

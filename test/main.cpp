@@ -47,7 +47,7 @@ template <>
 struct factorial<0> : ft::integral_constant<int, 1> {};
 
 int main() {
-  test::pair::test_pair(1, "hello");
+  test::pair::test_all(1, "hello");
 
   ft::pair<int, string> p1 = ft::make_pair(1, "heello");
   ft::pair<int, string> p2 = ft::make_pair(2, "world");

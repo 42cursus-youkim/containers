@@ -2,7 +2,12 @@
   "configurations": [
     {
       "name": "Linux",
-      "includePath": ["${default}", "${workspaceFolder}/src/**"],
+      "includePath": [
+        "${default}",
+        "${workspaceFolder}/src/**",
+        "${workspaceFolder}/test/**",
+        "${workspaceFolder}/test/util"
+      ],
       "defines": [],
       "compilerPath": "/usr/bin/clang",
       "intelliSenseMode": "linux-clang-x64",
