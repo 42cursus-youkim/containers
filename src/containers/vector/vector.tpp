@@ -15,10 +15,8 @@
   typename VEC::type
 
 namespace ft {
-/// default constructor (empty)
 // template <class value_type, class allocator_type>
 // VEC::vector(const VEC::allocator_type& alloc)
-//     : data_(NULL), size_(0), capacity_(0), allocator_(alloc) {}
 
 /// fill constructor (container with n val)
 // template <class value_type, class allocator_type>
@@ -45,15 +43,15 @@ namespace ft {
 // }
 
 /// copy constructor
-template <class value_type, class allocator_type>
-VEC::vector(const vector& other)
-    : data_(other.allocator_.allocate(other.size_)),
-      size_(other.size_),
-      capacity_(other.size_),
-      allocator_(other.allocator_) {
-  for (size_type i = 0; i < size_; ++i)
-    allocator_.construct(data_ + i, other.data_[i]);
-}
+// template <class value_type, class allocator_type>
+// VEC::vector(const vector& other)
+//     : data_(other.allocator_.allocate(other.size_)),
+//       size_(other.size_),
+//       capacity_(other.size_),
+//       allocator_(other.allocator_) {
+//   for (size_type i = 0; i < size_; ++i)
+//     allocator_.construct(data_ + i, other.data_[i]);
+// }
 
 /// copy assignment operator
 // template <class value_type, class allocator_type>
@@ -131,83 +129,83 @@ VEC_RET(void) VEC::resize(size_type n, value_type val) {
   (void)val;
 }
 
-/// element access
+// /// element access
 
-VEC_RET_TYPE(reference) VEC::front() {
-  return data_[0];
-}
+// VEC_RET_TYPE(reference) VEC::front() {
+//   return data_[0];
+// }
 
-VEC_RET_TYPE(const_reference) VEC::front() const {
-  return data_[0];
-}
+// VEC_RET_TYPE(const_reference) VEC::front() const {
+//   return data_[0];
+// }
 
-VEC_RET_TYPE(reference) VEC::back() {
-  return data_[size_ - 1];
-}
+// VEC_RET_TYPE(reference) VEC::back() {
+//   return data_[size_ - 1];
+// }
 
-VEC_RET_TYPE(const_reference) VEC::back() const {
-  return data_[size_ - 1];
-}
+// VEC_RET_TYPE(const_reference) VEC::back() const {
+//   return data_[size_ - 1];
+// }
 
-VEC_RET_TYPE(reference) VEC::at(size_type n) {
-  if (n >= size_)
-    throw std::out_of_range("vector::at");
-  return data_[n];
-}
+// VEC_RET_TYPE(reference) VEC::at(size_type n) {
+//   if (n >= size_)
+//     throw std::out_of_range("vector::at");
+//   return data_[n];
+// }
 
-VEC_RET_TYPE(const_reference) VEC::at(size_type n) const {
-  if (n >= size_)
-    throw std::out_of_range("vector::at");
-  return data_[n];
-}
+// VEC_RET_TYPE(const_reference) VEC::at(size_type n) const {
+//   if (n >= size_)
+//     throw std::out_of_range("vector::at");
+//   return data_[n];
+// }
 
-VEC_RET_TYPE(reference) VEC::operator[](size_type n) {
-  return data_[n];
-}
+// VEC_RET_TYPE(reference) VEC::operator[](size_type n) {
+//   return data_[n];
+// }
 
-VEC_RET_TYPE(const_reference) VEC::operator[](size_type n) const {
-  return data_[n];
-}
+// VEC_RET_TYPE(const_reference) VEC::operator[](size_type n) const {
+//   return data_[n];
+// }
 
-/// relational operators
-template <class value_type, class allocator_type>
-bool operator==(const VEC& lhs, const VEC& rhs) {
-  if (lhs.size() != rhs.size())
-    return false;
-  typename vector<value_type>::const_iterator first1 = lhs.begin();
-  typename vector<value_type>::const_iterator first2 = rhs.begin();
-  for (; first1 != lhs.end(); ++first1, ++first2) {
-    if (first2 == rhs.end() or *first1 != *first2)
-      return false;
-  }
-  return true;
-}
+// /// relational operators
+// template <class value_type, class allocator_type>
+// bool operator==(const VEC& lhs, const VEC& rhs) {
+//   if (lhs.size() != rhs.size())
+//     return false;
+//   typename vector<value_type>::const_iterator first1 = lhs.begin();
+//   typename vector<value_type>::const_iterator first2 = rhs.begin();
+//   for (; first1 != lhs.end(); ++first1, ++first2) {
+//     if (first2 == rhs.end() or *first1 != *first2)
+//       return false;
+//   }
+//   return true;
+// }
 
-template <class value_type, class allocator_type>
-bool operator!=(const VEC& lhs, const VEC& rhs) {
-  return not (lhs == rhs);
-}
+// template <class value_type, class allocator_type>
+// bool operator!=(const VEC& lhs, const VEC& rhs) {
+//   return not (lhs == rhs);
+// }
 
-template <class value_type, class allocator_type>
-bool operator<(const VEC& lhs, const VEC& rhs) {
-  return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(),
-                                 rhs.end());
-}
+// template <class value_type, class allocator_type>
+// bool operator<(const VEC& lhs, const VEC& rhs) {
+//   return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(),
+//                                  rhs.end());
+// }
 
-template <class value_type, class allocator_type>
-bool operator<=(const VEC& lhs, const VEC& rhs) {
-  return lhs == rhs or lhs < rhs;
-}
+// template <class value_type, class allocator_type>
+// bool operator<=(const VEC& lhs, const VEC& rhs) {
+//   return lhs == rhs or lhs < rhs;
+// }
 
-template <class value_type, class allocator_type>
-bool operator>(const VEC& lhs, const VEC& rhs) {
-  return rhs < lhs;
-}
+// template <class value_type, class allocator_type>
+// bool operator>(const VEC& lhs, const VEC& rhs) {
+//   return rhs < lhs;
+// }
 
-template <class value_type, class allocator_type>
-bool operator>=(const VEC& lhs, const VEC& rhs) {
-  return lhs == rhs or lhs > rhs;
-}
+// template <class value_type, class allocator_type>
+// bool operator>=(const VEC& lhs, const VEC& rhs) {
+//   return lhs == rhs or lhs > rhs;
+// }
 
 }  // namespace ft
 

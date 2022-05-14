@@ -38,6 +38,7 @@
 #include <tmp/is_integral.hpp>
 #include <vector/vector.hpp>
 #include "test/pair.hpp"
+#include <memory>
 
 using std::cout;
 using std::string;
@@ -48,17 +49,18 @@ template <>
 struct factorial<0> : ft::integral_constant<int, 1> {};
 
 int main() {
-  ft::vector<int> v(10, 1);
-  cout << v.front() << '\n';
+  ft::vector<int> v;
+  // ft::vector<int> v(10, 1);
+  // cout << v.front() << '\n';
   cout << v.size() << '\n';
   cout << v.capacity() << '\n';
 
   // test::pair::test_all(1, "hello");
 
-  std::cout << factorial<5>::value
-            << '\n';  // constexpr (no calculations on runtime)
+  // std::cout << factorial<5>::value
+  //           << '\n';  // constexpr (no calculations on runtime)
 
-  std::cout << ft::is_integral<int>::value << " "
-            << ft::is_integral<string>::value << '\n';
+  // std::cout << ft::is_integral<int>::value << " "
+  //           << ft::is_integral<string>::value << '\n';
   return 0;
 }
