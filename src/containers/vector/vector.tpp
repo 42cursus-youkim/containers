@@ -4,46 +4,48 @@
 #include <general/lexicographical_compare.hpp>
 #include "vector.hpp"
 
-#define VEC vector<T, Alloc>
+#define VEC vector<value_type, allocator_type>
 
 #define VEC_RET(type)             \
-  template <class T, class Alloc> \
+  template <class value_type, class allocator_type> \
   type
 
 #define VEC_RET_TYPE(type)        \
-  template <class T, class Alloc> \
+  template <class value_type, class allocator_type> \
   typename VEC::type
 
 namespace ft {
 /// default constructor (empty)
-template <class T, class Alloc>
-VEC::vector(const VEC::allocator_type& alloc)
-    : data_(NULL), size_(0), capacity_(0), allocator_(alloc) {}
+// template <class value_type, class allocator_type>
+// VEC::vector(const VEC::allocator_type& alloc)
+//     : data_(NULL), size_(0), capacity_(0), allocator_(alloc) {}
 
 /// fill constructor (container with n val)
-template <class T, class Alloc>
-VEC::vector(size_type n, const value_type& val, const allocator_type& alloc)
-    : data_(alloc.allocate(n)), size_(n), capacity_(n), allocator_(alloc) {
-  for (size_type i = 0; i < n; ++i)
-    allocator_.construct(data_ + i, val);
-}
+// template <class value_type, class allocator_type>
+// VEC::vector(size_type n,
+//             const value_type& val,
+//             const allocator_type& alloc)
+//     : data_(alloc.allocate(n)), size_(n), capacity_(n), allocator_(alloc) {
+//   for (size_type i = 0; i < n; ++i)
+//     allocator_.construct(data_ + i, val);
+// }
 
 /// fill constructor
-template <class T, class Alloc>
-template <class InputIterator>
-VEC::vector(InputIterator first,
-            InputIterator last,
-            const typename ft::VEC::allocator_type& alloc)
-    : data_(alloc.allocate(last - first)),
-      size_(last - first),
-      capacity_(last - first),
-      allocator_(alloc) {
-  for (size_type i = 0; i < size_; ++i)
-    allocator_.construct(data_ + i, *(first + i));
-}
+// template <class value_type, class allocator_type>
+// template <class InputIterator>
+// VEC::vector(InputIterator first,
+//             InputIterator last,
+//             const typename ft::VEC::allocator_type& alloc)
+//     : data_(alloc.allocate(last - first)),
+//       size_(last - first),
+//       capacity_(last - first),
+//       allocator_(alloc) {
+//   for (size_type i = 0; i < size_; ++i)
+//     allocator_.construct(data_ + i, *(first + i));
+// }
 
 /// copy constructor
-template <class T, class Alloc>
+template <class value_type, class allocator_type>
 VEC::vector(const vector& other)
     : data_(other.allocator_.allocate(other.size_)),
       size_(other.size_),
@@ -54,7 +56,7 @@ VEC::vector(const vector& other)
 }
 
 /// copy assignment operator
-// template <class T, class Alloc>
+// template <class value_type, class allocator_type>
 // VEC& VEC::operator=(const vector& other) {
 //   if (this != &other) {
 //     clear();
@@ -64,7 +66,7 @@ VEC::vector(const vector& other)
 // }
 
 /// destructor
-template <class T, class Alloc>
+template <class value_type, class allocator_type>
 VEC::~vector() {
   for (size_type i = 0; i < size_; ++i)
     allocator_.destroy(data_ + i);
@@ -148,10 +150,14 @@ VEC_RET_TYPE(const_reference) VEC::back() const {
 }
 
 VEC_RET_TYPE(reference) VEC::at(size_type n) {
+  if (n >= size_)
+    throw std::out_of_range("vector::at");
   return data_[n];
 }
 
 VEC_RET_TYPE(const_reference) VEC::at(size_type n) const {
+  if (n >= size_)
+    throw std::out_of_range("vector::at");
   return data_[n];
 }
 
@@ -164,12 +170,12 @@ VEC_RET_TYPE(const_reference) VEC::operator[](size_type n) const {
 }
 
 /// relational operators
-template <class T, class Alloc>
+template <class value_type, class allocator_type>
 bool operator==(const VEC& lhs, const VEC& rhs) {
   if (lhs.size() != rhs.size())
     return false;
-  typename vector<T>::const_iterator first1 = lhs.begin();
-  typename vector<T>::const_iterator first2 = rhs.begin();
+  typename vector<value_type>::const_iterator first1 = lhs.begin();
+  typename vector<value_type>::const_iterator first2 = rhs.begin();
   for (; first1 != lhs.end(); ++first1, ++first2) {
     if (first2 == rhs.end() or *first1 != *first2)
       return false;
@@ -177,28 +183,28 @@ bool operator==(const VEC& lhs, const VEC& rhs) {
   return true;
 }
 
-template <class T, class Alloc>
+template <class value_type, class allocator_type>
 bool operator!=(const VEC& lhs, const VEC& rhs) {
   return not (lhs == rhs);
 }
 
-template <class T, class Alloc>
+template <class value_type, class allocator_type>
 bool operator<(const VEC& lhs, const VEC& rhs) {
   return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(),
                                  rhs.end());
 }
 
-template <class T, class Alloc>
+template <class value_type, class allocator_type>
 bool operator<=(const VEC& lhs, const VEC& rhs) {
   return lhs == rhs or lhs < rhs;
 }
 
-template <class T, class Alloc>
+template <class value_type, class allocator_type>
 bool operator>(const VEC& lhs, const VEC& rhs) {
   return rhs < lhs;
 }
 
-template <class T, class Alloc>
+template <class value_type, class allocator_type>
 bool operator>=(const VEC& lhs, const VEC& rhs) {
   return lhs == rhs or lhs > rhs;
 }

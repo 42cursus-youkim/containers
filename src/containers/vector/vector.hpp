@@ -42,9 +42,17 @@ class vector {
   /// constructors
   explicit vector(const allocator_type& alloc = allocator_type());
 
+  // explicit vector(size_type n,
+  //                 const value_type& val = value_type(),
+  //                 const allocator_type& alloc = allocator_type());
   explicit vector(size_type n,
-                  const value_type& val = value_type(),
-                  const allocator_type& alloc = allocator_type());
+                  const value_type& value = value_type(),
+                  const allocator_type& alloc = allocator_type())
+      : data_(alloc.allocate(n)), size_(n), capacity_(n), allocator_(alloc) {
+    for (size_type i = 0; i < n; ++i) {
+      allocator_.construct(data_ + i, value);
+    }
+  }
 
   template <class InputIterator>
   vector(InputIterator first,

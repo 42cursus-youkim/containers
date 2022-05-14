@@ -48,15 +48,12 @@ template <>
 struct factorial<0> : ft::integral_constant<int, 1> {};
 
 int main() {
-  ft::vector<int> v;
+  ft::vector<int> v(10, 1);
+  cout << v.front() << '\n';
+  cout << v.size() << '\n';
+  cout << v.capacity() << '\n';
 
-  test::pair::test_all(1, "hello");
-
-  ft::pair<int, string> p1 = ft::make_pair(1, "heello");
-  ft::pair<int, string> p2 = ft::make_pair(2, "world");
-
-  // compare p1 and p2
-  cout << (p1 < p2) << '\n';
+  // test::pair::test_all(1, "hello");
 
   std::cout << factorial<5>::value
             << '\n';  // constexpr (no calculations on runtime)
