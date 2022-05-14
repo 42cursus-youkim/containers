@@ -2,18 +2,10 @@
 #define VECTOR_VECTOR_TPP
 
 #include <general/lexicographical_compare.hpp>
-#include "vector.hpp"
 #include "util.hpp"
+#include "vector.hpp"
 
 #define VEC vector<T, Allocator>
-
-#define VEC_RET(type)                 \
-  template <class T, class Allocator> \
-  type
-
-#define VEC_RET_TYPE(type)            \
-  template <class T, class Allocator> \
-  typename VEC::type
 
 namespace ft {
 
@@ -77,35 +69,42 @@ VEC::~vector() {
 
 /// capacity
 
-VEC_RET_TYPE(size_type) VEC::size() const {
+template <class T, class Allocator>
+typename VEC::size_type VEC::size() const {
   LOG_VAL(data_begin_);
   LOG_VAL(data_end_);
   return size_type(data_end_ - data_begin_);
 }
 
-VEC_RET_TYPE(size_type) VEC::max_size() const {
+template <class T, class Allocator>
+typename VEC::size_type VEC::max_size() const {
   return allocator_.max_size();
 }
 
-VEC_RET_TYPE(size_type) VEC::capacity() const {
+template <class T, class Allocator>
+typename VEC::size_type VEC::capacity() const {
   return size_type(capacity_ - data_begin_);
 }
 
-VEC_RET(bool) VEC::empty() const {
+template <class T, class Allocator>
+bool VEC::empty() const {
   return size() == 0;
 }
 
-VEC_RET(void) VEC::reserve(size_type n) {
+template <class T, class Allocator>
+void VEC::reserve(size_type n) {
   if (n > size_type())
     DoGrow(n);
 }
 
-VEC_RET(void) VEC::resize(size_type n, T val) {
+template <class T, class Allocator>
+void VEC::resize(size_type n, T val) {
   (void)n;
   (void)val;
 }
 
-VEC_RET(void) VEC::DoGrow(size_type new_capacity) {
+template <class T, class Allocator>
+void VEC::DoGrow(size_type new_capacity) {
   if (new_capacity > max_size())
     throw std::length_error("ft::vector::reserve: maximum capacity exceeded");
 
@@ -125,7 +124,8 @@ VEC_RET(void) VEC::DoGrow(size_type new_capacity) {
 }
 
 /// modifiers
-VEC_RET(void) VEC::clear() {
+template <class T, class Allocator>
+void VEC::clear() {
   for (iterator it = data_begin_; it != data_end_; ++it)
     allocator_.destroy(it);
   data_end_ = data_begin_;
@@ -133,73 +133,90 @@ VEC_RET(void) VEC::clear() {
 
 /// element access
 
-VEC_RET_TYPE(reference) VEC::front() {
+template <class T, class Allocator>
+typename VEC::reference VEC::front() {
   return data_begin_[0];
 }
 
-VEC_RET_TYPE(const_reference) VEC::front() const {
+template <class T, class Allocator>
+typename VEC::const_reference VEC::front() const {
   return data_begin_[0];
 }
 
-VEC_RET_TYPE(reference) VEC::back() {
+template <class T, class Allocator>
+typename VEC::reference VEC::back() {
   return data_begin_[size() - 1];
 }
 
-VEC_RET_TYPE(const_reference) VEC::back() const {
+template <class T, class Allocator>
+typename VEC::const_reference VEC::back() const {
   return data_begin_[size() - 1];
 }
 
-VEC_RET_TYPE(reference) VEC::at(size_type n) {
+template <class T, class Allocator>
+typename VEC::reference VEC::at(size_type n) {
   if (n >= size())
     throw std::out_of_range("vector::at");
   return data_begin_[n];
 }
 
-VEC_RET_TYPE(const_reference) VEC::at(size_type n) const {
+template <class T, class Allocator>
+typename VEC::const_reference VEC::at(size_type n) const {
   if (n >= size())
     throw std::out_of_range("vector::at");
   return data_begin_[n];
 }
 
-VEC_RET_TYPE(reference) VEC::operator[](size_type n) {
+template <class T, class Allocator>
+typename VEC::reference VEC::operator[](size_type n) {
   return data_begin_[n];
 }
 
-VEC_RET_TYPE(const_reference) VEC::operator[](size_type n) const {
+template <class T, class Allocator>
+typename VEC::const_reference VEC::operator[](size_type n) const {
   return data_begin_[n];
 }
 
 /// iterators
 
-VEC_RET_TYPE(iterator) VEC::begin() {
+template <class T, class Allocator>
+typename VEC::iterator VEC::begin() {
   return data_begin_;
 }
-VEC_RET_TYPE(const_iterator) VEC::begin() const {
+template <class T, class Allocator>
+typename VEC::const_iterator VEC::begin() const {
   return data_begin_;
 }
-VEC_RET_TYPE(iterator) VEC::end() {
+template <class T, class Allocator>
+typename VEC::iterator VEC::end() {
   return data_end_;
 }
-VEC_RET_TYPE(const_iterator) VEC::end() const {
+template <class T, class Allocator>
+typename VEC::const_iterator VEC::end() const {
   return data_end_;
 }
 
 /// reverse iterators
 
-VEC_RET_TYPE(reverse_iterator) VEC::rbegin() {
+template <class T, class Allocator>
+typename VEC::reverse_iterator VEC::rbegin() {
   return reverse_iterator(end());
 }
-VEC_RET_TYPE(const_reverse_iterator) VEC::rbegin() const {
+template <class T, class Allocator>
+typename VEC::const_reverse_iterator VEC::rbegin() const {
   return const_reverse_iterator(end());
 }
-VEC_RET_TYPE(reverse_iterator) VEC::rend() {
+template <class T, class Allocator>
+typename VEC::reverse_iterator VEC::rend() {
   return reverse_iterator(begin());
 }
-VEC_RET_TYPE(const_reverse_iterator) VEC::rend() const {
+template <class T, class Allocator>
+typename VEC::const_reverse_iterator VEC::rend() const {
   return const_reverse_iterator(begin());
 }
 
-// VEC_RET_TYPE(iterator) VEC::insert(iterator position, const T& val) {}
+// template <class T, class Allocator> typename VEC::iterator VEC::insert(iterator position, const
+// T& val) {}
 
 /// relational operators
 
