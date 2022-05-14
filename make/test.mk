@@ -1,4 +1,4 @@
-$(TARGET): test/main.cpp
+$(TARGET): $(SRC)
 	$(CXX) $(CXXFLAGS) $(INC) $^ -o $@
 
 .PHONY: all run clean re

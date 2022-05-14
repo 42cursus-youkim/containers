@@ -37,11 +37,33 @@ void val(const string& str, T value) {
 }  // namespace log
 
 // Test
-#define TEST_EXPECT(expr)                                                   \
-  do {                                                                      \
-    assert(expr);                                                           \
-    cout << HWHT "{ assert " BBLU << #expr << HWHT " } " BGRN " OK!\n" END; \
-  } while (0);
+#define MSG_OK(str) cout << HWHT "✅ " BBLU << str << "\n" END;
+#define MSG_OK_SAME(expr1, expr2) MSG_OK(BGRN #expr1 BHWHT "==" BGRN #expr2)
+#define MSG_OK_DIFF(expr1, expr2) MSG_OK(BBLU #expr1 BHWHT "!=" BBLU #expr2)
+
+#define ASSERT_TRUE(expr) \
+  do {                    \
+    assert(expr);         \
+    MSG_OK(expr);         \
+  } while (0)
+
+#define ASSERT_FALSE(expr) \
+  do {                     \
+    assert(!(expr));       \
+    MSG_OK(!(expr));       \
+  } while (0)
+
+#define ASSERT_EQ(expr1, expr2) \
+  do {                          \
+    assert(expr1 == expr2);     \
+    MSG_OK_SAME(expr1, expr2)   \
+  } while (0)
+
+#define ASSERT_NEQ(expr1, expr2) \
+  do {                           \
+    assert(expr1 != expr2);      \
+    MSG_OK_DIFF(expr1, expr2)    \
+  } while (0)
 
 namespace test {
 

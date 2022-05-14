@@ -33,9 +33,10 @@
 //   return 0;
 // }
 #include <iostream>
+#include <pair/pair.hpp>
 #include <tmp/integral_constant.hpp>
 #include <tmp/is_integral.hpp>
-#include <pair/pair.hpp>
+#include "test/pair.hpp"
 
 using std::cout;
 using std::string;
@@ -46,6 +47,8 @@ template <>
 struct factorial<0> : ft::integral_constant<int, 1> {};
 
 int main() {
+  test::pair::test_pair(1, "hello");
+
   ft::pair<int, string> p1 = ft::make_pair(1, "heello");
   ft::pair<int, string> p2 = ft::make_pair(2, "world");
 

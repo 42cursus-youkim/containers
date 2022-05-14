@@ -2,7 +2,7 @@ TARGET := test.out
 
 include make/os.mk
 include make/parallel.mk
-include make/include.mk
+include make/require.mk
 
 CXXFLAGS = \
 	-Wall -Wextra -Werror -std=c++98 \
