@@ -32,10 +32,9 @@ class vector {
 
  private:
   /// members
-  T* data_begin_;
-  T* data_end_;
-  size_type size_;
-  size_type capacity_;
+  pointer data_begin_;
+  pointer data_end_;
+  pointer capacity_;
   Allocator allocator_;
 
  public:
@@ -125,32 +124,30 @@ class vector {
 
   /// allocator
   allocator_type get_allocator() const;
+
+ protected:
+  // implementation details
+  void DoGrow(size_type new_capacity);
 };
 
 /// relational operators
 template <class T, class Allocator>
-bool operator==(const vector<T, Allocator>& lhs,
-                const vector<T, Allocator>& rhs);
+bool operator==(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
 
 template <class T, class Allocator>
-bool operator!=(const vector<T, Allocator>& lhs,
-                const vector<T, Allocator>& rhs);
+bool operator!=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
 
 template <class T, class Allocator>
-bool operator<(const vector<T, Allocator>& lhs,
-               const vector<T, Allocator>& rhs);
+bool operator<(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
 
 template <class T, class Allocator>
-bool operator<=(const vector<T, Allocator>& lhs,
-                const vector<T, Allocator>& rhs);
+bool operator<=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
 
 template <class T, class Allocator>
-bool operator>(const vector<T, Allocator>& lhs,
-               const vector<T, Allocator>& rhs);
+bool operator>(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
 
 template <class T, class Allocator>
-bool operator>=(const vector<T, Allocator>& lhs,
-                const vector<T, Allocator>& rhs);
+bool operator>=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
 
 }  // namespace ft
 
