@@ -14,3 +14,7 @@ clean:
 re:
 	$(MAKE) --no-print-directory clean
 	$(MAKE) --no-print-directory all
+
+test-vec:
+	cd containers_test/ \
+	&& ./do.sh vector
