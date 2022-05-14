@@ -50,6 +50,10 @@ struct factorial<0> : ft::integral_constant<int, 1> {};
 
 int main() {
   ft::vector<int> v;
+  for (ft::vector<int>::iterator it = v.begin(); it != v.end(); ++it) {
+    cout << *it << '\n';
+  }
+  
   // ft::vector<int> v(10, 1);
   // cout << v.front() << '\n';
   cout << v.size() << '\n';

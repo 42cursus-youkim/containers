@@ -129,43 +129,43 @@ VEC_RET(void) VEC::resize(size_type n, value_type val) {
   (void)val;
 }
 
-// /// element access
+/// element access
 
-// VEC_RET_TYPE(reference) VEC::front() {
-//   return data_[0];
-// }
+VEC_RET_TYPE(reference) VEC::front() {
+  return data_[0];
+}
 
-// VEC_RET_TYPE(const_reference) VEC::front() const {
-//   return data_[0];
-// }
+VEC_RET_TYPE(const_reference) VEC::front() const {
+  return data_[0];
+}
 
-// VEC_RET_TYPE(reference) VEC::back() {
-//   return data_[size_ - 1];
-// }
+VEC_RET_TYPE(reference) VEC::back() {
+  return data_[size_ - 1];
+}
 
-// VEC_RET_TYPE(const_reference) VEC::back() const {
-//   return data_[size_ - 1];
-// }
+VEC_RET_TYPE(const_reference) VEC::back() const {
+  return data_[size_ - 1];
+}
 
-// VEC_RET_TYPE(reference) VEC::at(size_type n) {
-//   if (n >= size_)
-//     throw std::out_of_range("vector::at");
-//   return data_[n];
-// }
+VEC_RET_TYPE(reference) VEC::at(size_type n) {
+  if (n >= size_)
+    throw std::out_of_range("vector::at");
+  return data_[n];
+}
 
-// VEC_RET_TYPE(const_reference) VEC::at(size_type n) const {
-//   if (n >= size_)
-//     throw std::out_of_range("vector::at");
-//   return data_[n];
-// }
+VEC_RET_TYPE(const_reference) VEC::at(size_type n) const {
+  if (n >= size_)
+    throw std::out_of_range("vector::at");
+  return data_[n];
+}
 
-// VEC_RET_TYPE(reference) VEC::operator[](size_type n) {
-//   return data_[n];
-// }
+VEC_RET_TYPE(reference) VEC::operator[](size_type n) {
+  return data_[n];
+}
 
-// VEC_RET_TYPE(const_reference) VEC::operator[](size_type n) const {
-//   return data_[n];
-// }
+VEC_RET_TYPE(const_reference) VEC::operator[](size_type n) const {
+  return data_[n];
+}
 
 // /// relational operators
 // template <class value_type, class allocator_type>

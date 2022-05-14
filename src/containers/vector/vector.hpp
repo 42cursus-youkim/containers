@@ -25,8 +25,8 @@ class vector {
   typedef typename allocator_type::const_pointer const_pointer;
 
   /// iterators
-  typedef std::iterator<pointer, vector> iterator;
-  typedef std::iterator<const_pointer, vector> const_iterator;
+  typedef pointer iterator;
+  typedef const_pointer const_iterator;
   typedef ft::reverse_iterator<iterator> reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
@@ -86,42 +86,42 @@ class vector {
   void reserve(size_type n);
   void resize(size_type n, value_type val = value_type());
 
-  // /// element access
-  // reference front();
-  // const_reference front() const;
-  // reference back();
-  // const_reference back() const;
-  // reference at(size_type n);
-  // const_reference at(size_type n) const;
-  // reference operator[](size_type n);
-  // const_reference operator[](size_type n) const;
+  /// element access
+  reference front();
+  const_reference front() const;
+  reference back();
+  const_reference back() const;
+  reference at(size_type n);
+  const_reference at(size_type n) const;
+  reference operator[](size_type n);
+  const_reference operator[](size_type n) const;
 
-  // /// modifiers
-  // /// range
-  // template <class InputIterator>
-  // void assign(InputIterator first, InputIterator last);
-  // /// fill
-  // void assign(size_type n, const value_type& val);
+  /// modifiers
+  /// range
+  template <class InputIterator>
+  void assign(InputIterator first, InputIterator last);
+  /// fill
+  void assign(size_type n, const value_type& val);
 
-  // void push_back(const value_type& val);
-  // void pop_back();
+  void push_back(const value_type& val);
+  void pop_back();
 
-  // /// single element
-  // iterator insert(iterator position, const value_type& val);
-  // /// fill
-  // void insert(iterator position, size_type n, const value_type& val);
-  // /// range
-  // template <class InputIterator>
-  // void insert(iterator position, InputIterator first, InputIterator last);
+  /// single element
+  iterator insert(iterator position, const value_type& val);
+  /// fill
+  void insert(iterator position, size_type n, const value_type& val);
+  /// range
+  template <class InputIterator>
+  void insert(iterator position, InputIterator first, InputIterator last);
 
-  // iterator erase(iterator position);
-  // iterator erase(iterator first, iterator last);
+  iterator erase(iterator position);
+  iterator erase(iterator first, iterator last);
 
-  // void swap(vector& other);
-  // void clear();
+  void swap(vector& other);
+  void clear();
 
-  // /// allocator
-  // allocator_type get_allocator() const;
+  /// allocator
+  allocator_type get_allocator() const;
 };
 
 /// relational operators
