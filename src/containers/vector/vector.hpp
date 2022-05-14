@@ -39,10 +39,11 @@ class vector {
 
  public:
   /// constructors
-  /// default constructor (empty)
 
-  explicit vector(const allocator_type& alloc = allocator_type())
-      : data_(NULL), size_(0), capacity_(0), allocator_(alloc) {}
+  explicit vector(const allocator_type& alloc = allocator_type());
+
+  // explicit vector(const allocator_type& alloc = allocator_type())
+  // : data_(NULL), size_(0), capacity_(0), allocator_(alloc) {}
 
   // explicit vector(size_type n,
   //                 const value_type& val = value_type(),
@@ -126,15 +127,28 @@ class vector {
 
 /// relational operators
 template <class T, class Allocator>
-bool operator==(const vector<T, Allocator>& lhs, const vector<T, Allocator>&
-rhs); template <class T, class Allocator> bool operator!=(const vector<T,
-Allocator>& lhs, const vector<T, Allocator>& rhs); template <class T, class
-Allocator> bool operator<(const vector<T, Allocator>& lhs, const vector<T,
-Allocator>& rhs); template <class T, class Allocator> bool operator<=(const
-vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs); template <class
-T, class Allocator> bool operator>(const vector<T, Allocator>& lhs, const
-vector<T, Allocator>& rhs); template <class T, class Allocator> bool
-operator>=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
+bool operator==(const vector<T, Allocator>& lhs,
+                const vector<T, Allocator>& rhs);
+
+template <class T, class Allocator>
+bool operator!=(const vector<T, Allocator>& lhs,
+                const vector<T, Allocator>& rhs);
+
+template <class T, class Allocator>
+bool operator<(const vector<T, Allocator>& lhs,
+               const vector<T, Allocator>& rhs);
+
+template <class T, class Allocator>
+bool operator<=(const vector<T, Allocator>& lhs,
+                const vector<T, Allocator>& rhs);
+
+template <class T, class Allocator>
+bool operator>(const vector<T, Allocator>& lhs,
+               const vector<T, Allocator>& rhs);
+
+template <class T, class Allocator>
+bool operator>=(const vector<T, Allocator>& lhs,
+                const vector<T, Allocator>& rhs);
 
 }  // namespace ft
 

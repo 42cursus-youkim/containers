@@ -39,6 +39,7 @@
 #include <tmp/is_integral.hpp>
 #include <vector/vector.hpp>
 #include "test/pair.hpp"
+#include "util.hpp"
 
 using std::cout;
 using std::string;
@@ -59,9 +60,11 @@ int main() {
 
   // ft::vector<int> v(10, 1);
   // cout << v.front() << '\n';
-  cout << v.size() << '\n';
-  cout << v.capacity() << '\n';
-
+  LOG_VAL(v.capacity());
+  LOG_VAL(v.size());
+  v.reserve(100);
+  LOG_VAL(v.capacity());
+  LOG_VAL(v.size());
   // test::pair::test_all(1, "hello");
 
   // std::cout << factorial<5>::value

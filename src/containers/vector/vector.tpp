@@ -6,17 +6,20 @@
 
 #define VEC vector<value_type, allocator_type>
 
-#define VEC_RET(type)             \
+#define VEC_RET(type)                               \
   template <class value_type, class allocator_type> \
   type
 
-#define VEC_RET_TYPE(type)        \
+#define VEC_RET_TYPE(type)                          \
   template <class value_type, class allocator_type> \
   typename VEC::type
 
 namespace ft {
-// template <class value_type, class allocator_type>
-// VEC::vector(const VEC::allocator_type& alloc)
+
+/// default constructor (empty)
+template <class value_type, class allocator_type>
+VEC::vector(const allocator_type& alloc)
+    : data_(NULL), size_(0), capacity_(0), allocator_(alloc) {}
 
 /// fill constructor (container with n val)
 // template <class value_type, class allocator_type>
@@ -121,7 +124,20 @@ VEC_RET(bool) VEC::empty() const {
 }
 
 VEC_RET(void) VEC::reserve(size_type n) {
-  (void)n;
+  size_type old_capacity = capacity();
+  if (n <= old_capacity)
+    return;
+  if (n > max_size())
+    throw std::length_error("ft::vector::reserve: maximum capacity exceeded");
+
+  value_type* new_data = allocator_.allocate(n);
+  for (size_type i = 0; i < size(); ++i) {
+    allocator_.construct(data_ + i, data_[i]);
+    allocator_.destroy(data_ + i);
+  }
+  allocator_.deallocate(data_, old_capacity);
+  data_ = new_data;
+  capacity_ = n;
 }
 
 VEC_RET(void) VEC::resize(size_type n, value_type val) {
@@ -167,7 +183,10 @@ VEC_RET_TYPE(const_reference) VEC::operator[](size_type n) const {
   return data_[n];
 }
 
+// VEC_RET_TYPE(iterator) VEC::insert(iterator position, const value_type& val) {}
+
 /// relational operators
+
 template <class value_type, class allocator_type>
 bool operator==(const VEC& lhs, const VEC& rhs) {
   if (lhs.size() != rhs.size())
@@ -183,7 +202,7 @@ bool operator==(const VEC& lhs, const VEC& rhs) {
 
 template <class value_type, class allocator_type>
 bool operator!=(const VEC& lhs, const VEC& rhs) {
-  return not (lhs == rhs);
+  return not(lhs == rhs);
 }
 
 template <class value_type, class allocator_type>
