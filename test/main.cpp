@@ -36,6 +36,7 @@
 #include <pair/pair.hpp>
 #include <tmp/integral_constant.hpp>
 #include <tmp/is_integral.hpp>
+#include <vector/vector.hpp>
 #include "test/pair.hpp"
 
 using std::cout;
@@ -47,6 +48,8 @@ template <>
 struct factorial<0> : ft::integral_constant<int, 1> {};
 
 int main() {
+  ft::vector<int> v;
+
   test::pair::test_all(1, "hello");
 
   ft::pair<int, string> p1 = ft::make_pair(1, "heello");

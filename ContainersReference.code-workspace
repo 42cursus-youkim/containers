@@ -116,7 +116,8 @@
       "__split_buffer": "cpp",
       "__config": "cpp",
       "queue": "cpp",
-      "stack": "cpp"
+      "stack": "cpp",
+      "set": "cpp"
     }
   }
 }

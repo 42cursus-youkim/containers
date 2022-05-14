@@ -4,6 +4,8 @@
 #include "iterator.hpp"
 #include "traits.hpp"
 
+#define IT_TRAIT(name) typedef typename ft::iterator_traits<Iterator>::name
+
 namespace ft {
 template <class Iterator>
 class reverse_iterator
@@ -15,10 +17,10 @@ class reverse_iterator
           typename ft::iterator_traits<Iterator>::reference> {
  public:
   typedef Iterator iterator_type;
-  typedef Distance difference_type;
-  typedef Pointer pointer;
-  typedef Reference reference;
-  typedef Category iterator_category;
+  IT_TRAIT(Distance) difference_type;
+  IT_TRAIT(Pointer) pointer;
+  IT_TRAIT(Reference) reference;
+  IT_TRAIT(Category) iterator_category;
 
  protected:
   Iterator current_;
