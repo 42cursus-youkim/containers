@@ -32,7 +32,7 @@ def main():
     assert __doc__ is not None
     args: dict[str, str] = docopt(__doc__)
 
-    print(args)
+    # print(args)
     path = Path(args["<path>"])
     name = f"{path.parent.stem}_{path.stem}"
     ext = path.suffix.replace(".", "_")

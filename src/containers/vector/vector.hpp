@@ -29,6 +29,10 @@ class vector {
   size_type size_;
   size_type capacity_;
   allocator_type allocator_;
+
+  public:
+  // TODO: constructor
+  // getters
 };
 
 }  // namespace ft

@@ -5,7 +5,7 @@
 
 namespace ft {
 
-/// relational operators
+/// relational operators use inverted base iterator comparison
 
 template <class Iterator>
 bool operator==(const reverse_iterator<Iterator>& lhs,
@@ -22,23 +22,25 @@ bool operator!=(const reverse_iterator<Iterator>& lhs,
 template <class Iterator>
 bool operator<(const reverse_iterator<Iterator>& lhs,
                const reverse_iterator<Iterator>& rhs) {
-  return rhs.base() < lhs.base();
+  return rhs.base() > lhs.base();
 }
 
 template <class Iterator>
 bool operator<=(const reverse_iterator<Iterator>& lhs,
                 const reverse_iterator<Iterator>& rhs) {
-  return rhs.base() <= lhs.base();
+  return rhs.base() >= lhs.base();
 }
+
 template <class Iterator>
 bool operator>(const reverse_iterator<Iterator>& lhs,
                const reverse_iterator<Iterator>& rhs) {
-  return rhs.base() > lhs.base();
+  return rhs.base() < lhs.base();
 }
+
 template <class Iterator>
 bool operator>=(const reverse_iterator<Iterator>& lhs,
                 const reverse_iterator<Iterator>& rhs) {
-  return rhs.base() >= lhs.base();
+  return rhs.base() <= lhs.base();
 }
 
 /// arithmetic operators
