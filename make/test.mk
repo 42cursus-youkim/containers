@@ -1,5 +1,10 @@
-$(TARGET): $(SRC)
-	$(CXX) $(CXXFLAGS) $(INC) $^ -o $@
+-include $(DEP)
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) $(INC) -c $< -o $@
+
+$(TARGET): $(OBJ)
+	$(CXX) $(CXXFLAGS) $(INC) -MD -o $@ $^
 
 .PHONY: all run clean re
 
