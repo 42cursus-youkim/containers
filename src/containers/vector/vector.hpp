@@ -9,6 +9,7 @@
 #include <vector>
 
 #define FT_VECTOR_DEBUG 1
+#define FT_VECTOR_INITIAL_SIZE 8
 
 #define VECTOR_TYPE_ENABLE_IF_INPUTIT(type_)                           \
   typename enable_if<__is_input_iterator_tag<typename iterator_traits< \
@@ -127,7 +128,7 @@ class vector {
 
  protected:
   /// implementation details
-  iterator UninitializedFillN(size_type count, const value_type& val);
+  iterator UninitializedFillN(iterator from, size_type count, const value_type& val);
   size_type Index(iterator it) const;
   size_type GetNewCapacity(size_type at_least) const;
   inline iterator UnsafeMove(iterator from, iterator to);

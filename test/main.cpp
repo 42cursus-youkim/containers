@@ -51,9 +51,7 @@ struct factorial<0> : ft::integral_constant<int, 1> {};
 
 int main() {
   ft::vector<int> v(4, 9);
-  v.push_back(1);
-  v.push_back(2);
-  v.push_back(3);
+  v.insert(v.begin(), 1);
   for (ft::vector<int>::iterator it = v.begin(); it != v.end(); ++it) {
     cout << *it << ", ";
   }

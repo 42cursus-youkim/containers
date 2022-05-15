@@ -25,28 +25,24 @@ VEC::vector(size_type n, const T& val, const Allocator& alloc)
       data_end_(NULL),
       capacity_ptr_(NULL),
       allocator_(alloc) {
-  data_start_ = allocator_.allocate(n);
-  data_end_ = data_start_ + n;
-  capacity_ptr_ = data_end_;
-  for (iterator it = begin(); n; ++it, --n)
-    allocator_.construct(it, val);
+  reserve(FT_VECTOR_INITIAL_SIZE);
+  data_end_ = UninitializedFillN(begin(), n, val);
 }
 
 /// fill constructor
-// template <class T, class Allocator>
-// template <class InputIterator>
-// VEC::vector(InputIterator first,
-//             typename enable_if<__is_input_iterator_tag<typename
-//             iterator_traits<
-//                                    InputIterator>::iterator_category>::value,
-//                                InputIterator>::type last,
-//             const typename VEC::allocator_type& alloc)
-//     : data_start_(NULL),
-//       data_end_(NULL),
-//       capacity_ptr_(NULL),
-//       allocator_(alloc) {
-//   insert(begin(), first, last);
-// }
+template <class T, class Allocator>
+template <class InputIterator>
+VEC::vector(InputIterator first,
+            typename enable_if<__is_input_iterator_tag<typename
+            iterator_traits<
+                                   InputIterator>::iterator_category>::value,
+                               InputIterator>::type last,
+            const typename VEC::allocator_type& alloc)
+    : data_start_(NULL),
+      data_end_(NULL),
+      capacity_ptr_(NULL),
+      allocator_(alloc) {
+}
 
 /// copy constructor
 template <class T, class Allocator>
@@ -79,7 +75,7 @@ VEC::~vector() {
 
 template <class T, class Allocator>
 void VEC::reserve(size_type n) {
-  if (n > size_type())
+  if (n > capacity())
     DoGrow(n);
 }
 
@@ -119,24 +115,25 @@ typename VEC::iterator VEC::insert(iterator position, const value_type& val) {
 /// fill
 template <class T, class Allocator>
 void VEC::insert(iterator position, size_type n, const value_type& val) {
-  for (iterator it = position; it != position + n; ++it)
-    allocator_.construct(it, val);
+  iterator new_position = RightShift(position, n);
+  for (size_type i = 0; i < n; ++i)
+    allocator_.construct(new_position + i, val);
 }
 
 /// range
-template <class T, class Allocator>
-template <class InputIterator>
-VECTOR_TYPE_ENABLE_IF_INPUTIT(void)
-VEC::insert(iterator position, InputIterator first, InputIterator last) {
-  if (FT_VECTOR_DEBUG)
-    std::cout << "insert using iterator range\n";
-  (void)position, (void)first, (void)last;
-  // const difference_type count = std::distance(first, last);
+// template <class T, class Allocator>
+// template <class InputIterator>
+// VECTOR_TYPE_ENABLE_IF_INPUTIT(void)
+// VEC::insert(iterator position, InputIterator first, InputIterator last) {
+//   if (FT_VECTOR_DEBUG)
+//     std::cout << "insert using iterator range\n";
+//   (void)position, (void)first, (void)last;
+//   // const difference_type count = std::distance(first, last);
 
-  // RightShift(position, count);
-  // for (iterator it = position; it != position + count; ++it, ++first)
-  //   allocator_.construct(it, *first);
-}
+//   // RightShift(position, count);
+//   // for (iterator it = position; it != position + count; ++it, ++first)
+//   //   allocator_.construct(it, *first);
+// }
 
 template <class T, class Allocator>
 typename VEC::iterator VEC::erase(iterator position) {
@@ -167,11 +164,18 @@ void VEC::clear() {
 
 /// returns
 template <class T, class Allocator>
-typename VEC::iterator VEC::UninitializedFillN(size_type count,
+typename VEC::iterator VEC::UninitializedFillN(iterator from,
+                                               size_type count,
                                                const value_type& val) {
-  for (size_type i = 0; i < count; ++i)
-    allocator_.construct(data_start_ + i, val);
-  return data_start_ + count;
+  size_type i = 0;
+  try {
+    for (; i < count; ++i)
+      allocator_.construct(from + i, val);
+  } catch (...) {
+    for (; i >= 0; --i)
+      allocator_.destroy(from + i);
+  }
+  return from + count;
 }
 
 template <class T, class Allocator>
@@ -194,8 +198,8 @@ void VEC::DoGrow(size_type new_capacity) {
 
   const size_type length = size();
   const size_type old_capacity = capacity();
-
   pointer new_data_begin = allocator_.allocate(new_capacity);
+
   for (size_type i = 0; i < length; ++i) {
     allocator_.construct(new_data_begin + i, data_start_[i]);
     allocator_.destroy(data_start_ + i);
@@ -231,33 +235,35 @@ typename VEC::iterator VEC::LeftShift(iterator from, size_type amount) {
 
 /// @brief Moves from amount elements to the right
 ///
-/// RightShift(1, 1) would be:
-/// 12345. to
-/// 1.2345
+/// RightShift(0, 1) would be:
+/// 1234. to
+/// .1234
 /// and return iterator at index 1.
 template <class T, class Allocator>
 typename VEC::iterator VEC::RightShift(iterator from, size_type amount) {
   const size_type from_index = Index(from);
   const size_type old_size = size();
 
-  if (old_size == capacity()) {
-    reserve(GetNewCapacity(old_size + amount));
-    std::cout << "reserved " << old_size + amount << "\n";
-  }
+  if (amount == 0)
+    return from;
+
+  // rshift always increases capacity
+  reserve(GetNewCapacity(old_size + amount));
+
+  std::cout << "hayo\n";
   data_end_ = data_start_ + old_size;
 
   if (from_index == old_size) {
     data_end_ += amount;
     return data_start_ + from_index;
   }
-
+  std::cout << "capacity: " << capacity() << "\n";
   std::cout << "start: " << data_start_ << " end: " << data_end_ << "\n";
-  std::cout << "from:" << from << " amount:" << amount
+  std::cout << "from_index:" << from_index << " amount:" << amount
             << "from + amount: " << from + amount << " end:" << end() << "\n";
-  for (iterator it = from + amount; it-- != from;) {
-    std::cout << "it: " << Index(it) << ", it + amount:" << Index(it + amount)
-              << "\n";
-    UnsafeMove(it, it + amount);
+
+  for (size_type i = from_index + amount; i != from_index; --i) {
+    UnsafeMove(begin() + i, begin() + i - amount);
   }
   return from;
 }
