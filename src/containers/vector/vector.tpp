@@ -70,28 +70,6 @@ VEC::~vector() {
 /// capacity
 
 template <class T, class Allocator>
-typename VEC::size_type VEC::size() const {
-  LOG_VAL(data_begin_);
-  LOG_VAL(data_end_);
-  return size_type(data_end_ - data_begin_);
-}
-
-template <class T, class Allocator>
-typename VEC::size_type VEC::max_size() const {
-  return allocator_.max_size();
-}
-
-template <class T, class Allocator>
-typename VEC::size_type VEC::capacity() const {
-  return size_type(capacity_ - data_begin_);
-}
-
-template <class T, class Allocator>
-bool VEC::empty() const {
-  return size() == 0;
-}
-
-template <class T, class Allocator>
 void VEC::reserve(size_type n) {
   if (n > size_type())
     DoGrow(n);
@@ -101,6 +79,24 @@ template <class T, class Allocator>
 void VEC::resize(size_type n, T val) {
   (void)n;
   (void)val;
+  // TODO: dummy
+  // if (n > size())
+  //   insert(end(), n - size(), val);
+  // else
+  //   erase(begin() + n, end());
+}
+
+/// implementation details
+template <class T, class Allocator>
+typename VEC::size_type VEC::Index(iterator it) const {
+  return it - begin();
+}
+
+/// @brief move a single element to a new position.
+/// @param to any element in to
+template <class T, class Allocator>
+inline typename VEC::iterator VEC::UnsafeMove(iterator from, iterator to) {
+  data_begin_[Index(to)] = data_begin_[Index(from)];
 }
 
 template <class T, class Allocator>
@@ -123,12 +119,50 @@ void VEC::DoGrow(size_type new_capacity) {
   capacity_ = data_begin_ + new_capacity;
 }
 
-/// modifiers
-template <class T, class Allocator>
-void VEC::clear() {
+// template <class T, class Allocator>
+// typename VEC::size_type VEC::GetNewCapacity(size_type at_least) const {
+//   const size_type old_capacity(capacity());
+
+// }
+
+    // template <class T, class Allocator>
+    // typename VEC::iterator VEC::LeftShift(iterator from, difference_type amount) {}
+
+    // template <class T, class Allocator>
+    // typename VEC::iterator VEC::RightShift(iterator from, difference_type amount) {
+
+    // }
+
+    /// modifiers
+    template <class T, class Allocator>
+    void VEC::clear() {
   for (iterator it = data_begin_; it != data_end_; ++it)
     allocator_.destroy(it);
   data_end_ = data_begin_;
+}
+
+/// capacity (getter)
+
+template <class T, class Allocator>
+typename VEC::size_type VEC::size() const {
+  LOG_VAL(data_begin_);
+  LOG_VAL(data_end_);
+  return size_type(data_end_ - data_begin_);
+}
+
+template <class T, class Allocator>
+bool VEC::empty() const {
+  return size() == 0;
+}
+
+template <class T, class Allocator>
+typename VEC::size_type VEC::max_size() const {
+  return allocator_.max_size();
+}
+
+template <class T, class Allocator>
+typename VEC::size_type VEC::capacity() const {
+  return size_type(capacity_ - data_begin_);
 }
 
 /// element access
@@ -145,12 +179,12 @@ typename VEC::const_reference VEC::front() const {
 
 template <class T, class Allocator>
 typename VEC::reference VEC::back() {
-  return data_begin_[size() - 1];
+  return data_end_[1];
 }
 
 template <class T, class Allocator>
 typename VEC::const_reference VEC::back() const {
-  return data_begin_[size() - 1];
+  return data_end_[1];
 }
 
 template <class T, class Allocator>
@@ -214,9 +248,6 @@ template <class T, class Allocator>
 typename VEC::const_reverse_iterator VEC::rend() const {
   return const_reverse_iterator(begin());
 }
-
-// template <class T, class Allocator> typename VEC::iterator VEC::insert(iterator position, const
-// T& val) {}
 
 /// relational operators
 

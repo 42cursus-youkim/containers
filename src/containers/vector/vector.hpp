@@ -126,8 +126,13 @@ class vector {
   allocator_type get_allocator() const;
 
  protected:
-  // implementation details
+  /// implementation details
+  size_type Index(iterator it) const;
+  size_type GetNewCapacity(size_type at_least) const;
+  inline iterator UnsafeMove(iterator from, iterator to);
   void DoGrow(size_type new_capacity);
+  iterator LeftShift(iterator from, difference_type amount);
+  iterator RightShift(iterator from, difference_type amount);
 };
 
 /// relational operators

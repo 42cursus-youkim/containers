@@ -88,7 +88,8 @@
     "cinttypes": "cpp",
     "typeindex": "cpp",
     "typeinfo": "cpp",
-    "semaphore": "cpp"
+    "semaphore": "cpp",
+    "*.tpp": "cpp"
   },
   "rpc.enabled": true
 }
