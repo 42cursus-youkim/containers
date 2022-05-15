@@ -15,6 +15,9 @@ re:
 	$(MAKE) --no-print-directory clean
 	$(MAKE) --no-print-directory all
 
+leak: all
+	colour-valgrind ./$(TARGET)
+
 test-vec:
 	cd containers_test/ \
 	&& ./do.sh vector

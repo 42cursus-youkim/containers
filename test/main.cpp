@@ -50,20 +50,20 @@ template <>
 struct factorial<0> : ft::integral_constant<int, 1> {};
 
 int main() {
-  ft::vector<int> v;
-  v.push_back(4);
-  v.push_back(1);
-  v.push_back(3);
-  for (ft::vector<int>::iterator it = v.begin(); it != v.end(); ++it) {
+  ft::vector<string> v;
+  v.push_back("hello");
+  v.push_back("world");
+  v.push_back("bye");
+  for (ft::vector<string>::iterator it = v.begin(); it != v.end(); ++it) {
     cout << *it << ", ";
   }
   cout << '\n';
   v.pop_back();
-  for (ft::vector<int>::iterator it = v.begin(); it != v.end(); ++it) {
+  for (ft::vector<string>::iterator it = v.begin(); it != v.end(); ++it) {
     cout << *it << ", ";
   }
   cout << '\n';
-  ft::vector<int> v1, v2;
+  ft::vector<string> v1, v2;
   cout << "v1 == v2? " << std::boolalpha << (v1 == v2) << '\n';
 
   // ft::vector<int> v(10, 1);
