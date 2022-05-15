@@ -87,6 +87,12 @@ void VEC::push_back(const value_type& val) {
 }
 
 template <class T, class Allocator>
+void VEC::pop_back() {
+  allocator_.destroy(data_end_ - 1);
+  --data_end_;
+}
+
+template <class T, class Allocator>
 typename VEC::iterator VEC::insert(iterator position, const value_type& val) {
   iterator new_position = RightShift(position, 1);
   allocator_.construct(new_position, val);
