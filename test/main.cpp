@@ -50,29 +50,48 @@ template <>
 struct factorial<0> : ft::integral_constant<int, 1> {};
 
 int main() {
-  ft::vector<string> v;
-  v.push_back("hello");
-  v.push_back("world");
-  v.push_back("bye");
-  for (ft::vector<string>::iterator it = v.begin(); it != v.end(); ++it) {
+  ft::vector<int> v(4, 9);
+  v.push_back(1);
+  v.push_back(2);
+  v.push_back(3);
+  for (ft::vector<int>::iterator it = v.begin(); it != v.end(); ++it) {
     cout << *it << ", ";
   }
   cout << '\n';
   v.pop_back();
-  for (ft::vector<string>::iterator it = v.begin(); it != v.end(); ++it) {
+  v.pop_back();
+  v.pop_back();
+  v.pop_back();
+  for (ft::vector<int>::iterator it = v.begin(); it != v.end(); ++it) {
     cout << *it << ", ";
   }
   cout << '\n';
-  ft::vector<string> v1, v2;
+  ft::vector<int> v1, v2;
   cout << "v1 == v2? " << std::boolalpha << (v1 == v2) << '\n';
+
+  // ft::vector<string> v(3, string("ay"));
+  // v.push_back("hello");
+  // v.push_back("world");
+  // v.push_back("bye");
+  // for (ft::vector<string>::iterator it = v.begin(); it != v.end(); ++it) {
+  //   cout << *it << ", ";
+  // }
+  // cout << '\n';
+  // v.pop_back();
+  // for (ft::vector<string>::iterator it = v.begin(); it != v.end(); ++it) {
+  //   cout << *it << ", ";
+  // }
+  // cout << '\n';
+  // ft::vector<string> v1, v2;
+  // cout << "v1 == v2? " << std::boolalpha << (v1 == v2) << '\n';
 
   // ft::vector<int> v(10, 1);
   // cout << v.front() << '\n';
-  LOG_VAL(v.capacity());
-  LOG_VAL(v.size());
-  v.reserve(100);
-  LOG_VAL(v.capacity());
-  LOG_VAL(v.size());
+  // LOG_VAL(v.capacity());
+  // LOG_VAL(v.size());
+  // v.reserve(100);
+  // LOG_VAL(v.capacity());
+  // LOG_VAL(v.size());
   // test::pair::test_all(1, "hello");
 
   // std::cout << factorial<5>::value

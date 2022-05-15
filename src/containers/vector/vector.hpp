@@ -5,10 +5,17 @@
 #include <iter/traits.hpp>
 #include <iterator>
 #include <memory>
+#include <tmp/enable_if.hpp>
 #include <vector>
 
-namespace ft {
+#define FT_VECTOR_DEBUG 1
 
+#define VECTOR_TYPE_ENABLE_IF_INPUTIT(type_)                           \
+  typename enable_if<__is_input_iterator_tag<typename iterator_traits< \
+                         InputIterator>::iterator_category>::value,    \
+                     type_>::type
+
+namespace ft {
 template <class T, class Allocator = std::allocator<T> >
 class vector {
  public:
@@ -42,27 +49,19 @@ class vector {
 
   explicit vector(const allocator_type& alloc = allocator_type());
 
-  // explicit vector(const allocator_type& alloc = allocator_type())
-  // : data_start_(NULL), size_(0), capacity_ptr_(0), allocator_(alloc) {}
-
   explicit vector(size_type n,
                   const value_type& val = value_type(),
                   const allocator_type& alloc = allocator_type());
-  //     : data_start_(alloc.allocate(n)), size_(n), capacity_ptr_(n),
-  //     allocator_(alloc) {
-  //   for (size_type i = 0; i < n; ++i)
-  //     allocator_.construct(data_start_ + i, val);
-  // }
 
   // template <class InputIterator>
   // vector(InputIterator first,
-  //        InputIterator last,
+  //        VECTOR_ENABLE_IF_INPUTIT last,
   //        const allocator_type& alloc = allocator_type());
 
-  // vector(const vector& other);
+  vector(const vector& other);
 
-  // /// copy assignemnt operator
-  // vector& operator=(const vector& other);
+  /// copy assignemnt operator
+  vector& operator=(const vector& other);
 
   /// destructor
   ~vector();
@@ -114,7 +113,8 @@ class vector {
   void insert(iterator position, size_type n, const value_type& val);
   /// range
   template <class InputIterator>
-  void insert(iterator position, InputIterator first, InputIterator last);
+  VECTOR_TYPE_ENABLE_IF_INPUTIT(void)
+  insert(iterator position, InputIterator first, InputIterator last);
 
   iterator erase(iterator position);
   iterator erase(iterator first, iterator last);
@@ -132,28 +132,34 @@ class vector {
   size_type GetNewCapacity(size_type at_least) const;
   inline iterator UnsafeMove(iterator from, iterator to);
   void DoGrow(size_type new_capacity);
-  iterator LeftShift(iterator from, difference_type amount);
-  iterator RightShift(iterator from, difference_type amount);
+  iterator LeftShift(iterator from, size_type amount);
+  iterator RightShift(iterator from, size_type amount);
 };
 
 /// relational operators
 template <class T, class Allocator>
-bool operator==(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
+bool operator==(const vector<T, Allocator>& lhs,
+                const vector<T, Allocator>& rhs);
 
 template <class T, class Allocator>
-bool operator!=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
+bool operator!=(const vector<T, Allocator>& lhs,
+                const vector<T, Allocator>& rhs);
 
 template <class T, class Allocator>
-bool operator<(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
+bool operator<(const vector<T, Allocator>& lhs,
+               const vector<T, Allocator>& rhs);
 
 template <class T, class Allocator>
-bool operator<=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
+bool operator<=(const vector<T, Allocator>& lhs,
+                const vector<T, Allocator>& rhs);
 
 template <class T, class Allocator>
-bool operator>(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
+bool operator>(const vector<T, Allocator>& lhs,
+               const vector<T, Allocator>& rhs);
 
 template <class T, class Allocator>
-bool operator>=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
+bool operator>=(const vector<T, Allocator>& lhs,
+                const vector<T, Allocator>& rhs);
 
 }  // namespace ft
 
