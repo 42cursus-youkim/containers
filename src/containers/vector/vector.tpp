@@ -12,17 +12,17 @@ namespace ft {
 /// default constructor (empty)
 template <class T, class Allocator>
 VEC::vector(const Allocator& alloc)
-    : data_begin_(NULL), data_end_(NULL), capacity_(0), allocator_(alloc) {}
+    : data_start_(NULL), data_end_(NULL), capacity_ptr_(0), allocator_(alloc) {}
 
 /// fill constructor (container with n val)
 // template <class T, class Allocator>
 // VEC::vector(size_type n,
 //             const T& val,
 //             const Allocator& alloc)
-//     : data_begin_(alloc.allocate(n)), size()(n), capacity_(n),
+//     : data_start_(alloc.allocate(n)), size()(n), capacity_ptr_(n),
 //     allocator_(alloc) {
 //   for (size_type i = 0; i < n; ++i)
-//     allocator_.construct(data_begin_ + i, val);
+//     allocator_.construct(data_start_ + i, val);
 // }
 
 /// fill constructor
@@ -31,23 +31,23 @@ VEC::vector(const Allocator& alloc)
 // VEC::vector(InputIterator first,
 //             InputIterator last,
 //             const typename ft::VEC::Allocator& alloc)
-//     : data_begin_(alloc.allocate(last - first)),
+//     : data_start_(alloc.allocate(last - first)),
 //       size()(last - first),
-//       capacity_(last - first),
+//       capacity_ptr_(last - first),
 //       allocator_(alloc) {
 //   for (size_type i = 0; i < size(); ++i)
-//     allocator_.construct(data_begin_ + i, *(first + i));
+//     allocator_.construct(data_start_ + i, *(first + i));
 // }
 
 /// copy constructor
 // template <class T, class Allocator>
 // VEC::vector(const vector& other)
-//     : data_begin_(other.allocator_.allocate(other.size())),
+//     : data_start_(other.allocator_.allocate(other.size())),
 //       size()(other.size()),
-//       capacity_(other.size()),
+//       capacity_ptr_(other.size()),
 //       allocator_(other.allocator_) {
 //   for (size_type i = 0; i < size(); ++i)
-//     allocator_.construct(data_begin_ + i, other.data_begin_[i]);
+//     allocator_.construct(data_start_ + i, other.data_start_[i]);
 // }
 
 /// copy assignment operator
@@ -64,7 +64,7 @@ VEC::vector(const Allocator& alloc)
 template <class T, class Allocator>
 VEC::~vector() {
   clear();
-  allocator_.deallocate(data_begin_, capacity());
+  allocator_.deallocate(data_start_, capacity());
 }
 
 /// capacity
@@ -96,7 +96,7 @@ typename VEC::size_type VEC::Index(iterator it) const {
 /// @param to any element in to
 template <class T, class Allocator>
 inline typename VEC::iterator VEC::UnsafeMove(iterator from, iterator to) {
-  data_begin_[Index(to)] = data_begin_[Index(from)];
+  data_start_[Index(to)] = data_start_[Index(from)];
 }
 
 template <class T, class Allocator>
@@ -109,45 +109,41 @@ void VEC::DoGrow(size_type new_capacity) {
 
   pointer new_data_begin = allocator_.allocate(new_capacity);
   for (size_type i = 0; i < length; ++i) {
-    allocator_.construct(new_data_begin + i, data_begin_[i]);
-    allocator_.destroy(data_begin_ + i);
+    allocator_.construct(new_data_begin + i, data_start_[i]);
+    allocator_.destroy(data_start_ + i);
   }
-  allocator_.deallocate(data_begin_, old_capacity);
+  allocator_.deallocate(data_start_, old_capacity);
 
-  data_begin_ = new_data_begin;
-  data_end_ = data_begin_ + length;
-  capacity_ = data_begin_ + new_capacity;
+  data_start_ = new_data_begin;
+  data_end_ = data_start_ + length;
+  capacity_ptr_ = data_start_ + new_capacity;
 }
 
+
+
 // template <class T, class Allocator>
-// typename VEC::size_type VEC::GetNewCapacity(size_type at_least) const {
-//   const size_type old_capacity(capacity());
+// typename VEC::iterator VEC::LeftShift(iterator from, difference_type amount) {}
+
+// template <class T, class Allocator>
+// typename VEC::iterator VEC::RightShift(iterator from, difference_type amount) {
 
 // }
 
-    // template <class T, class Allocator>
-    // typename VEC::iterator VEC::LeftShift(iterator from, difference_type amount) {}
-
-    // template <class T, class Allocator>
-    // typename VEC::iterator VEC::RightShift(iterator from, difference_type amount) {
-
-    // }
-
-    /// modifiers
-    template <class T, class Allocator>
-    void VEC::clear() {
-  for (iterator it = data_begin_; it != data_end_; ++it)
+/// modifiers
+template <class T, class Allocator>
+void VEC::clear() {
+  for (iterator it = data_start_; it != data_end_; ++it)
     allocator_.destroy(it);
-  data_end_ = data_begin_;
+  data_end_ = data_start_;
 }
 
 /// capacity (getter)
 
 template <class T, class Allocator>
 typename VEC::size_type VEC::size() const {
-  LOG_VAL(data_begin_);
+  LOG_VAL(data_start_);
   LOG_VAL(data_end_);
-  return size_type(data_end_ - data_begin_);
+  return size_type(data_end_ - data_start_);
 }
 
 template <class T, class Allocator>
@@ -162,19 +158,19 @@ typename VEC::size_type VEC::max_size() const {
 
 template <class T, class Allocator>
 typename VEC::size_type VEC::capacity() const {
-  return size_type(capacity_ - data_begin_);
+  return size_type(capacity_ptr_ - data_start_);
 }
 
 /// element access
 
 template <class T, class Allocator>
 typename VEC::reference VEC::front() {
-  return data_begin_[0];
+  return data_start_[0];
 }
 
 template <class T, class Allocator>
 typename VEC::const_reference VEC::front() const {
-  return data_begin_[0];
+  return data_start_[0];
 }
 
 template <class T, class Allocator>
@@ -191,35 +187,35 @@ template <class T, class Allocator>
 typename VEC::reference VEC::at(size_type n) {
   if (n >= size())
     throw std::out_of_range("vector::at");
-  return data_begin_[n];
+  return data_start_[n];
 }
 
 template <class T, class Allocator>
 typename VEC::const_reference VEC::at(size_type n) const {
   if (n >= size())
     throw std::out_of_range("vector::at");
-  return data_begin_[n];
+  return data_start_[n];
 }
 
 template <class T, class Allocator>
 typename VEC::reference VEC::operator[](size_type n) {
-  return data_begin_[n];
+  return data_start_[n];
 }
 
 template <class T, class Allocator>
 typename VEC::const_reference VEC::operator[](size_type n) const {
-  return data_begin_[n];
+  return data_start_[n];
 }
 
 /// iterators
 
 template <class T, class Allocator>
 typename VEC::iterator VEC::begin() {
-  return data_begin_;
+  return data_start_;
 }
 template <class T, class Allocator>
 typename VEC::const_iterator VEC::begin() const {
-  return data_begin_;
+  return data_start_;
 }
 template <class T, class Allocator>
 typename VEC::iterator VEC::end() {

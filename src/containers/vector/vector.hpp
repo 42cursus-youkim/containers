@@ -32,9 +32,9 @@ class vector {
 
  private:
   /// members
-  pointer data_begin_;
+  pointer data_start_;
   pointer data_end_;
-  pointer capacity_;
+  pointer capacity_ptr_;
   Allocator allocator_;
 
  public:
@@ -43,15 +43,15 @@ class vector {
   explicit vector(const allocator_type& alloc = allocator_type());
 
   // explicit vector(const allocator_type& alloc = allocator_type())
-  // : data_begin_(NULL), size_(0), capacity_(0), allocator_(alloc) {}
+  // : data_start_(NULL), size_(0), capacity_ptr_(0), allocator_(alloc) {}
 
   // explicit vector(size_type n,
   //                 const value_type& val = value_type(),
   //                 const allocator_type& alloc = allocator_type())
-  //     : data_begin_(alloc.allocate(n)), size_(n), capacity_(n),
+  //     : data_start_(alloc.allocate(n)), size_(n), capacity_ptr_(n),
   //     allocator_(alloc) {
   //   for (size_type i = 0; i < n; ++i)
-  //     allocator_.construct(data_begin_ + i, val);
+  //     allocator_.construct(data_start_ + i, val);
   // }
 
   // template <class InputIterator>
