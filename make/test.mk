@@ -1,4 +1,4 @@
--include $(DEP)
+# -include $(DEP)
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(INC) -c $< -o $@
@@ -14,6 +14,9 @@ run: all
 	./$(TARGET)
 
 clean:
+	$(RM) $(OBJ)
+
+fclean: clean
 	$(RM) test.out
 
 re:

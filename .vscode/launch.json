@@ -1,0 +1,11 @@
+{
+  "configurations": [
+    {
+      "name": "Launch containers test",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/test.out",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

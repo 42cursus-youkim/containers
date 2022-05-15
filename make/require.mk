@@ -5,4 +5,4 @@ SRC = $(wildcard test/*.cpp) test/main.cpp
 OBJ := $(SRC:%.cpp=%.o)
 DEP := $(OBJ:%.o=%.d)
 
-CXXFLAGS += -MMD
+# CXXFLAGS += -MMD
