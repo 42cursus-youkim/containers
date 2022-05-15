@@ -16,14 +16,8 @@ VEC::vector(const Allocator& alloc)
 
 /// fill constructor (container with n val)
 // template <class T, class Allocator>
-// VEC::vector(size_type n,
-//             const T& val,
-//             const Allocator& alloc)
-//     : data_start_(alloc.allocate(n)), size()(n), capacity_ptr_(n),
-//     allocator_(alloc) {
-//   for (size_type i = 0; i < n; ++i)
-//     allocator_.construct(data_start_ + i, val);
-// }
+// VEC::vector(size_type n, const T& val, const Allocator& alloc)
+//     : data_start_(alloc.allocate(n)), s capacity_ptr_(n), allocator_(alloc) {}
 
 /// fill constructor
 // template <class T, class Allocator>
@@ -77,16 +71,62 @@ void VEC::reserve(size_type n) {
 
 template <class T, class Allocator>
 void VEC::resize(size_type n, T val) {
-  (void)n;
-  (void)val;
-  // TODO: dummy
-  // if (n > size())
-  //   insert(end(), n - size(), val);
-  // else
-  //   erase(begin() + n, end());
+  if (n > size())
+    insert(end(), n - size(), val);
+  else
+    erase(begin() + n, end());
+}
+
+/// modifiers
+template <class T, class Allocator>
+void VEC::push_back(const value_type& val) {
+  if (size() == capacity())
+    reserve(GetNewCapacity(size() + 1));
+  allocator_.construct(data_end_, val);
+  ++data_end_;
+}
+
+template <class T, class Allocator>
+typename VEC::iterator VEC::insert(iterator position, const value_type& val) {
+  iterator new_position = RightShift(position, 1);
+  allocator_.construct(new_position, val);
+}
+
+template <class T, class Allocator>
+typename VEC::iterator VEC::erase(iterator position) {
+  return LeftShift(position, 1);
+}
+
+template <class T, class Allocator>
+typename VEC::iterator VEC::erase(iterator first, iterator last) {
+  return LeftShift(last, std::distance(first, last));
+}
+
+template <class T, class Allocator>
+void VEC::swap(vector& other) {
+  std::swap(data_start_, other.data_start_);
+  std::swap(data_end_, other.data_end_);
+  std::swap(capacity_ptr_, other.capacity_ptr_);
+  std::swap(allocator_, other.allocator_);
+}
+
+template <class T, class Allocator>
+void VEC::clear() {
+  for (iterator it = data_start_; it != data_end_; ++it)
+    allocator_.destroy(it);
+  data_end_ = data_start_;
 }
 
 /// implementation details
+
+/// returns
+template <class T, class Allocator>
+typename VEC::iterator VEC::UninitializedFillN(size_type count, const value_type& val) {
+  for (size_type i = 0; i < count; ++i)
+    allocator_.construct(data_start_ + i, val);
+  return data_start_ + count;
+}
+
 template <class T, class Allocator>
 typename VEC::size_type VEC::Index(iterator it) const {
   return it - begin();
@@ -119,22 +159,36 @@ void VEC::DoGrow(size_type new_capacity) {
   capacity_ptr_ = data_start_ + new_capacity;
 }
 
-
-
-// template <class T, class Allocator>
-// typename VEC::iterator VEC::LeftShift(iterator from, difference_type amount) {}
-
-// template <class T, class Allocator>
-// typename VEC::iterator VEC::RightShift(iterator from, difference_type amount) {
-
-// }
-
-/// modifiers
+/// get suitable new capacity
 template <class T, class Allocator>
-void VEC::clear() {
-  for (iterator it = data_start_; it != data_end_; ++it)
-    allocator_.destroy(it);
-  data_end_ = data_start_;
+typename VEC::size_type VEC::GetNewCapacity(size_type at_least) const {
+  const size_type max_possible_size(max_size());
+  const size_type current_capacity(capacity());
+
+  if (at_least > max_possible_size)
+    throw std::length_error("ft::vector::reserve: maximum capacity exceeded");
+  else if (current_capacity > max_possible_size / 2)
+    return at_least;
+  return std::max(at_least, 2 * current_capacity);
+}
+
+template <class T, class Allocator>
+typename VEC::iterator VEC::LeftShift(iterator from, difference_type amount) {
+  if (from == end())
+    return from;
+  for (iterator it = from + amount; it != end(); ++it, ++from)
+    UnsafeMove(from, it);
+  return from;
+}
+
+template <class T, class Allocator>
+typename VEC::iterator VEC::RightShift(iterator from, difference_type amount) {
+  if (size() == capacity())
+    reserve(GetNewCapacity(size() + amount));
+
+  for (iterator it = from + amount; it-- != from;) {
+    UnsafeMove(it, it + amount);
+  }
 }
 
 /// capacity (getter)

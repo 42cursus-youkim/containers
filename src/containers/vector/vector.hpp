@@ -45,9 +45,9 @@ class vector {
   // explicit vector(const allocator_type& alloc = allocator_type())
   // : data_start_(NULL), size_(0), capacity_ptr_(0), allocator_(alloc) {}
 
-  // explicit vector(size_type n,
-  //                 const value_type& val = value_type(),
-  //                 const allocator_type& alloc = allocator_type())
+  explicit vector(size_type n,
+                  const value_type& val = value_type(),
+                  const allocator_type& alloc = allocator_type());
   //     : data_start_(alloc.allocate(n)), size_(n), capacity_ptr_(n),
   //     allocator_(alloc) {
   //   for (size_type i = 0; i < n; ++i)
@@ -127,6 +127,7 @@ class vector {
 
  protected:
   /// implementation details
+  iterator UninitializedFillN(size_type count, const value_type& val);
   size_type Index(iterator it) const;
   size_type GetNewCapacity(size_type at_least) const;
   inline iterator UnsafeMove(iterator from, iterator to);
