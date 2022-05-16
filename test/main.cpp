@@ -63,8 +63,7 @@ int main() {
 
   // int arr[] = {9, 8, 7};
   print_vector(v);
-  v.erase(v.begin());
-  v.erase(v.begin());
+  v.erase(v.begin(), v.end());
   v.insert(v.begin(), 1);
   v.insert(v.begin(), 2);
   // v.insert(v.begin(), 3);

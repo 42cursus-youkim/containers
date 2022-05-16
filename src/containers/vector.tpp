@@ -94,7 +94,6 @@ void VEC::push_back(const value_type& val) {
 
 template <class T, class Allocator>
 void VEC::pop_back() {
-  // erase(--end());
   allocator_.destroy(data_end_ - 1);
   --data_end_;
 }
@@ -145,7 +144,8 @@ typename VEC::iterator VEC::erase(iterator position) {
 
 template <class T, class Allocator>
 typename VEC::iterator VEC::erase(iterator first, iterator last) {
-  return LeftShift(last, std::distance(first, last));
+  FUN << "std::distance(first, last)" << std::distance(first, last) << END "\n";
+  return LeftShift(last, size_type(std::distance(first, last)));
 }
 
 template <class T, class Allocator>
@@ -230,7 +230,7 @@ typename VEC::size_type VEC::GetNewCapacity(size_type at_least) const {
 
 template <class T, class Allocator>
 typename VEC::iterator VEC::LeftShift(iterator from, size_type diff) {
-  if (diff == 0 or from == end())
+  if (diff == 0)
     return from;
 
   const size_type from_index = Index(from);
@@ -240,7 +240,7 @@ typename VEC::iterator VEC::LeftShift(iterator from, size_type diff) {
     size_type from_i = from_index + i;
     size_type to_i = from_i + diff;
     allocator_.destroy(data_start_ + to_i);
-    UnsafeMove(data_start_ + from_i, data_start_ + to_i);
+    data_start_[to_i] = data_start_[from_i];
   }
   data_end_ -= diff;
 
@@ -250,7 +250,7 @@ typename VEC::iterator VEC::LeftShift(iterator from, size_type diff) {
 /// @brief Moves from amount elements to the right
 template <class T, class Allocator>
 typename VEC::iterator VEC::RightShift(iterator from, size_type diff) {
-  if (diff == 0 or from == end())
+  if (diff == 0)
     return from;
 
   const size_type from_index = Index(from);
@@ -263,7 +263,7 @@ typename VEC::iterator VEC::RightShift(iterator from, size_type diff) {
   for (size_type i = 0; i < affected; i++) {
     size_type from_i = from_index + (affected - i - 1);
     size_type to_i = from_i + diff;
-    UnsafeMove(data_start_ + from_i, data_start_ + to_i);
+    data_start_[to_i] = data_start_[from_i];
   }
 
   data_end_ = data_start_ + new_size;
