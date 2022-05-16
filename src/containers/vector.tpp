@@ -3,6 +3,7 @@
 
 #include <utils/general/lexicographical_compare.hpp>
 #include <utils/tmp/enable_if.hpp>
+#include <utils/tmp/is_integral.hpp>
 #include "utils/util/util.hpp"
 #include "vector.hpp"
 
@@ -30,15 +31,34 @@ VEC::vector(size_type n, const T& val, const Allocator& alloc)
 }
 
 /// fill constructor
-// template <class T, class Allocator>
-// template <class InputIterator>
-// VEC::vector(InputIterator first,
-//             VECTOR_TYPE_ENABLE_IF_INPUTIT(InputIterator) last,
-//             const typename VEC::allocator_type& alloc)
-//     : data_start_(NULL),
-//       data_end_(NULL),
-//       capacity_ptr_(NULL),
-//       allocator_(alloc) {}
+template <class T, class Allocator>
+template <class InputIterator>
+VEC::vector(InputIterator first,
+            InputIterator last,
+            const typename VEC::allocator_type& alloc)
+    : data_start_(NULL),
+      data_end_(NULL),
+      capacity_ptr_(NULL),
+      allocator_(alloc) {
+  typedef typename ft::is_integral<InputIterator>::type is_integral;
+  initialize_dispatch(first, last, is_integral());
+}
+
+/// resolve ambiguity
+template <class T, class Allocator>
+template <class Integer>
+void VEC::initialize_dispatch(Integer n, Integer val, true_type) {
+  reserve(FT_VECTOR_INITIAL_SIZE);
+  data_end_ = UninitializedFillN(begin(), static_cast<size_type>(n), val);
+}
+
+template <class T, class Allocator>
+template <class InputIterator>
+void VEC::initialize_dispatch(InputIterator first,
+                              InputIterator last,
+                              false_type) {
+  insert(end(), first, last);
+}
 
 /// copy constructor
 template <class T, class Allocator>
@@ -144,7 +164,6 @@ typename VEC::iterator VEC::erase(iterator position) {
 
 template <class T, class Allocator>
 typename VEC::iterator VEC::erase(iterator first, iterator last) {
-  FUN << "std::distance(first, last)" << std::distance(first, last) << END "\n";
   return LeftShift(last, size_type(std::distance(first, last)));
 }
 

@@ -11,10 +11,6 @@
 #define FT_VECTOR_DEBUG
 #define FT_VECTOR_INITIAL_SIZE 8
 
-#define VECTOR_TYPE_ENABLE_IF_INPUTIT(type_)                           \
-  typename enable_if<__is_input_iterator_tag<typename iterator_traits< \
-                         InputIterator>::iterator_category>::value,    \
-                     type_>::type
 namespace ft {
 template <class T, class Allocator = std::allocator<T> >
 class vector {
@@ -53,10 +49,10 @@ class vector {
                   const value_type& val = value_type(),
                   const allocator_type& alloc = allocator_type());
 
-  // template <class InputIterator>
-  // vector(InputIterator first,
-  //        VECTOR_TYPE_ENABLE_IF_INPUTIT(InputIterator) last,
-  //        const allocator_type& alloc = allocator_type());
+  template <class InputIterator>
+  vector(InputIterator first,
+         InputIterator last,
+         const allocator_type& alloc = allocator_type());
 
   vector(const vector& other);
 
@@ -78,12 +74,13 @@ class vector {
   reverse_iterator rend();
   const_reverse_iterator rend() const;
 
-  /// capacity
+  /// capacity (getter)
   size_type size() const;
   size_type max_size() const;
   size_type capacity() const;
   bool empty() const;
 
+  /// capacity
   void reserve(size_type n);
   void resize(size_type n, value_type val = value_type());
 
@@ -112,9 +109,8 @@ class vector {
   /// fill
   void insert(iterator position, size_type n, const value_type& val);
   /// range
-  template <class InputIterator>
-  VECTOR_TYPE_ENABLE_IF_INPUTIT(void)
-  insert(iterator position, InputIterator first, InputIterator last);
+  // template <class InputIterator>
+  // void insert(iterator position, InputIterator first, InputIterator last);
 
   iterator erase(iterator position);
   iterator erase(iterator first, iterator last);
@@ -127,6 +123,11 @@ class vector {
 
  protected:
   /// implementation details
+  template <typename Integer>
+  void initialize_dispatch(Integer n, Integer val, true_type);
+  template <typename InputIterator>
+  void initialize_dispatch(InputIterator first, InputIterator last, false_type);
+
   iterator UninitializedFillN(iterator from,
                               size_type count,
                               const value_type& val);
