@@ -27,8 +27,8 @@ class vector {
   typedef typename allocator_type::const_pointer const_pointer;
 
   /// iterators
-  typedef pointer iterator;
-  typedef const_pointer const_iterator;
+  typedef std::iterator iterator;
+  typedef std::const_iterator const_iterator;
   typedef ft::reverse_iterator<iterator> reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
@@ -128,10 +128,10 @@ class vector {
   template <typename InputIterator>
   void initialize_dispatch(InputIterator first, InputIterator last, false_type);
 
-  // template <typename Integer>
-  // void assign_dispatch(Integer n, Integer val, true_type);
-  // template <typename InputIterator>
-  // void assign_dispatch(InputIterator first, InputIterator last, false_type);
+  template <typename Integer>
+  void assign_dispatch(Integer n, Integer val, true_type);
+  template <typename InputIterator>
+  void assign_dispatch(InputIterator first, InputIterator last, false_type);
 
   template <typename Integer>
   void insert_dispatch(iterator position, Integer n, Integer val, true_type);

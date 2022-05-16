@@ -108,10 +108,10 @@ void VEC::resize(size_type n, T val) {
 template <class T, class Allocator>
 template <class InputIterator>
 void VEC::assign(InputIterator first, InputIterator last) {
-  clear();
-  insert(begin(), first, last);
-  // typedef typename is_integral<InputIterator>::type is_integral;
-  // assign_dispatch(first, last, is_integral());
+  // clear();
+  // insert(begin(), first, last);
+  typedef typename is_integral<InputIterator>::type is_integral;
+  assign_dispatch(first, last, is_integral());
 }
 
 /// fill
@@ -121,20 +121,21 @@ void VEC::assign(size_type n, const value_type& val) {
   clear();
   insert(begin(), n, val);
 }
-// template <class T, class Allocator>
-// template <typename Integer>
-// void VEC::assign_dispatch(Integer n, Integer val, true_type) {
-//   clear();
-//   insert(begin(), n, val);
-// }
 
-// template <class T, class Allocator>
-// template <typename InputIterator>
-// void VEC::assign_dispatch(InputIterator first, InputIterator last,
-// false_type) {
-//   clear();
-//   insert(begin(), first, last);
-// }
+template <class T, class Allocator>
+template <typename Integer>
+void VEC::assign_dispatch(Integer n, Integer val, true_type) {
+  clear();
+  insert(begin(), n, val);
+}
+
+template <class T, class Allocator>
+template <typename InputIterator>
+void VEC::assign_dispatch(InputIterator first, InputIterator last,
+false_type) {
+  clear();
+  insert(begin(), first, last);
+}
 
 template <class T, class Allocator>
 void VEC::push_back(const value_type& val) {
