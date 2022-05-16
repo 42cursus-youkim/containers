@@ -104,6 +104,39 @@ void VEC::resize(size_type n, T val) {
 }
 
 /// modifiers
+
+/// range
+template <class T, class Allocator>
+template <class InputIterator>
+void VEC::assign(InputIterator first, InputIterator last) {
+  clear();
+  insert(begin(), first, last);
+  // typedef typename is_integral<InputIterator>::type is_integral;
+  // assign_dispatch(first, last, is_integral());
+}
+
+/// fill
+template <class T, class Allocator>
+void VEC::assign(size_type n, const value_type& val) {
+  /// TODO: make it into FILL_ASSIGN impl
+  clear();
+  insert(begin(), n, val);
+}
+// template <class T, class Allocator>
+// template <typename Integer>
+// void VEC::assign_dispatch(Integer n, Integer val, true_type) {
+//   clear();
+//   insert(begin(), n, val);
+// }
+
+// template <class T, class Allocator>
+// template <typename InputIterator>
+// void VEC::assign_dispatch(InputIterator first, InputIterator last,
+// false_type) {
+//   clear();
+//   insert(begin(), first, last);
+// }
+
 template <class T, class Allocator>
 void VEC::push_back(const value_type& val) {
   if (size() == capacity())
@@ -143,9 +176,6 @@ void VEC::insert(iterator position, size_type n, const value_type& val) {
 template <class T, class Allocator>
 template <class InputIterator>
 void VEC::insert(iterator position, InputIterator first, InputIterator last) {
-#ifdef FT_VECTOR_DEBUG
-  std::cout << "insert using iterator range\n";
-#endif
   typedef typename is_integral<InputIterator>::type is_integral;
   insert_dispatch(position, first, last, is_integral());
 }
@@ -170,10 +200,10 @@ void VEC::insert_dispatch(iterator position,
                           false_type) {
   // TODO: make these an implementation to fix DRY
   const difference_type count = std::distance(first, last);
+  iterator new_position = RightShift(position, static_cast<size_type>(count));
 
-  RightShift(position, static_cast<size_type>(count));
-  for (iterator it = position; it != position + count; ++it, ++first)
-    allocator_.construct(it, *first);
+  for (difference_type i = 0; i < count; ++i)
+    allocator_.construct(new_position + i, *(first + i));
 }
 
 template <class T, class Allocator>
@@ -199,6 +229,13 @@ void VEC::clear() {
   for (iterator it = data_start_; it != data_end_; ++it)
     allocator_.destroy(it);
   data_end_ = data_start_;
+}
+
+/// allocator
+
+template <class T, class Allocator>
+typename VEC::allocator_type VEC::get_allocator() const {
+  return allocator_;
 }
 
 /// implementation details
@@ -311,13 +348,13 @@ typename VEC::iterator VEC::RightShift(iterator from, size_type diff) {
 /// capacity (getter)
 
 template <class T, class Allocator>
-typename VEC::size_type VEC::size() const {
-  return size_type(data_end_ - data_start_);
+bool VEC::empty() const {
+  return size() == 0;
 }
 
 template <class T, class Allocator>
-bool VEC::empty() const {
-  return size() == 0;
+typename VEC::size_type VEC::size() const {
+  return size_type(data_end_ - data_start_);
 }
 
 template <class T, class Allocator>
@@ -413,6 +450,7 @@ template <class T, class Allocator>
 typename VEC::const_reverse_iterator VEC::rend() const {
   return const_reverse_iterator(begin());
 }
+/// non-member function overloads
 
 /// relational operators
 
@@ -453,6 +491,11 @@ bool operator>(const VEC& lhs, const VEC& rhs) {
 template <class T, class Allocator>
 bool operator>=(const VEC& lhs, const VEC& rhs) {
   return lhs == rhs or lhs > rhs;
+}
+
+template <class T, class Alloc>
+void swap(vector<T, Alloc>& x, vector<T, Alloc>& y) {
+  x.swap(y);
 }
 
 }  // namespace ft

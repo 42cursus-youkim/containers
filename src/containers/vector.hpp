@@ -6,7 +6,6 @@
 #include <utils/iter/reverse_iterator.hpp>
 #include <utils/iter/traits.hpp>
 #include <utils/tmp/enable_if.hpp>
-#include <vector>
 
 #define FT_VECTOR_DEBUG
 #define FT_VECTOR_INITIAL_SIZE 8
@@ -123,10 +122,16 @@ class vector {
 
  protected:
   /// jolly ambiguity resolution
+
   template <typename Integer>
   void initialize_dispatch(Integer n, Integer val, true_type);
   template <typename InputIterator>
   void initialize_dispatch(InputIterator first, InputIterator last, false_type);
+
+  // template <typename Integer>
+  // void assign_dispatch(Integer n, Integer val, true_type);
+  // template <typename InputIterator>
+  // void assign_dispatch(InputIterator first, InputIterator last, false_type);
 
   template <typename Integer>
   void insert_dispatch(iterator position, Integer n, Integer val, true_type);
@@ -148,6 +153,8 @@ class vector {
   iterator LeftShift(iterator from, size_type diff);
   iterator RightShift(iterator from, size_type diff);
 };
+
+/// non-member function overloads
 
 /// relational operators
 template <class T, class Allocator>
@@ -173,6 +180,10 @@ bool operator>(const vector<T, Allocator>& lhs,
 template <class T, class Allocator>
 bool operator>=(const vector<T, Allocator>& lhs,
                 const vector<T, Allocator>& rhs);
+
+/// swap
+template <class T, class Alloc>
+void swap(vector<T, Alloc>& x, vector<T, Alloc>& y);
 
 }  // namespace ft
 
