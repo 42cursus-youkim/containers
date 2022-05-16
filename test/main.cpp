@@ -16,21 +16,21 @@ using std::string;
 // template <>
 // struct factorial<0> : ft::integral_constant<int, 1> {};
 
-template <typename T>
-void print_vector(const ft::vector<T>& v) {
-  for (typename ft::vector<T>::const_iterator it = v.begin(); it != v.end();
-       ++it) {
-    cout << *it << ", ";
-  }
-  cout << '\n';
-}
-
 #define TESTED_TYPE std::string
 #define TESTED_NAMESPACE ft
 
 #define T_SIZE_TYPE typename TESTED_NAMESPACE::vector<T>::size_type
 #include <list>
 #include <vector>
+
+template <typename T>
+void print_vector(const TESTED_NAMESPACE::vector<T>& v) {
+  for (typename TESTED_NAMESPACE::vector<T>::const_iterator it = v.begin();
+       it != v.end(); ++it) {
+    cout << *it << ", ";
+  }
+  cout << '\n';
+}
 
 template <typename T>
 void printSize(TESTED_NAMESPACE::vector<T> const& vct,
@@ -71,23 +71,23 @@ int main(void) {
   vct.erase(vct.begin() + 2);
   checkErase(vct, vct.erase(vct.begin() + 2));
 
-  // checkErase(vct, vct.erase(vct.begin()));
-  // checkErase(vct, vct.erase(vct.end() - 1));
+  checkErase(vct, vct.erase(vct.begin()));
+  checkErase(vct, vct.erase(vct.end() - 1));
 
-  // checkErase(vct, vct.erase(vct.begin(), vct.begin() + 3));
-  // checkErase(vct, vct.erase(vct.end() - 3, vct.end() - 1));
+  checkErase(vct, vct.erase(vct.begin(), vct.begin() + 3));
+  checkErase(vct, vct.erase(vct.end() - 3, vct.end() - 1));
 
-  // vct.push_back("Hello");
-  // vct.push_back("Hi there");
-  // printSize(vct);
-  // checkErase(vct, vct.erase(vct.end() - 3, vct.end()));
+  vct.push_back("Hello");
+  vct.push_back("Hi there");
+  printSize(vct);
+  checkErase(vct, vct.erase(vct.end() - 3, vct.end()));
 
-  // vct.push_back("ONE");
-  // vct.push_back("TWO");
-  // vct.push_back("THREE");
-  // vct.push_back("FOUR");
-  // printSize(vct);
-  // checkErase(vct, vct.erase(vct.begin(), vct.end()));
+  vct.push_back("ONE");
+  vct.push_back("TWO");
+  vct.push_back("THREE");
+  vct.push_back("FOUR");
+  printSize(vct);
+  checkErase(vct, vct.erase(vct.begin(), vct.end()));
 
   return (0);
 }

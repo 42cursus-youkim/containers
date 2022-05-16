@@ -214,7 +214,7 @@ typename VEC::iterator VEC::erase(iterator position) {
 
 template <class T, class Allocator>
 typename VEC::iterator VEC::erase(iterator first, iterator last) {
-  return LeftShift(last, size_type(std::distance(first, last)));
+  return LeftShift(first, size_type(std::distance(first, last)));
 }
 
 template <class T, class Allocator>
@@ -309,16 +309,13 @@ typename VEC::iterator VEC::LeftShift(iterator from, size_type diff) {
   if (diff == 0)
     return from;
 
-  const size_type from_index = Index(from);
-  const size_type affected = size() - from_index;
-
-  FUN << "affected: " << affected << std::endl;
-  for (size_type i = 0; i < affected - 1; ++i) {
-    size_type to_i = from_index + i;
-    size_type from_i = to_i + diff;
-    allocator_.destroy(&data_start_[to_i]);
-    data_start_[to_i] = data_start_[from_i];
+  for (iterator it = from; it + diff < end(); ++it) {
+    // TODO: call allocator_.destory()?
+    // allocator_.destroy(&data_start_[to_i]);
+    *it = it[diff];
   }
+  for (iterator it = end() - 1; it + diff > end(); --it)
+    allocator_.destroy(it);
   data_end_ -= diff;
 
   return from;
