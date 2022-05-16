@@ -1,10 +1,10 @@
 #ifndef TEST_PAIR_HPP
 #define TEST_PAIR_HPP
 
-#include <pair/pair.hpp>
 #include <typeinfo>
 #include <utility>
-#include "util.hpp"
+#include <utils/pair/pair.hpp>
+#include "utils/util/util.hpp"
 
 #define PAIR_TEST_MEMBER_EQ(a, b)                  \
   do {                                             \

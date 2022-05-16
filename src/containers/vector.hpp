@@ -1,11 +1,11 @@
 #ifndef VECTOR_VECTOR_HPP
 #define VECTOR_VECTOR_HPP
 
-#include <iter/reverse_iterator.hpp>
-#include <iter/traits.hpp>
 #include <iterator>
 #include <memory>
-#include <tmp/enable_if.hpp>
+#include <utils/iter/reverse_iterator.hpp>
+#include <utils/iter/traits.hpp>
+#include <utils/tmp/enable_if.hpp>
 #include <vector>
 
 #define FT_VECTOR_DEBUG

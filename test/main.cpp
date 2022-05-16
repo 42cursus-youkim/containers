@@ -32,14 +32,14 @@
 //   }
 //   return 0;
 // }
+#include <containers/vector.hpp>
 #include <iostream>
 #include <memory>
-#include <pair/pair.hpp>
-#include <tmp/integral_constant.hpp>
-#include <tmp/is_integral.hpp>
-#include <vector/vector.hpp>
+#include <utils/pair/pair.hpp>
+#include <utils/tmp/integral_constant.hpp>
+#include <utils/tmp/is_integral.hpp>
 #include "test/pair.hpp"
-#include "util.hpp"
+#include "utils/util/util.hpp"
 
 using std::cout;
 using std::string;

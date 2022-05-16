@@ -1,9 +1,9 @@
 #ifndef VECTOR_VECTOR_TPP
 #define VECTOR_VECTOR_TPP
 
-#include <general/lexicographical_compare.hpp>
-#include <tmp/enable_if.hpp>
-#include "util.hpp"
+#include <utils/general/lexicographical_compare.hpp>
+#include <utils/tmp/enable_if.hpp>
+#include "utils/util/util.hpp"
 #include "vector.hpp"
 
 #define VEC vector<T, Allocator>
@@ -241,8 +241,8 @@ typename VEC::iterator VEC::RightShift(iterator from, size_type amount) {
   const size_type old_size = size();
 
 #ifdef FT_VECTOR_DEBUG
-  log::fun("from_index: ") << from_index << " amount: " << amount
-            << " old_size: " << old_size << END "\n";
+  FUN << "from_index: " << from_index << " amount: " << amount
+      << " old_size: " << old_size << END "\n";
 #endif
 
   if (amount == 0)
