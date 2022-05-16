@@ -238,20 +238,12 @@ typename VEC::size_type VEC::GetNewCapacity(size_type at_least) const {
 // }
 
 /// @brief Moves from amount elements to the right
-///
-/// RightShift(0, 1) would be:
-/// affected: 4 - 0 = 4
-/// 1234. to
-/// .1234
-/// RightShift(3, 4) would be:
-/// affected: 9 - 3 = 6
-/// 123456789....
-/// 123....456789
-/// and return iterator at index 1.
 template <class T, class Allocator>
 typename VEC::iterator VEC::RightShift(iterator from, size_type diff) {
-  if (diff <= 0)  //< ignore if amount is 0
+#ifdef FT_CONTAINERS_DEBUG
+  if (diff == 0)
     throw std::invalid_argument("ft::vector::RightShift: diff is less than 1");
+#endif
 
   const size_type from_index = Index(from);
   const size_type new_size = size() + diff;
@@ -260,50 +252,14 @@ typename VEC::iterator VEC::RightShift(iterator from, size_type diff) {
   if (new_size >= capacity())
     reserve(GetNewCapacity(new_size));
 
-  // const size_type old_size = size();
-
   for (size_type i = 0; i < affected; i++) {
     size_type from_i = from_index + (affected - i - 1);
     size_type to_i = from_i + diff;
-#ifdef FT_VECTOR_DEBUG
-    FUN << "from " << from_i << " to " << to_i << END "\n";
-#endif
     UnsafeMove(data_start_ + from_i, data_start_ + to_i);
   }
 
   data_end_ = data_start_ + new_size;
-
-#ifdef FT_VECTOR_DEBUG
-  FUN << "from_index: " << from_index << " affected_amount: " << affected
-      << "size: " << size() << " capacity: " << capacity() << END "\n";
-#endif
-
   return data_start_ + from_index;
-  // data_end_ = data_start_ + old_size;
-
-  //   // no element is moved
-  //   if (from == end()) {
-  // #ifdef FT_VECTOR_DEBUG
-  //     FUN << "no element is moved" << END "\n";
-  // #endif
-  //     data_end_ += amount;
-  //     return data_start_ + from_index;
-  //   }
-
-  // data_end_ = data_start_ + old_size + amount - 1;
-
-  //   for (size_type i = 0; i < amount; ++i) {
-  //     size_type from_idx = from_index + (amount - i);
-  //     size_type to_idx = from_idx + amount;
-
-  //     UnsafeMove(begin() + from_idx, begin() + to_idx);
-  //   }
-
-  // #ifdef FT_VECTOR_DEBUG
-  //   FUN << "result - size: " << size() << " capacity: " << capacity() << END
-  //   "\n";
-  // #endif
-  //   return data_start_ + from_index;
 }
 
 /// capacity (getter)
