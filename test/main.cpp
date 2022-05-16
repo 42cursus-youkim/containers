@@ -9,11 +9,12 @@
 
 using std::cout;
 using std::string;
-template <unsigned n>
-struct factorial : ft::integral_constant<int, n * factorial<n - 1>::value> {};
+// template <unsigned n>
+// struct factorial : ft::integral_constant<int, n * factorial<n - 1>::value>
+// {};
 
-template <>
-struct factorial<0> : ft::integral_constant<int, 1> {};
+// template <>
+// struct factorial<0> : ft::integral_constant<int, 1> {};
 
 template <typename T>
 void print_vector(const ft::vector<T>& v) {
@@ -24,7 +25,7 @@ void print_vector(const ft::vector<T>& v) {
   cout << '\n';
 }
 
-#define TESTED_TYPE int
+#define TESTED_TYPE std::string
 #define TESTED_NAMESPACE ft
 
 #define T_SIZE_TYPE typename TESTED_NAMESPACE::vector<T>::size_type
@@ -52,27 +53,41 @@ void printSize(TESTED_NAMESPACE::vector<T> const& vct,
   std::cout << "###############################################" << std::endl;
 }
 
-int main(void) {
-  TESTED_NAMESPACE::vector<TESTED_TYPE> vct(7);
+void checkErase(
+    TESTED_NAMESPACE::vector<TESTED_TYPE> const& vct,
+    TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator const& it) {
+  static int i = 0;
+  std::cout << "[" << i++ << "] "
+            << "erase: " << it - vct.begin() << std::endl;
+  printSize(vct);
+}
 
-  for (unsigned long int i = 0; i < vct.size(); ++i) {
-    vct.at(i) = static_cast<int>((vct.size() - i) * 3);
-    std::cout << "vct.at(): " << vct.at(i) << " | ";
-    std::cout << "vct[]: " << vct[i] << std::endl;
-  }
+int main(void) {
+  TESTED_NAMESPACE::vector<TESTED_TYPE> vct(10);
+  for (unsigned long int i = 0; i < vct.size(); ++i)
+    vct[i] = std::string((vct.size() - i), i + 65);
   printSize(vct);
 
-  TESTED_NAMESPACE::vector<TESTED_TYPE> const vct_c(vct);
+  vct.erase(vct.begin() + 2);
+  checkErase(vct, vct.erase(vct.begin() + 2));
 
-  std::cout << "front(): " << vct.front() << " " << vct_c.front() << std::endl;
-  std::cout << "back(): " << vct.back() << " " << vct_c.back() << std::endl;
+  // checkErase(vct, vct.erase(vct.begin()));
+  // checkErase(vct, vct.erase(vct.end() - 1));
 
-  try {
-    vct.at(10) = 42;
-  } catch (std::out_of_range& e) {
-    std::cout << "Catch out_of_range exception!" << std::endl;
-  } catch (std::exception& e) {
-    std::cout << "Catch exception: " << e.what() << std::endl;
-  }
+  // checkErase(vct, vct.erase(vct.begin(), vct.begin() + 3));
+  // checkErase(vct, vct.erase(vct.end() - 3, vct.end() - 1));
+
+  // vct.push_back("Hello");
+  // vct.push_back("Hi there");
+  // printSize(vct);
+  // checkErase(vct, vct.erase(vct.end() - 3, vct.end()));
+
+  // vct.push_back("ONE");
+  // vct.push_back("TWO");
+  // vct.push_back("THREE");
+  // vct.push_back("FOUR");
+  // printSize(vct);
+  // checkErase(vct, vct.erase(vct.begin(), vct.end()));
+
   return (0);
 }

@@ -26,8 +26,7 @@ VEC::vector(size_type n, const T& val, const Allocator& alloc)
       data_end_(NULL),
       capacity_ptr_(NULL),
       allocator_(alloc) {
-  reserve(FT_VECTOR_INITIAL_SIZE);
-  data_end_ = UninitializedFillN(begin(), n, val);
+  insert(begin(), n, val);
 }
 
 /// fill constructor, has ambiguity with integer, therefore using dispatch
@@ -189,7 +188,7 @@ void VEC::insert_dispatch(iterator position,
                           Integer val,
                           true_type) {
   // TODO: make these an implementation to fix DRY
-  iterator new_position = RightShift(position, n);
+  iterator new_position = RightShift(position, static_cast<size_type>(n));
   for (size_type i = 0; i < static_cast<size_type>(n); ++i)
     allocator_.construct(new_position + i, val);
 }
@@ -313,10 +312,11 @@ typename VEC::iterator VEC::LeftShift(iterator from, size_type diff) {
   const size_type from_index = Index(from);
   const size_type affected = size() - from_index;
 
-  for (size_type i = 0; i < affected; ++i) {
-    size_type from_i = from_index + i;
-    size_type to_i = from_i + diff;
-    allocator_.destroy(data_start_ + to_i);
+  FUN << "affected: " << affected << std::endl;
+  for (size_type i = 0; i < affected - 1; ++i) {
+    size_type to_i = from_index + i;
+    size_type from_i = to_i + diff;
+    allocator_.destroy(&data_start_[to_i]);
     data_start_[to_i] = data_start_[from_i];
   }
   data_end_ -= diff;

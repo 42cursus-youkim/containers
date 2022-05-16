@@ -13,22 +13,22 @@ using std::string;
 
 // Logger
 
-#define LOG_VAL(x) log::val(#x, x)
+#define LOG_VAL(x) logging::val(#x, x)
 
-#define LOG_CLASS_COPY log::val(__func__, GRN "is copy constructed")
-#define LOG_CLASS                                    \
-  do {                                               \
-    const string specialMethod = __func__;           \
-    if (specialMethod.at(0) == '~')                  \
-      log::val(specialMethod, RED "is destructed");  \
-    else if (specialMethod == "operator=")           \
-      log::val(specialMethod, YEL "is assigned");    \
-    else                                             \
-      log::val(specialMethod, GRN "is constructed"); \
+#define LOG_CLASS_COPY logging::val(__func__, GRN "is copy constructed")
+#define LOG_CLASS                                        \
+  do {                                                   \
+    const string specialMethod = __func__;               \
+    if (specialMethod.at(0) == '~')                      \
+      logging::val(specialMethod, RED "is destructed");  \
+    else if (specialMethod == "operator=")               \
+      logging::val(specialMethod, YEL "is assigned");    \
+    else                                                 \
+      logging::val(specialMethod, GRN "is constructed"); \
   } while (0)
 
 #define FUN cout << BHRED "trace: " BBLU << __func__ << ": " HCYN
-namespace log {
+namespace logging {
 
 template <typename T>
 void val(const string& str, T value) {

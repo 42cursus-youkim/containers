@@ -4,7 +4,7 @@
 	$(CXX) $(CXXFLAGS) $(INC) -c $< -o $@
 
 $(TARGET): $(OBJ)
-	$(CXX) $(CXXFLAGS) $(INC) -MD -o $@ $^
+	$(CXX) $(CXXFLAGS) $(INC) -o $@ $^
 
 .PHONY: all run clean re
 

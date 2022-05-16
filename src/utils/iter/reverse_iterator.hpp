@@ -36,7 +36,7 @@ class reverse_iterator
   /// copy constructor
   template <class Iter>
   reverse_iterator(const reverse_iterator<Iter>& rev_it)
-      : current_(rev_it.base()){};
+      : current_(rev_it.base()) {}
 
   /// initializatioon constructor
   explicit reverse_iterator(iterator_type it) : current_(it){};
