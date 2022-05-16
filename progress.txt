@@ -1,6 +1,6 @@
 written / tested
 - [ ][ ] Map
-- [ ][ ] Stack
+- [x][x] Stack
 - [ ][ ] Vector
 - [x][ ] iterators_traits
 - [x][ ] reverse_iterator
