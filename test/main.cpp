@@ -51,23 +51,28 @@ struct factorial<0> : ft::integral_constant<int, 1> {};
 
 template <typename T>
 void print_vector(const ft::vector<T>& v) {
-  for (typename ft::vector<T>::const_iterator it = v.begin(); it != v.end(); ++it) {
+  for (typename ft::vector<T>::const_iterator it = v.begin(); it != v.end();
+       ++it) {
     cout << *it << ", ";
   }
   cout << '\n';
 }
 
 int main() {
-  ft::vector<int> v(3, 9);
+  ft::vector<int> v(4, 9);
+  print_vector(v);
   v.insert(v.begin(), 1);
+  print_vector(v);
   v.insert(v.begin(), 2);
+  print_vector(v);
   v.insert(v.begin(), 3);
   print_vector(v);
-  v.pop_back();
-  print_vector(v);
-  v.pop_back();
-  v.pop_back();
-  print_vector(v);
+  // print_vector(v);
+  // v.pop_back();
+  // print_vector(v);
+  // v.pop_back();
+  // v.pop_back();
+  // print_vector(v);
 
   ft::vector<int> v1, v2;
   cout << "v1 == v2? " << std::boolalpha << (v1 == v2) << '\n';

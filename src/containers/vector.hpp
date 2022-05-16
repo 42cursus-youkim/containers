@@ -134,8 +134,8 @@ class vector {
   size_type GetNewCapacity(size_type at_least) const;
   inline iterator UnsafeMove(iterator from, iterator to);
   void DoGrow(size_type new_capacity);
-  iterator LeftShift(iterator from, size_type amount);
-  iterator RightShift(iterator from, size_type amount);
+  iterator LeftShift(iterator from, size_type diff);
+  iterator RightShift(iterator from, size_type diff);
 };
 
 /// relational operators

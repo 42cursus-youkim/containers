@@ -27,7 +27,7 @@ using std::string;
       log::val(specialMethod, GRN "is constructed"); \
   } while (0)
 
-#define FUN cout << BHRED "trace: " BBLU << __func__ << ":" HCYN
+#define FUN cout << BHRED "trace: " BBLU << __func__ << ": " HCYN
 namespace log {
 
 template <typename T>

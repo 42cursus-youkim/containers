@@ -102,8 +102,12 @@ void VEC::pop_back() {
 /// single element
 template <class T, class Allocator>
 typename VEC::iterator VEC::insert(iterator position, const value_type& val) {
+  FUN << "pos: " << position << " value: " << val << END "\n";
   iterator new_position = RightShift(position, 1);
 
+#ifdef FT_VECTOR_DEBUG
+  FUN << "new position: " << Index(new_position) << END "\n";
+#endif
   allocator_.construct(new_position, val);
   return new_position;
 }
@@ -112,6 +116,9 @@ typename VEC::iterator VEC::insert(iterator position, const value_type& val) {
 template <class T, class Allocator>
 void VEC::insert(iterator position, size_type n, const value_type& val) {
   iterator new_position = RightShift(position, n);
+#ifdef FT_VECTOR_DEBUG
+  FUN << "new position: " << new_position << END "\n";
+#endif
   for (size_type i = 0; i < n; ++i)
     allocator_.construct(new_position + i, val);
 }
@@ -187,6 +194,7 @@ inline typename VEC::iterator VEC::UnsafeMove(iterator from, iterator to) {
   return to;
 }
 
+/// creates new storage, rellocates all elements to new one
 template <class T, class Allocator>
 void VEC::DoGrow(size_type new_capacity) {
   if (new_capacity > max_size())
@@ -220,48 +228,82 @@ typename VEC::size_type VEC::GetNewCapacity(size_type at_least) const {
   return std::max(at_least, 2 * current_capacity);
 }
 
-template <class T, class Allocator>
-typename VEC::iterator VEC::LeftShift(iterator from, size_type amount) {
-  if (from == end())
-    return from;
-  for (iterator it = from + amount; it != end(); ++it, ++from)
-    UnsafeMove(from, it);
-  return from;
-}
+// template <class T, class Allocator>
+// typename VEC::iterator VEC::LeftShift(iterator from, size_type amount) {
+//   if (from == end())
+//     return from;
+//   for (iterator it = from + amount; it != end(); ++it, ++from)
+//     UnsafeMove(from, it);
+//   return from;
+// }
 
 /// @brief Moves from amount elements to the right
 ///
 /// RightShift(0, 1) would be:
+/// affected: 4 - 0 = 4
 /// 1234. to
 /// .1234
+/// RightShift(3, 4) would be:
+/// affected: 9 - 3 = 6
+/// 123456789....
+/// 123....456789
 /// and return iterator at index 1.
 template <class T, class Allocator>
-typename VEC::iterator VEC::RightShift(iterator from, size_type amount) {
+typename VEC::iterator VEC::RightShift(iterator from, size_type diff) {
+  if (diff <= 0)  //< ignore if amount is 0
+    throw std::invalid_argument("ft::vector::RightShift: diff is less than 1");
+
   const size_type from_index = Index(from);
-  const size_type old_size = size();
+  const size_type new_size = size() + diff;
+  const size_type affected = size() - from_index;
+
+  if (new_size >= capacity())
+    reserve(GetNewCapacity(new_size));
+
+  // const size_type old_size = size();
+
+  for (size_type i = 0; i < affected; i++) {
+    size_type from_i = from_index + (affected - i - 1);
+    size_type to_i = from_i + diff;
+#ifdef FT_VECTOR_DEBUG
+    FUN << "from " << from_i << " to " << to_i << END "\n";
+#endif
+    UnsafeMove(data_start_ + from_i, data_start_ + to_i);
+  }
+
+  data_end_ = data_start_ + new_size;
 
 #ifdef FT_VECTOR_DEBUG
-  FUN << "from_index: " << from_index << " amount: " << amount
-      << " old_size: " << old_size << END "\n";
+  FUN << "from_index: " << from_index << " affected_amount: " << affected
+      << "size: " << size() << " capacity: " << capacity() << END "\n";
 #endif
 
-  if (amount == 0)
-    return from;
+  return data_start_ + from_index;
+  // data_end_ = data_start_ + old_size;
 
-  // rshift always increases capacity
-  reserve(GetNewCapacity(old_size + amount));
+  //   // no element is moved
+  //   if (from == end()) {
+  // #ifdef FT_VECTOR_DEBUG
+  //     FUN << "no element is moved" << END "\n";
+  // #endif
+  //     data_end_ += amount;
+  //     return data_start_ + from_index;
+  //   }
 
-  data_end_ = data_start_ + old_size;
+  // data_end_ = data_start_ + old_size + amount - 1;
 
-  if (from_index == old_size) {
-    data_end_ += amount;
-    return data_start_ + from_index;
-  }
+  //   for (size_type i = 0; i < amount; ++i) {
+  //     size_type from_idx = from_index + (amount - i);
+  //     size_type to_idx = from_idx + amount;
 
-  for (size_type i = from_index + amount; i != from_index; --i) {
-    UnsafeMove(begin() + i, begin() + i - amount);
-  }
-  return from;
+  //     UnsafeMove(begin() + from_idx, begin() + to_idx);
+  //   }
+
+  // #ifdef FT_VECTOR_DEBUG
+  //   FUN << "result - size: " << size() << " capacity: " << capacity() << END
+  //   "\n";
+  // #endif
+  //   return data_start_ + from_index;
 }
 
 /// capacity (getter)
