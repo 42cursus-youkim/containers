@@ -7,7 +7,7 @@
 #include <utils/iter/traits.hpp>
 #include <utils/tmp/enable_if.hpp>
 
-#define FT_VECTOR_DEBUG
+// #define FT_VECTOR_DEBUG
 #define FT_VECTOR_INITIAL_SIZE 8
 
 namespace ft {

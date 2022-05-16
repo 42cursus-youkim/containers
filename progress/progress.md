@@ -1,7 +1,8 @@
 written / tested
+
 - [ ][ ] Map
 - [x][x] Stack
-- [ ][ ] Vector
+- [x][ ] Vector
 - [x][ ] iterators_traits
 - [x][ ] reverse_iterator
 - [x][ ] enable_if
@@ -10,4 +11,3 @@ written / tested
 - [x][x] lexicographical_compare
 - [x][x] std::pair
 - [x][x] std::make_pair
-

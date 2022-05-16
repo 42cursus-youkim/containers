@@ -154,7 +154,9 @@ void VEC::pop_back() {
 /// single element
 template <class T, class Allocator>
 typename VEC::iterator VEC::insert(iterator position, const value_type& val) {
+#ifdef FT_VECTOR_DEBUG
   FUN << "pos: " << position << " value: " << val << END "\n";
+#endif
   iterator new_position = RightShift(position, 1);
 
 #ifdef FT_VECTOR_DEBUG
@@ -188,7 +190,7 @@ void VEC::insert_dispatch(iterator position,
                           true_type) {
   // TODO: make these an implementation to fix DRY
   iterator new_position = RightShift(position, n);
-  for (size_type i = 0; i < n; ++i)
+  for (size_type i = 0; i < static_cast<size_type>(n); ++i)
     allocator_.construct(new_position + i, val);
 }
 
@@ -203,7 +205,7 @@ void VEC::insert_dispatch(iterator position,
   iterator new_position = RightShift(position, static_cast<size_type>(count));
 
   for (difference_type i = 0; i < count; ++i)
-    allocator_.construct(new_position + i, *(first + i));
+    allocator_.construct(new_position + i, first[i]);
 }
 
 template <class T, class Allocator>
@@ -381,12 +383,12 @@ typename VEC::const_reference VEC::front() const {
 
 template <class T, class Allocator>
 typename VEC::reference VEC::back() {
-  return data_end_[1];
+  return data_end_[-1];
 }
 
 template <class T, class Allocator>
 typename VEC::const_reference VEC::back() const {
-  return data_end_[1];
+  return data_end_[-1];
 }
 
 template <class T, class Allocator>
