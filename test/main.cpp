@@ -61,11 +61,10 @@ void print_vector(const ft::vector<T>& v) {
 int main() {
   ft::vector<int> v(4, 9);
 
-  // int arr[] = {9, 8, 7};
+  int arr[] = {1, 2, 3};
   print_vector(v);
   v.erase(v.begin(), v.end());
-  v.insert(v.begin(), 1);
-  v.insert(v.begin(), 2);
+  v.insert(v.begin(), arr, arr + 3);
   // v.insert(v.begin(), 3);
   // v.insert(v.begin(), arr, arr + 3);
   print_vector(v);

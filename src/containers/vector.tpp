@@ -30,7 +30,7 @@ VEC::vector(size_type n, const T& val, const Allocator& alloc)
   data_end_ = UninitializedFillN(begin(), n, val);
 }
 
-/// fill constructor
+/// fill constructor, has ambiguity with integer, therefore using dispatch
 template <class T, class Allocator>
 template <class InputIterator>
 VEC::vector(InputIterator first,
@@ -40,7 +40,7 @@ VEC::vector(InputIterator first,
       data_end_(NULL),
       capacity_ptr_(NULL),
       allocator_(alloc) {
-  typedef typename ft::is_integral<InputIterator>::type is_integral;
+  typedef typename is_integral<InputIterator>::type is_integral;
   initialize_dispatch(first, last, is_integral());
 }
 
@@ -135,27 +135,46 @@ typename VEC::iterator VEC::insert(iterator position, const value_type& val) {
 template <class T, class Allocator>
 void VEC::insert(iterator position, size_type n, const value_type& val) {
   iterator new_position = RightShift(position, n);
-#ifdef FT_VECTOR_DEBUG
-  FUN << "new position: " << new_position << END "\n";
-#endif
   for (size_type i = 0; i < n; ++i)
     allocator_.construct(new_position + i, val);
 }
 
 /// range
-// template <class T, class Allocator>
-// template <class InputIterator>
-// VECTOR_TYPE_ENABLE_IF_INPUTIT(void)
-// VEC::insert(iterator position, InputIterator first, InputIterator last) {
-//   if (FT_VECTOR_DEBUG)
-//     std::cout << "insert using iterator range\n";
-//   (void)position, (void)first, (void)last;
-//   // const difference_type count = std::distance(first, last);
+template <class T, class Allocator>
+template <class InputIterator>
+void VEC::insert(iterator position, InputIterator first, InputIterator last) {
+#ifdef FT_VECTOR_DEBUG
+  std::cout << "insert using iterator range\n";
+#endif
+  typedef typename is_integral<InputIterator>::type is_integral;
+  insert_dispatch(position, first, last, is_integral());
+}
 
-//   // RightShift(position, count);
-//   // for (iterator it = position; it != position + count; ++it, ++first)
-//   //   allocator_.construct(it, *first);
-// }
+template <class T, class Allocator>
+template <class Integer>
+void VEC::insert_dispatch(iterator position,
+                          Integer n,
+                          Integer val,
+                          true_type) {
+  // TODO: make these an implementation to fix DRY
+  iterator new_position = RightShift(position, n);
+  for (size_type i = 0; i < n; ++i)
+    allocator_.construct(new_position + i, val);
+}
+
+template <class T, class Allocator>
+template <class InputIterator>
+void VEC::insert_dispatch(iterator position,
+                          InputIterator first,
+                          InputIterator last,
+                          false_type) {
+  // TODO: make these an implementation to fix DRY
+  const difference_type count = std::distance(first, last);
+
+  RightShift(position, static_cast<size_type>(count));
+  for (iterator it = position; it != position + count; ++it, ++first)
+    allocator_.construct(it, *first);
+}
 
 template <class T, class Allocator>
 typename VEC::iterator VEC::erase(iterator position) {

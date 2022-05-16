@@ -109,8 +109,8 @@ class vector {
   /// fill
   void insert(iterator position, size_type n, const value_type& val);
   /// range
-  // template <class InputIterator>
-  // void insert(iterator position, InputIterator first, InputIterator last);
+  template <class InputIterator>
+  void insert(iterator position, InputIterator first, InputIterator last);
 
   iterator erase(iterator position);
   iterator erase(iterator first, iterator last);
@@ -122,11 +122,21 @@ class vector {
   allocator_type get_allocator() const;
 
  protected:
-  /// implementation details
+  /// jolly ambiguity resolution
   template <typename Integer>
   void initialize_dispatch(Integer n, Integer val, true_type);
   template <typename InputIterator>
   void initialize_dispatch(InputIterator first, InputIterator last, false_type);
+
+  template <typename Integer>
+  void insert_dispatch(iterator position, Integer n, Integer val, true_type);
+  template <typename InputIterator>
+  void insert_dispatch(iterator position,
+                       InputIterator first,
+                       InputIterator last,
+                       false_type);
+
+  /// implementation details
 
   iterator UninitializedFillN(iterator from,
                               size_type count,
