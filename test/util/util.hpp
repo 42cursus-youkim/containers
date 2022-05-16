@@ -27,12 +27,17 @@ using std::string;
       log::val(specialMethod, GRN "is constructed"); \
   } while (0)
 
-
 namespace log {
 
 template <typename T>
 void val(const string& str, T value) {
   cout << BBLU << str << HYEL ": " MAG << value << END "\n";
+}
+
+template <typename T>
+std::ostream& fun(const T& value) {
+  cout << BBLU "trace: " << __func__ << ":" HCYN << value;
+  return cout;
 }
 
 }  // namespace log

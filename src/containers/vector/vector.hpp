@@ -8,14 +8,13 @@
 #include <tmp/enable_if.hpp>
 #include <vector>
 
-#define FT_VECTOR_DEBUG 1
+#define FT_VECTOR_DEBUG
 #define FT_VECTOR_INITIAL_SIZE 8
 
 #define VECTOR_TYPE_ENABLE_IF_INPUTIT(type_)                           \
   typename enable_if<__is_input_iterator_tag<typename iterator_traits< \
                          InputIterator>::iterator_category>::value,    \
                      type_>::type
-
 namespace ft {
 template <class T, class Allocator = std::allocator<T> >
 class vector {
@@ -56,7 +55,7 @@ class vector {
 
   // template <class InputIterator>
   // vector(InputIterator first,
-  //        VECTOR_ENABLE_IF_INPUTIT last,
+  //        VECTOR_TYPE_ENABLE_IF_INPUTIT(InputIterator) last,
   //        const allocator_type& alloc = allocator_type());
 
   vector(const vector& other);
@@ -128,7 +127,9 @@ class vector {
 
  protected:
   /// implementation details
-  iterator UninitializedFillN(iterator from, size_type count, const value_type& val);
+  iterator UninitializedFillN(iterator from,
+                              size_type count,
+                              const value_type& val);
   size_type Index(iterator it) const;
   size_type GetNewCapacity(size_type at_least) const;
   inline iterator UnsafeMove(iterator from, iterator to);

@@ -30,19 +30,15 @@ VEC::vector(size_type n, const T& val, const Allocator& alloc)
 }
 
 /// fill constructor
-template <class T, class Allocator>
-template <class InputIterator>
-VEC::vector(InputIterator first,
-            typename enable_if<__is_input_iterator_tag<typename
-            iterator_traits<
-                                   InputIterator>::iterator_category>::value,
-                               InputIterator>::type last,
-            const typename VEC::allocator_type& alloc)
-    : data_start_(NULL),
-      data_end_(NULL),
-      capacity_ptr_(NULL),
-      allocator_(alloc) {
-}
+// template <class T, class Allocator>
+// template <class InputIterator>
+// VEC::vector(InputIterator first,
+//             VECTOR_TYPE_ENABLE_IF_INPUTIT(InputIterator) last,
+//             const typename VEC::allocator_type& alloc)
+//     : data_start_(NULL),
+//       data_end_(NULL),
+//       capacity_ptr_(NULL),
+//       allocator_(alloc) {}
 
 /// copy constructor
 template <class T, class Allocator>
@@ -244,23 +240,23 @@ typename VEC::iterator VEC::RightShift(iterator from, size_type amount) {
   const size_type from_index = Index(from);
   const size_type old_size = size();
 
+#ifdef FT_VECTOR_DEBUG
+  log::fun("from_index: ") << from_index << " amount: " << amount
+            << " old_size: " << old_size << END "\n";
+#endif
+
   if (amount == 0)
     return from;
 
   // rshift always increases capacity
   reserve(GetNewCapacity(old_size + amount));
 
-  std::cout << "hayo\n";
   data_end_ = data_start_ + old_size;
 
   if (from_index == old_size) {
     data_end_ += amount;
     return data_start_ + from_index;
   }
-  std::cout << "capacity: " << capacity() << "\n";
-  std::cout << "start: " << data_start_ << " end: " << data_end_ << "\n";
-  std::cout << "from_index:" << from_index << " amount:" << amount
-            << "from + amount: " << from + amount << " end:" << end() << "\n";
 
   for (size_type i = from_index + amount; i != from_index; --i) {
     UnsafeMove(begin() + i, begin() + i - amount);
