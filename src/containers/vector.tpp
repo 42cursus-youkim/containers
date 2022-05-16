@@ -228,22 +228,30 @@ typename VEC::size_type VEC::GetNewCapacity(size_type at_least) const {
   return std::max(at_least, 2 * current_capacity);
 }
 
-// template <class T, class Allocator>
-// typename VEC::iterator VEC::LeftShift(iterator from, size_type amount) {
-//   if (from == end())
-//     return from;
-//   for (iterator it = from + amount; it != end(); ++it, ++from)
-//     UnsafeMove(from, it);
-//   return from;
-// }
+template <class T, class Allocator>
+typename VEC::iterator VEC::LeftShift(iterator from, size_type diff) {
+  if (diff == 0 or from == end())
+    return from;
+
+  const size_type from_index = Index(from);
+  const size_type affected = size() - from_index;
+
+  for (size_type i = 0; i < affected; ++i) {
+    size_type from_i = from_index + i;
+    size_type to_i = from_i + diff;
+    allocator_.destroy(data_start_ + to_i);
+    UnsafeMove(data_start_ + from_i, data_start_ + to_i);
+  }
+  data_end_ -= diff;
+
+  return from;
+}
 
 /// @brief Moves from amount elements to the right
 template <class T, class Allocator>
 typename VEC::iterator VEC::RightShift(iterator from, size_type diff) {
-#ifdef FT_CONTAINERS_DEBUG
-  if (diff == 0)
-    throw std::invalid_argument("ft::vector::RightShift: diff is less than 1");
-#endif
+  if (diff == 0 or from == end())
+    return from;
 
   const size_type from_index = Index(from);
   const size_type new_size = size() + diff;

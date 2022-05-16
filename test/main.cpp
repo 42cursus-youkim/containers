@@ -63,9 +63,11 @@ int main() {
 
   // int arr[] = {9, 8, 7};
   print_vector(v);
+  v.erase(v.begin());
+  v.erase(v.begin());
   v.insert(v.begin(), 1);
   v.insert(v.begin(), 2);
-  v.insert(v.begin(), 3);
+  // v.insert(v.begin(), 3);
   // v.insert(v.begin(), arr, arr + 3);
   print_vector(v);
   // print_vector(v);
@@ -78,15 +80,15 @@ int main() {
   // v.pop_back();
   // print_vector(v);
 
-  ft::vector<int> v2;
-  v2.push_back(3);
-  v2.push_back(2);
-  v2.push_back(1);
-  v2.push_back(9);
-  v2.push_back(9);
-  v2.push_back(9);
-  v2.push_back(9);
-  cout << "v == v2? " << std::boolalpha << (v == v2) << '\n';
+  // ft::vector<int> v2;
+  // v2.push_back(3);
+  // v2.push_back(2);
+  // v2.push_back(1);
+  // v2.push_back(9);
+  // v2.push_back(9);
+  // v2.push_back(9);
+  // v2.push_back(9);
+  // cout << "v == v2? " << std::boolalpha << (v == v2) << '\n';
 
   // ft::vector<string> v(3, string("ay"));
   // v.push_back("hello");
