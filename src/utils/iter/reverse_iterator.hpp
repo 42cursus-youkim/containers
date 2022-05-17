@@ -8,10 +8,12 @@ template <class Iterator>
 class reverse_iterator {
  public:
   typedef Iterator iterator_type;
-  typedef typename ft::iterator_traits<Iterator>::Distance difference_type;
-  typedef typename ft::iterator_traits<Iterator>::Pointer pointer;
-  typedef typename ft::iterator_traits<Iterator>::Reference reference;
-  typedef typename ft::iterator_traits<Iterator>::Category iterator_category;
+  typedef
+      typename ft::iterator_traits<Iterator>::difference_type difference_type;
+  typedef typename ft::iterator_traits<Iterator>::pointer pointer;
+  typedef typename ft::iterator_traits<Iterator>::reference reference;
+  typedef typename ft::iterator_traits<Iterator>::iterator_category
+      iterator_category;
 
  protected:
   Iterator current_;

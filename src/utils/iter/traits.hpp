@@ -5,8 +5,8 @@
 
 namespace ft {
 
-template <class Iterator>
-class iterator_traits {
+template <typename Iterator>
+struct iterator_traits {
   typedef typename Iterator::iterator_category iterator_category;
   typedef typename Iterator::value_type value_type;
   typedef typename Iterator::difference_type difference_type;
@@ -15,8 +15,8 @@ class iterator_traits {
 };
 
 /// partial specialization for pointer types
-template <class T>
-class iterator_traits<T*> {
+template <typename T>
+struct iterator_traits<T*> {
   typedef random_access_iterator_tag iterator_category;
   typedef T value_type;
   typedef std::ptrdiff_t difference_type;
@@ -25,8 +25,8 @@ class iterator_traits<T*> {
 };
 
 /// partial specialization for constant pointer types
-template <class T>
-class iterator_traits<const T*> {
+template <typename T>
+struct iterator_traits<const T*> {
   typedef random_access_iterator_tag iterator_category;
   typedef T value_type;
   typedef std::ptrdiff_t difference_type;
