@@ -15,65 +15,36 @@ class reverse_iterator {
   typedef typename ft::iterator_traits<Iterator>::iterator_category
       iterator_category;
 
- protected:
+ private:
   Iterator current_;
 
  public:
   /// default constructor
-  reverse_iterator() : current_(){};
-
+  reverse_iterator();
+  /// initialization constructor
+  explicit reverse_iterator(iterator_type it);
   /// copy constructor
   template <class Iter>
-  reverse_iterator(const reverse_iterator<Iter>& rev_it)
-      : current_(rev_it.base()) {}
+  reverse_iterator(const reverse_iterator<Iter>& rev_it);
 
-  /// initializatioon constructor
-  explicit reverse_iterator(iterator_type it) : current_(it){};
-
-  iterator_type base() const { return current_; }
+  /// getters
+  iterator_type base() const;
 
   /// operator
-  reference operator*() const { return current_[-1]; }
-  pointer operator->() const { return &(operator*()); }
-  reference operator[](difference_type n) const { return current_[-1 - n]; }
+  reference operator*() const;
+  pointer operator->() const;
+  reference operator[](difference_type n) const;
 
-  reverse_iterator operator+(difference_type n) const {
-    return reverse_iterator(current_ - n);
-  }
-  reverse_iterator operator-(difference_type n) const {
-    return reverse_iterator(current_ + n);
-  }
+  reverse_iterator operator+(difference_type n) const;
+  reverse_iterator operator-(difference_type n) const;
 
-  reverse_iterator& operator+=(difference_type n) {
-    current_ -= n;
-    return *this;
-  }
-  reverse_iterator& operator-=(difference_type n) {
-    current_ += n;
-    return *this;
-  }
+  reverse_iterator& operator+=(difference_type n);
+  reverse_iterator& operator-=(difference_type n);
 
-  reverse_iterator& operator++() {
-    --current_;
-    return *this;
-  }
-
-  reverse_iterator operator++(int) {
-    reverse_iterator temp(current_);
-    --current_;
-    return temp;
-  }
-
-  reverse_iterator& operator--() {
-    ++current_;
-    return *this;
-  }
-
-  reverse_iterator operator--(int) {
-    reverse_iterator temp(current_);
-    ++current_;
-    return temp;
-  }
+  reverse_iterator& operator++();
+  reverse_iterator operator++(int);
+  reverse_iterator& operator--();
+  reverse_iterator operator--(int);
 };
 
 }  // namespace ft

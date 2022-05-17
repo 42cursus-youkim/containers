@@ -450,6 +450,7 @@ template <class T, class Allocator>
 typename VEC::const_reverse_iterator VEC::rend() const {
   return const_reverse_iterator(begin());
 }
+
 /// non-member function overloads
 
 /// relational operators
