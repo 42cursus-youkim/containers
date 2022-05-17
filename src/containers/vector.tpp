@@ -4,6 +4,7 @@
 #include <utils/general/lexicographical_compare.hpp>
 #include <utils/tmp/enable_if.hpp>
 #include <utils/tmp/is_integral.hpp>
+#include <utils/general/nullptr.hpp>
 #include "utils/util/util.hpp"
 #include "vector.hpp"
 
@@ -14,17 +15,17 @@ namespace ft {
 /// default constructor (empty)
 template <class T, class Allocator>
 VEC::vector(const Allocator& alloc)
-    : data_start_(NULL),
-      data_end_(NULL),
-      capacity_ptr_(NULL),
+    : data_start_(u_nullptr),
+      data_end_(u_nullptr),
+      capacity_ptr_(u_nullptr),
       allocator_(alloc) {}
 
 /// fill constructor (container with n val)
 template <class T, class Allocator>
 VEC::vector(size_type n, const T& val, const Allocator& alloc)
-    : data_start_(NULL),
-      data_end_(NULL),
-      capacity_ptr_(NULL),
+    : data_start_(u_nullptr),
+      data_end_(u_nullptr),
+      capacity_ptr_(u_nullptr),
       allocator_(alloc) {
   insert(begin(), n, val);
 }
@@ -35,9 +36,9 @@ template <class InputIterator>
 VEC::vector(InputIterator first,
             InputIterator last,
             const typename VEC::allocator_type& alloc)
-    : data_start_(NULL),
-      data_end_(NULL),
-      capacity_ptr_(NULL),
+    : data_start_(u_nullptr),
+      data_end_(u_nullptr),
+      capacity_ptr_(u_nullptr),
       allocator_(alloc) {
   typedef typename is_integral<InputIterator>::type is_integral;
   initialize_dispatch(first, last, is_integral());
@@ -62,9 +63,9 @@ void VEC::initialize_dispatch(InputIterator first,
 /// copy constructor
 template <class T, class Allocator>
 VEC::vector(const vector& other)
-    : data_start_(NULL),
-      data_end_(NULL),
-      capacity_ptr_(NULL),
+    : data_start_(u_nullptr),
+      data_end_(u_nullptr),
+      capacity_ptr_(u_nullptr),
       allocator_(other.get_allocator()) {
   insert(begin(), other.begin(), other.end());
 }
@@ -131,8 +132,7 @@ void VEC::assign_dispatch(Integer n, Integer val, true_type) {
 
 template <class T, class Allocator>
 template <typename InputIterator>
-void VEC::assign_dispatch(InputIterator first, InputIterator last,
-false_type) {
+void VEC::assign_dispatch(InputIterator first, InputIterator last, false_type) {
   clear();
   insert(begin(), first, last);
 }

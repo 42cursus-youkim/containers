@@ -1,17 +1,17 @@
-#ifndef GENERAL_NULLPTR_HPP
-#define GENERAL_NULLPTR_HPP
+#ifndef GENERAL_u_nullptrPTR_HPP
+#define GENERAL_u_nullptrPTR_HPP
 
 namespace ft {
 
 const class nullptr_t {
  public:
-  /// converts to any type pointer that is NULL
+  /// converts to any type pointer that is u_nullptr
   template <typename T>
   operator T*() const {
     return 0;
   }
 
-  /// converts to any member NULL pointer
+  /// converts to any member u_nullptr pointer
   template <typename C, typename T>
   operator T C::*() const {
     return 0;
@@ -25,4 +25,4 @@ const class nullptr_t {
 
 }  // namespace ft
 
-#endif  // GENERAL_NULLPTR_HPP
+#endif  // GENERAL_u_nullptrPTR_HPP
