@@ -8,20 +8,20 @@ namespace ft {
 /// operator
 
 template <typename T1, typename T2>
-pair<T1, T2>& pair<T1, T2>::operator=(const pair<T1, T2>& p) {
-  if (this != &p) {
-    first = p.first;
-    second = p.second;
+pair<T1, T2>& pair<T1, T2>::operator=(const pair<T1, T2>& other) {
+  if (this != &other) {
+    first = other.first;
+    second = other.second;
   }
   return *this;
 }
 
 template <class T1, class T2>
 ft::pair<const T1, T2>& ft::pair<const T1, T2>::operator=(
-    const ft::pair<const T1, T2>& p) {
-  if (this != &p) {
-    first = p.first;
-    second = p.second;
+    const ft::pair<const T1, T2>& other) {
+  if (this != &other) {
+    first = other.first;
+    second = other.second;
   }
   return *this;
 }
@@ -40,23 +40,23 @@ bool operator!=(const pair<T1, T2>& left, const pair<T1, T2>& right) {
 
 template <typename T1, typename T2>
 bool operator<(const pair<T1, T2>& left, const pair<T1, T2>& right) {
-  return left.first < right.first or
+  return (left.first < right.first) or
          (not(right.first < left.first) and left.second < right.second);
 }
 
 template <typename T1, typename T2>
 bool operator>(const pair<T1, T2>& left, const pair<T1, T2>& right) {
-  return left > right;
+  return right < left;  // NOTE: right and left position reversed
 }
 
 template <typename T1, typename T2>
 bool operator<=(const pair<T1, T2>& left, const pair<T1, T2>& right) {
-  return left == right or left < right;
+  return not(right < left);  // NOTE: right and left position reversed
 }
 
 template <typename T1, typename T2>
 bool operator>=(const pair<T1, T2>& left, const pair<T1, T2>& right) {
-  return left == right or left > right;
+  return not(left < right);
 }
 
 /// make_pair
