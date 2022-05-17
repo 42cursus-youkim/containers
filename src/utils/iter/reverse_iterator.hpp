@@ -1,33 +1,20 @@
 #ifndef ITER_REVERSE_ITERATOR_HPP
 #define ITER_REVERSE_ITERATOR_HPP
 
-#include "iterator.hpp"
 #include "traits.hpp"
-
-#define IT_TRAIT(name) typedef typename ft::iterator_traits<Iterator>::name
 
 namespace ft {
 template <class Iterator>
-class reverse_iterator
-    : public ft::iterator<
-          typename ft::iterator_traits<Iterator>::iterator_category,
-          typename ft::iterator_traits<Iterator>::value_type,
-          typename ft::iterator_traits<Iterator>::difference_type,
-          typename ft::iterator_traits<Iterator>::pointer,
-          typename ft::iterator_traits<Iterator>::reference> {
+class reverse_iterator {
  public:
   typedef Iterator iterator_type;
-  IT_TRAIT(Distance) difference_type;
-  IT_TRAIT(Pointer) pointer;
-  IT_TRAIT(Reference) reference;
-  IT_TRAIT(Category) iterator_category;
+  typedef typename ft::iterator_traits<Iterator>::Distance difference_type;
+  typedef typename ft::iterator_traits<Iterator>::Pointer pointer;
+  typedef typename ft::iterator_traits<Iterator>::Reference reference;
+  typedef typename ft::iterator_traits<Iterator>::Category iterator_category;
 
  protected:
   Iterator current_;
-  pointer get_last_element() {
-    iterator_type temp(current_);
-    return --temp;
-  }
 
  public:
   /// default constructor
@@ -47,9 +34,7 @@ class reverse_iterator
   reference operator*() const;
   // reference operator*() const { return *(get_last_element()); }
   pointer operator->() const { return &(operator*()); }
-  reference operator[](difference_type n) const {
-    return *(get_last_element() - n);
-  }
+  reference operator[](difference_type n) const { return current_[-1 - n]; }
 
   reverse_iterator operator+(difference_type n) const {
     return reverse_iterator(current_ - n);

@@ -17,7 +17,7 @@ class vector {
   /// base type
   typedef T value_type;
   typedef Allocator allocator_type;
-  typedef ptrdiff_t difference_type;
+  typedef std::ptrdiff_t difference_type;
   typedef size_t size_type;
 
   /// pointers and reference
@@ -27,8 +27,8 @@ class vector {
   typedef typename allocator_type::const_pointer const_pointer;
 
   /// iterators
-  typedef std::iterator iterator;
-  typedef std::const_iterator const_iterator;
+  typedef pointer iterator;
+  typedef const_pointer const_iterator;
   typedef ft::reverse_iterator<iterator> reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
