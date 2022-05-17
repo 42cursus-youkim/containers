@@ -5,11 +5,11 @@
 
 namespace ft {
 
-template <class Category,
-          class T,
-          class Distance = ptrdiff_t,
-          class Pointer = T*,
-          class Reference = T&>
+template <typename Category,
+          typename T,
+          typename Distance = ptrdiff_t,
+          typename Pointer = T*,
+          typename Reference = T&>
 class iterator {
  public:
   typedef T value_type;

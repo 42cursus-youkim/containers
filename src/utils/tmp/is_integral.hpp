@@ -33,7 +33,7 @@
 namespace ft {
 
 /// default false
-template <class T>
+template <typename T>
 struct is_integral : public false_type {};
 
 /// sfinae helper

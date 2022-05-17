@@ -7,7 +7,7 @@
 #include <utils/rbtree/node.hpp>
 
 namespace ft {
-template <class T, class Compare>
+template <typename T, typename Compare>
 class rb_tree {
  public:
   // * typedef
@@ -314,7 +314,7 @@ class rb_tree {
     }
   }
 
-  node_pointer& find_pos(node_pointer& parent, const_reference data) {
+  node_pointer& find_pos(node_pointer & parent, const_reference data) {
     node_pointer node = root();
     node_pointer* p_node = rootPtr();
 
@@ -346,10 +346,8 @@ class rb_tree {
     return _end->left;
   }
 
-  node_pointer& find_pos(iterator hint,
-                         node_pointer& parent,
-                         node_pointer& dummy,
-                         const_reference data) {
+  node_pointer& find_pos(iterator hint, node_pointer & parent,
+                         node_pointer & dummy, const_reference data) {
     if (hint == end() || _comp(data, *hint)) {
       iterator prev = hint;
       if (hint == begin() || _comp(*--prev, data)) {
@@ -402,7 +400,7 @@ class rb_tree {
   }
 
   // * opearations
-  template <class Key>
+  template <typename Key>
   iterator find(const Key& k) {
     iterator it = lower_bound(k);
     if (it != end() && !_comp(k, *it))
@@ -410,7 +408,7 @@ class rb_tree {
     return end();
   }
 
-  template <class Key>
+  template <typename Key>
   const_iterator find(const Key& k) const {
     const_iterator it = lower_bound(k);
     if (it != end() && !_comp(k, *it))
@@ -418,7 +416,7 @@ class rb_tree {
     return end();
   }
 
-  template <class Key>
+  template <typename Key>
   iterator lower_bound(const Key& k) {
     node_pointer root_node = root();
     node_pointer ret = _end;
@@ -432,7 +430,7 @@ class rb_tree {
     return iterator(ret);
   }
 
-  template <class Key>
+  template <typename Key>
   const_iterator lower_bound(const Key& k) const {
     node_pointer root_node = root();
     node_pointer ret = _end;
@@ -446,7 +444,7 @@ class rb_tree {
     return const_iterator(ret);
   }
 
-  template <class Key>
+  template <typename Key>
   iterator upper_bound(const Key& k) {
     node_pointer root_node = root();
     node_pointer ret = _end;
@@ -461,7 +459,7 @@ class rb_tree {
     return iterator(ret);
   }
 
-  template <class Key>
+  template <typename Key>
   const_iterator upper_bound(const Key& k) const {
     node_pointer root_node = root();
     node_pointer ret = _end;
@@ -477,7 +475,7 @@ class rb_tree {
   }
 
   // * modifiers
-  void swap(rb_tree& x) {
+  void swap(rb_tree & x) {
     std::swap(_end, x._end);
     std::swap(_begin, x._begin);
     std::swap(_comp, x._comp);
@@ -524,7 +522,7 @@ class rb_tree {
     return iterator(ret);
   }
 
-  template <class InputIterator>
+  template <typename InputIterator>
   void insert(InputIterator first, InputIterator last) {
     for (; first != last; ++first)
       insert(*first);

@@ -1,12 +1,12 @@
 #ifndef RBTREE_NODE_HPP
 #define RBTREE_NODE_HPP
 
-#include <utils/general/nullptr.hpp>
 #include <memory>
+#include <utils/general/nullptr.hpp>
 
 namespace ft {
 
-template <class T, class Alloc = std::allocator<T> >
+template <typename T, typename Alloc = std::allocator<T> >
 class rb_node {
  public:
   typedef T value_type;

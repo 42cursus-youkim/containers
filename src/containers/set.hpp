@@ -11,12 +11,11 @@
 #include <utils/rbtree/rbtree.hpp>
 
 namespace ft {
-template <class T1>
+template <typename T1>
 class set_const_iterator;
 
-
 // * iterator
-template <class Iterator>
+template <typename Iterator>
 class set_iterator {
  public:
   typedef typename Iterator::value_type value_type;
@@ -82,7 +81,7 @@ class set_iterator {
 };
 
 // * const_iterator
-template <class Iterator>
+template <typename Iterator>
 class set_const_iterator {
  public:
   typedef typename Iterator::value_type value_type;
@@ -149,9 +148,9 @@ class set_const_iterator {
   }
 };
 
-template <class T,
-          class Compare = std::less<T>,
-          class Alloc = std::allocator<T> >
+template <typename T,
+          typename Compare = std::less<T>,
+          typename Alloc = std::allocator<T> >
 class set {
  public:
   // * typedef
@@ -187,7 +186,7 @@ class set {
                const allocator_type& alloc = allocator_type())
       : _comp(comp), _alloc(alloc), _tree(value_compare(comp)) {}
 
-  template <class InputIterator>
+  template <typename InputIterator>
   set(InputIterator first,
       InputIterator last,
       const key_compare& comp = key_compare(),
@@ -247,7 +246,7 @@ class set {
     return _tree.insert(position.base(), val);
   }
 
-  template <class InputIterator>
+  template <typename InputIterator>
   void insert(InputIterator first, InputIterator last) {
     _tree.insert(first, last);
   }
@@ -312,41 +311,41 @@ class set {
   allocator_type get_allocator() const { return _alloc; }
 };
 
-template <class T, class Comp, class Allocator>
+template <typename T, typename Comp, typename Allocator>
 bool operator==(const set<T, Comp, Allocator>& x,
                 const set<T, Comp, Allocator>& y) {
   return x.size() == y.size() && ft::equal(x.begin(), x.end(), y.begin());
 }
 
-template <class T, class Comp, class Allocator>
+template <typename T, typename Comp, typename Allocator>
 bool operator!=(const set<T, Comp, Allocator>& x,
                 const set<T, Comp, Allocator>& y) {
   return !(x == y);
 }
 
-template <class T, class Comp, class Allocator>
+template <typename T, typename Comp, typename Allocator>
 bool operator<(const set<T, Comp, Allocator>& x,
                const set<T, Comp, Allocator>& y) {
   return ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
 }
 
-template <class T, class Comp, class Allocator>
+template <typename T, typename Comp, typename Allocator>
 bool operator>(const set<T, Comp, Allocator>& x,
                const set<T, Comp, Allocator>& y) {
   return y < x;
 }
 
-template <class T, class Comp, class Allocator>
+template <typename T, typename Comp, typename Allocator>
 bool operator<=(const set<T, Comp, Allocator>& x,
                 const set<T, Comp, Allocator>& y) {
   return !(y < x);
 }
 
-template <class T, class Comp, class Allocator>
+template <typename T, typename Comp, typename Allocator>
 bool operator>=(const set<T, Comp, Allocator>& x,
                 const set<T, Comp, Allocator>& y) {
   return !(x < y);
 }
 }  // namespace ft
 
-#endif // CONTAINERS_SET_HPP
+#endif  // CONTAINERS_SET_HPP

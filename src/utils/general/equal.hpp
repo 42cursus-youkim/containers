@@ -3,7 +3,9 @@
 
 namespace ft {
 
-template <class InputIterator1, class InputIterator2, class BinaryPredicate>
+template <typename InputIterator1,
+          typename InputIterator2,
+          typename BinaryPredicate>
 static inline bool is_equal(InputIterator1 it1,
                             InputIterator2 it2,
                             BinaryPredicate predicate) {
@@ -11,7 +13,7 @@ static inline bool is_equal(InputIterator1 it1,
 }
 
 /// check for equality
-template <class InputIterator1, class InputIterator2>
+template <typename InputIterator1, typename InputIterator2>
 bool equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2) {
   for (; first1 != last1; ++first1, ++first2) {
     if (*first1 != *first2)
@@ -21,7 +23,9 @@ bool equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2) {
 }
 
 /// uses predicate
-template <class InputIterator1, class InputIterator2, class BinaryPredicate>
+template <typename InputIterator1,
+          typename InputIterator2,
+          typename BinaryPredicate>
 bool equal(InputIterator1 first1,
            InputIterator1 last1,
            InputIterator2 first2,

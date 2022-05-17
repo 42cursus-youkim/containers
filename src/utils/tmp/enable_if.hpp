@@ -2,10 +2,10 @@
 #define ENABLE_IF_HPP
 
 namespace ft {
-template <bool Cond, class T = void>
+template <bool Cond, typename T = void>
 struct enable_if {};
 
-template <class T>
+template <typename T>
 struct enable_if<true, T> {
   typedef T type;
 };

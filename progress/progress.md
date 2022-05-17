@@ -1,5 +1,6 @@
 written / tested
 
+- [ ][ ] Set
 - [ ][ ] Map
 - [x][x] Stack
 - [x][x] Vector

@@ -11,7 +11,7 @@
 #define FT_VECTOR_INITIAL_SIZE 8
 
 namespace ft {
-template <class T, class Allocator = std::allocator<T> >
+template <typename T, typename Allocator = std::allocator<T> >
 class vector {
  public:
   /// base type
@@ -48,7 +48,7 @@ class vector {
                   const value_type& val = value_type(),
                   const allocator_type& alloc = allocator_type());
 
-  template <class InputIterator>
+  template <typename InputIterator>
   vector(InputIterator first,
          InputIterator last,
          const allocator_type& alloc = allocator_type());
@@ -95,7 +95,7 @@ class vector {
 
   /// modifiers
   /// range
-  template <class InputIterator>
+  template <typename InputIterator>
   void assign(InputIterator first, InputIterator last);
   /// fill
   void assign(size_type n, const value_type& val);
@@ -108,7 +108,7 @@ class vector {
   /// fill
   void insert(iterator position, size_type n, const value_type& val);
   /// range
-  template <class InputIterator>
+  template <typename InputIterator>
   void insert(iterator position, InputIterator first, InputIterator last);
 
   iterator erase(iterator position);
@@ -156,32 +156,32 @@ class vector {
 /// non-member function overloads
 
 /// relational operators
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 bool operator==(const vector<T, Allocator>& left,
                 const vector<T, Allocator>& right);
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 bool operator!=(const vector<T, Allocator>& left,
                 const vector<T, Allocator>& right);
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 bool operator<(const vector<T, Allocator>& left,
                const vector<T, Allocator>& right);
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 bool operator<=(const vector<T, Allocator>& left,
                 const vector<T, Allocator>& right);
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 bool operator>(const vector<T, Allocator>& left,
                const vector<T, Allocator>& right);
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 bool operator>=(const vector<T, Allocator>& left,
                 const vector<T, Allocator>& right);
 
 /// swap
-template <class T, class Alloc>
+template <typename T, typename Alloc>
 void swap(vector<T, Alloc>& x, vector<T, Alloc>& y);
 
 }  // namespace ft

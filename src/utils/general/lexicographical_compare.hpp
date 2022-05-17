@@ -4,7 +4,7 @@
 namespace ft {
 
 /// helper function for lexicographical_compare
-template <class InputIterator1, class InputIterator2, class Compare>
+template <typename InputIterator1, typename InputIterator2, typename Compare>
 static inline bool is_right_bigger(InputIterator1 it1,
                                    InputIterator2 it2,
                                    Compare comp) {
@@ -12,7 +12,7 @@ static inline bool is_right_bigger(InputIterator1 it1,
   return comp(*it1, *it2);
 }
 
-template <class InputIterator1, class InputIterator2, class Compare>
+template <typename InputIterator1, typename InputIterator2, typename Compare>
 static inline bool is_left_bigger(InputIterator1 it1,
                                   InputIterator2 it2,
                                   Compare comp) {
@@ -20,7 +20,7 @@ static inline bool is_left_bigger(InputIterator1 it1,
 }
 
 /// default
-template <class InputIterator1, class InputIterator2>
+template <typename InputIterator1, typename InputIterator2>
 bool lexicographical_compare(InputIterator1 first1,
                              InputIterator1 last1,
                              InputIterator2 first2,
@@ -35,7 +35,7 @@ bool lexicographical_compare(InputIterator1 first1,
 }
 
 /// use custom compare function
-template <class InputIterator1, class InputIterator2, class Compare>
+template <typename InputIterator1, typename InputIterator2, typename Compare>
 bool lexicographical_compare(InputIterator1 first1,
                              InputIterator1 last1,
                              InputIterator2 first2,

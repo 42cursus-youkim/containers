@@ -25,7 +25,7 @@ class reverse_iterator {
   /// initialization constructor
   explicit reverse_iterator(iterator_type it);
   /// copy constructor
-  template <class Iter>
+  template <typename Iter>
   reverse_iterator(const reverse_iterator<Iter>& rev_it);
 
   /// getters

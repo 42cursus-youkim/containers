@@ -20,7 +20,6 @@ const class nullptr_t {
  private:
   /// disable referencing (get its address)
   void operator&() const;
-
 } u_nullptr;
 
 }  // namespace ft

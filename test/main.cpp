@@ -53,7 +53,7 @@ std::ostream& operator<<(std::ostream& o, foo<T> const& bar) {
   o << bar.getValue();
   return o;
 }
-// --- End of class foo
+// --- End of typename foo
 
 template <typename T>
 T inc(T it, int n) {
