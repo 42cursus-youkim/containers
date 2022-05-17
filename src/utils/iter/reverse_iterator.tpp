@@ -33,7 +33,8 @@ reverse_iterator<Iterator>::base() const {
 template <typename Iterator>
 typename reverse_iterator<Iterator>::reference
 reverse_iterator<Iterator>::operator*() const {
-  return current_[-1];
+  Iterator temp(current_);
+  return *--temp;
 }
 
 template <typename Iterator>
