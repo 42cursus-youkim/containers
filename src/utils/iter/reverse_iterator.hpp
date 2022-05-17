@@ -4,7 +4,7 @@
 #include "traits.hpp"
 
 namespace ft {
-template <class Iterator>
+template <typename Iterator>
 class reverse_iterator {
  public:
   typedef Iterator iterator_type;
@@ -33,8 +33,7 @@ class reverse_iterator {
   iterator_type base() const { return current_; }
 
   /// operator
-  reference operator*() const;
-  // reference operator*() const { return *(get_last_element()); }
+  reference operator*() const { return current_[-1]; }
   pointer operator->() const { return &(operator*()); }
   reference operator[](difference_type n) const { return current_[-1 - n]; }
 

@@ -142,7 +142,6 @@ class vector {
                        false_type);
 
   /// implementation details
-
   iterator UninitializedFillN(iterator from,
                               size_type count,
                               const value_type& val);

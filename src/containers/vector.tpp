@@ -2,9 +2,9 @@
 #define VECTOR_VECTOR_TPP
 
 #include <utils/general/lexicographical_compare.hpp>
+#include <utils/general/nullptr.hpp>
 #include <utils/tmp/enable_if.hpp>
 #include <utils/tmp/is_integral.hpp>
-#include <utils/general/nullptr.hpp>
 #include "utils/util/util.hpp"
 #include "vector.hpp"
 
