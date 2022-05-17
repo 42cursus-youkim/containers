@@ -455,42 +455,42 @@ typename VEC::const_reverse_iterator VEC::rend() const {
 /// relational operators
 
 template <class T, class Allocator>
-bool operator==(const VEC& lhs, const VEC& rhs) {
-  if (lhs.size() != rhs.size())
+bool operator==(const VEC& left, const VEC& right) {
+  if (left.size() != right.size())
     return false;
-  typename vector<T>::const_iterator first1 = lhs.begin();
-  typename vector<T>::const_iterator first2 = rhs.begin();
-  for (; first1 != lhs.end(); ++first1, ++first2) {
-    if (first2 == rhs.end() or *first1 != *first2)
+  typename vector<T>::const_iterator first1 = left.begin();
+  typename vector<T>::const_iterator first2 = right.begin();
+  for (; first1 != left.end(); ++first1, ++first2) {
+    if (first2 == right.end() or *first1 != *first2)
       return false;
   }
   return true;
 }
 
 template <class T, class Allocator>
-bool operator!=(const VEC& lhs, const VEC& rhs) {
-  return not(lhs == rhs);
+bool operator!=(const VEC& left, const VEC& right) {
+  return not(left == right);
 }
 
 template <class T, class Allocator>
-bool operator<(const VEC& lhs, const VEC& rhs) {
-  return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(),
-                                 rhs.end());
+bool operator<(const VEC& left, const VEC& right) {
+  return lexicographical_compare(left.begin(), left.end(), right.begin(),
+                                 right.end());
 }
 
 template <class T, class Allocator>
-bool operator<=(const VEC& lhs, const VEC& rhs) {
-  return lhs == rhs or lhs < rhs;
+bool operator<=(const VEC& left, const VEC& right) {
+  return left == right or left < right;
 }
 
 template <class T, class Allocator>
-bool operator>(const VEC& lhs, const VEC& rhs) {
-  return rhs < lhs;
+bool operator>(const VEC& left, const VEC& right) {
+  return right < left;
 }
 
 template <class T, class Allocator>
-bool operator>=(const VEC& lhs, const VEC& rhs) {
-  return lhs == rhs or lhs > rhs;
+bool operator>=(const VEC& left, const VEC& right) {
+  return left == right or left > right;
 }
 
 template <class T, class Alloc>

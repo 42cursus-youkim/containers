@@ -29,34 +29,34 @@ ft::pair<const T1, T2>& ft::pair<const T1, T2>::operator=(
 /// relational operators
 
 template <typename T1, typename T2>
-bool operator==(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
-  return lhs.first == rhs.first and lhs.second == rhs.second;
+bool operator==(const pair<T1, T2>& left, const pair<T1, T2>& right) {
+  return left.first == right.first and left.second == right.second;
 }
 
 template <typename T1, typename T2>
-bool operator!=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
-  return not(lhs == rhs);
+bool operator!=(const pair<T1, T2>& left, const pair<T1, T2>& right) {
+  return not(left == right);
 }
 
 template <typename T1, typename T2>
-bool operator<(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
-  return lhs.first < rhs.first or
-         (not(rhs.first < lhs.first) and lhs.second < rhs.second);
+bool operator<(const pair<T1, T2>& left, const pair<T1, T2>& right) {
+  return left.first < right.first or
+         (not(right.first < left.first) and left.second < right.second);
 }
 
 template <typename T1, typename T2>
-bool operator>(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
-  return lhs > rhs;
+bool operator>(const pair<T1, T2>& left, const pair<T1, T2>& right) {
+  return left > right;
 }
 
 template <typename T1, typename T2>
-bool operator<=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
-  return lhs == rhs or lhs < rhs;
+bool operator<=(const pair<T1, T2>& left, const pair<T1, T2>& right) {
+  return left == right or left < right;
 }
 
 template <typename T1, typename T2>
-bool operator>=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
-  return lhs == rhs or lhs > rhs;
+bool operator>=(const pair<T1, T2>& left, const pair<T1, T2>& right) {
+  return left == right or left > right;
 }
 
 /// make_pair

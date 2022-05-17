@@ -157,28 +157,28 @@ class vector {
 
 /// relational operators
 template <class T, class Allocator>
-bool operator==(const vector<T, Allocator>& lhs,
-                const vector<T, Allocator>& rhs);
+bool operator==(const vector<T, Allocator>& left,
+                const vector<T, Allocator>& right);
 
 template <class T, class Allocator>
-bool operator!=(const vector<T, Allocator>& lhs,
-                const vector<T, Allocator>& rhs);
+bool operator!=(const vector<T, Allocator>& left,
+                const vector<T, Allocator>& right);
 
 template <class T, class Allocator>
-bool operator<(const vector<T, Allocator>& lhs,
-               const vector<T, Allocator>& rhs);
+bool operator<(const vector<T, Allocator>& left,
+               const vector<T, Allocator>& right);
 
 template <class T, class Allocator>
-bool operator<=(const vector<T, Allocator>& lhs,
-                const vector<T, Allocator>& rhs);
+bool operator<=(const vector<T, Allocator>& left,
+                const vector<T, Allocator>& right);
 
 template <class T, class Allocator>
-bool operator>(const vector<T, Allocator>& lhs,
-               const vector<T, Allocator>& rhs);
+bool operator>(const vector<T, Allocator>& left,
+               const vector<T, Allocator>& right);
 
 template <class T, class Allocator>
-bool operator>=(const vector<T, Allocator>& lhs,
-                const vector<T, Allocator>& rhs);
+bool operator>=(const vector<T, Allocator>& left,
+                const vector<T, Allocator>& right);
 
 /// swap
 template <class T, class Alloc>

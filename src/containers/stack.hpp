@@ -32,28 +32,28 @@ class stack {
 
   /// friend relational operator
   template <typename Tn, typename ContainerN>
-  friend bool operator==(const stack<Tn, ContainerN>& lhs,
-                         const stack<Tn, ContainerN>& rhs);
+  friend bool operator==(const stack<Tn, ContainerN>& left,
+                         const stack<Tn, ContainerN>& right);
 
   template <typename Tn, typename ContainerN>
-  friend bool operator!=(const stack<Tn, ContainerN>& lhs,
-                         const stack<Tn, ContainerN>& rhs);
+  friend bool operator!=(const stack<Tn, ContainerN>& left,
+                         const stack<Tn, ContainerN>& right);
 
   template <typename Tn, typename ContainerN>
-  friend bool operator<(const stack<Tn, ContainerN>& lhs,
-                        const stack<Tn, ContainerN>& rhs);
+  friend bool operator<(const stack<Tn, ContainerN>& left,
+                        const stack<Tn, ContainerN>& right);
 
   template <typename Tn, typename ContainerN>
-  friend bool operator<=(const stack<Tn, ContainerN>& lhs,
-                         const stack<Tn, ContainerN>& rhs);
+  friend bool operator<=(const stack<Tn, ContainerN>& left,
+                         const stack<Tn, ContainerN>& right);
 
   template <typename Tn, typename ContainerN>
-  friend bool operator>(const stack<Tn, ContainerN>& lhs,
-                        const stack<Tn, ContainerN>& rhs);
+  friend bool operator>(const stack<Tn, ContainerN>& left,
+                        const stack<Tn, ContainerN>& right);
 
   template <typename Tn, typename ContainerN>
-  friend bool operator>=(const stack<Tn, ContainerN>& lhs,
-                         const stack<Tn, ContainerN>& rhs);
+  friend bool operator>=(const stack<Tn, ContainerN>& left,
+                         const stack<Tn, ContainerN>& right);
 };
 
 }  // namespace ft

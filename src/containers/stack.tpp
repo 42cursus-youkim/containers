@@ -47,37 +47,39 @@ void stack<T, Container>::pop() {
 
 /// relational operator
 template <typename T, typename Container>
-bool operator==(const stack<T, Container>& lhs,
-                const stack<T, Container>& rhs) {
-  return lhs.container_ == rhs.container_;
+bool operator==(const stack<T, Container>& left,
+                const stack<T, Container>& right) {
+  return left.container_ == right.container_;
 }
 
 template <typename T, typename Container>
-bool operator!=(const stack<T, Container>& lhs,
-                const stack<T, Container>& rhs) {
-  return lhs.container_ != rhs.container_;
+bool operator!=(const stack<T, Container>& left,
+                const stack<T, Container>& right) {
+  return left.container_ != right.container_;
 }
 
 template <typename T, typename Container>
-bool operator<(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-  return lhs.container_ < rhs.container_;
+bool operator<(const stack<T, Container>& left,
+               const stack<T, Container>& right) {
+  return left.container_ < right.container_;
 }
 
 template <typename T, typename Container>
-bool operator<=(const stack<T, Container>& lhs,
-                const stack<T, Container>& rhs) {
-  return lhs.container_ <= rhs.container_;
+bool operator<=(const stack<T, Container>& left,
+                const stack<T, Container>& right) {
+  return left.container_ <= right.container_;
 }
 
 template <typename T, typename Container>
-bool operator>(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-  return lhs.container_ > rhs.container_;
+bool operator>(const stack<T, Container>& left,
+               const stack<T, Container>& right) {
+  return left.container_ > right.container_;
 }
 
 template <typename T, typename Container>
-bool operator>=(const stack<T, Container>& lhs,
-                const stack<T, Container>& rhs) {
-  return lhs.container_ >= rhs.container_;
+bool operator>=(const stack<T, Container>& left,
+                const stack<T, Container>& right) {
+  return left.container_ >= right.container_;
 }
 
 }  // namespace ft
