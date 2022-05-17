@@ -188,7 +188,6 @@ void VEC::insert_dispatch(iterator position,
                           Integer n,
                           Integer val,
                           true_type) {
-  // TODO: make these an implementation to fix DRY
   iterator new_position = RightShift(position, static_cast<size_type>(n));
   for (size_type i = 0; i < static_cast<size_type>(n); ++i)
     allocator_.construct(new_position + i, val);
@@ -200,12 +199,12 @@ void VEC::insert_dispatch(iterator position,
                           InputIterator first,
                           InputIterator last,
                           false_type) {
-  // TODO: make these an implementation to fix DRY
   const difference_type count = std::distance(first, last);
   iterator new_position = RightShift(position, static_cast<size_type>(count));
 
-  for (difference_type i = 0; i < count; ++i)
-    allocator_.construct(new_position + i, first[i]);
+  InputIterator it = first;
+  for (difference_type i = 0; i < count; ++i, ++it)
+    allocator_.construct(&new_position[i], *it);
 }
 
 template <class T, class Allocator>

@@ -9,11 +9,11 @@ namespace ft {
 
 /// default constructor
 template <typename Iterator>
-reverse_iterator<Iterator>::reverse_iterator() : current_(){};
+reverse_iterator<Iterator>::reverse_iterator() : current_(){}
 
 /// initialization constructor
 template <typename Iterator>
-reverse_iterator<Iterator>::reverse_iterator(iterator_type it) : current_(it){};
+reverse_iterator<Iterator>::reverse_iterator(iterator_type it) : current_(it){}
 
 /// copy constructor
 template <typename Iterator>
@@ -113,7 +113,7 @@ bool operator==(const reverse_iterator<Iterator1>& lhs,
 template <typename Iterator1, typename Iterator2>
 bool operator!=(const reverse_iterator<Iterator1>& lhs,
                 const reverse_iterator<Iterator2>& rhs) {
-  return lhs != rhs;
+  return lhs.base() != rhs.base();
 }
 
 template <typename Iterator1, typename Iterator2>

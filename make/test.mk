@@ -24,7 +24,7 @@ re:
 	$(MAKE) --no-print-directory all
 
 leak: all
-	colour-valgrind ./$(TARGET)
+	colour-valgrind --show-leak-kinds=all --leak-check=full ./$(TARGET)
 
 test-vec:
 	cd containers_test/ \
