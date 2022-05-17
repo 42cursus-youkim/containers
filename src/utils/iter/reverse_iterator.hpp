@@ -8,6 +8,7 @@ template <typename Iterator>
 class reverse_iterator {
  public:
   typedef Iterator iterator_type;
+  typedef typename ft::iterator_traits<Iterator>::value_type value_type;
   typedef
       typename ft::iterator_traits<Iterator>::difference_type difference_type;
   typedef typename ft::iterator_traits<Iterator>::pointer pointer;

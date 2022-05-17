@@ -1,6 +1,7 @@
 #ifndef ITER_TRAITS_HPP
 #define ITER_TRAITS_HPP
 
+#include <cstddef>
 #include "tag.hpp"
 
 namespace ft {
