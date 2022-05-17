@@ -119,25 +119,25 @@ bool operator!=(const reverse_iterator<Iterator1>& lhs,
 template <typename Iterator1, typename Iterator2>
 bool operator<(const reverse_iterator<Iterator1>& lhs,
                const reverse_iterator<Iterator2>& rhs) {
-  return rhs.base() > lhs.base();
+  return lhs.base() > rhs.base();
 }
 
 template <typename Iterator1, typename Iterator2>
 bool operator<=(const reverse_iterator<Iterator1>& lhs,
                 const reverse_iterator<Iterator2>& rhs) {
-  return rhs.base() >= lhs.base();
+  return lhs.base() >= rhs.base();
 }
 
 template <typename Iterator1, typename Iterator2>
 bool operator>(const reverse_iterator<Iterator1>& lhs,
                const reverse_iterator<Iterator2>& rhs) {
-  return rhs.base() < lhs.base();
+  return lhs.base() < rhs.base();
 }
 
 template <typename Iterator1, typename Iterator2>
 bool operator>=(const reverse_iterator<Iterator1>& lhs,
                 const reverse_iterator<Iterator2>& rhs) {
-  return rhs.base() <= lhs.base();
+  return lhs.base() <= rhs.base();
 }
 
 /// addition and subtraction operator
