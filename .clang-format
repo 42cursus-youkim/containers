@@ -2,3 +2,4 @@ Language: Cpp
 BasedOnStyle: chromium
 Standard: C++03
 ColumnLimit: 80
+AllowShortFunctionsOnASingleLine: All
