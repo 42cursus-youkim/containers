@@ -1,5 +1,5 @@
 Language: Cpp
 BasedOnStyle: chromium
 Standard: C++03
-ColumnLimit: 80
+ColumnLimit: 70
 AllowShortFunctionsOnASingleLine: All

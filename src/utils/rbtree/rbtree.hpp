@@ -3,6 +3,7 @@
 
 #include <limits>
 #include <utils/pair/pair.hpp>
+#include <utils/rbtree/const_iterator.hpp>
 #include <utils/rbtree/iterator.hpp>
 #include <utils/rbtree/node.hpp>
 
@@ -22,8 +23,8 @@ class rb_tree {
   typedef typename allocator_type::size_type size_type;
   typedef typename allocator_type::difference_type difference_type;
 
-  typedef ft::rb_tree_iterator<value_type, node_pointer> iterator;
-  typedef ft::rb_tree_const_iterator<value_type, node_pointer> const_iterator;
+  typedef ft::tree_iterator<value_type, node_pointer> iterator;
+  typedef ft::tree_const_iterator<value_type, node_pointer> const_iterator;
 
  private:
   // * private member
@@ -314,7 +315,7 @@ class rb_tree {
     }
   }
 
-  node_pointer& find_pos(node_pointer & parent, const_reference data) {
+  node_pointer& find_pos(node_pointer& parent, const_reference data) {
     node_pointer node = root();
     node_pointer* p_node = rootPtr();
 
@@ -346,8 +347,10 @@ class rb_tree {
     return _end->left;
   }
 
-  node_pointer& find_pos(iterator hint, node_pointer & parent,
-                         node_pointer & dummy, const_reference data) {
+  node_pointer& find_pos(iterator hint,
+                         node_pointer& parent,
+                         node_pointer& dummy,
+                         const_reference data) {
     if (hint == end() || _comp(data, *hint)) {
       iterator prev = hint;
       if (hint == begin() || _comp(*--prev, data)) {
@@ -475,7 +478,7 @@ class rb_tree {
   }
 
   // * modifiers
-  void swap(rb_tree & x) {
+  void swap(rb_tree& x) {
     std::swap(_end, x._end);
     std::swap(_begin, x._begin);
     std::swap(_comp, x._comp);
