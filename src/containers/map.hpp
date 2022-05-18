@@ -1,6 +1,8 @@
 #ifndef CONTAINERS_MAP_HPP
 #define CONTAINERS_MAP_HPP
 
+#include <containers/const_iter/map.hpp>
+#include <containers/iter/map.hpp>
 #include <functional>
 #include <memory>
 #include <utils/general/binary_function.hpp>
@@ -9,79 +11,7 @@
 #include <utils/iter/reverse_iterator.hpp>
 #include <utils/pair/pair.hpp>
 #include <utils/rbtree/rbtree.hpp>
-
 namespace ft {
-
-
-// * const_iterator
-template <typename Iterator>
-class map_const_iterator {
- public:
-  typedef typename Iterator::value_type value_type;
-  typedef typename Iterator::node_pointer node_pointer;
-  typedef typename Iterator::difference_type difference_type;
-  typedef typename Iterator::size_type size_type;
-  typedef const value_type* pointer;
-  typedef const value_type& reference;
-  typedef typename Iterator::iterator_category iterator_category;
-  typedef ft::map_iterator<typename Iterator::non_const_iterator>
-      non_const_iterator;
-
- private:
-  Iterator _it;
-
- public:
-  map_const_iterator() {}
-
-  map_const_iterator(const Iterator other) : _it(other) {}
-
-  map_const_iterator(non_const_iterator other) : _it(other.base()) {}
-
-  ~map_const_iterator() {}
-
-  map_const_iterator& operator=(const map_const_iterator& other) {
-    _it = other._it;
-    return (*this);
-  }
-
-  Iterator base() { return _it; }
-
-  reference operator*() const { return *_it; }
-
-  pointer operator->() const { return &(*_it); }
-
-  map_const_iterator& operator++() {
-    ++_it;
-    return *this;
-  }
-
-  map_const_iterator operator++(int) {
-    map_const_iterator temp(*this);
-    ++(*this);
-    return temp;
-  }
-
-  map_const_iterator& operator--() {
-    --_it;
-    return *this;
-  }
-
-  map_const_iterator operator--(int) {
-    map_const_iterator temp(*this);
-    --(*this);
-    return temp;
-  }
-
-  bool operator==(const map_const_iterator& other) const {
-    return this->_it == other._it;
-  }
-
-  bool operator!=(const map_const_iterator& other) const {
-    return this->_it != other._it;
-  }
-};
-
-/// actual map
 
 template <typename Key,
           typename T,
@@ -147,14 +77,16 @@ class map {
       : _comp(comp), _alloc(alloc), _tree(value_compare(comp)) {}
 
   template <typename InputIterator>
-  map(InputIterator first, InputIterator last,
+  map(InputIterator first,
+      InputIterator last,
       const key_compare& comp = key_compare(),
       const allocator_type& alloc = allocator_type())
       : _comp(comp), _alloc(alloc), _tree(value_compare(_comp)) {
     insert(first, last);
   }
 
-  map(const map& x) : _comp(x._comp), _alloc(x._alloc), _tree(x._tree) {}
+  map(const map& x)
+      : _comp(x._comp), _alloc(x._alloc), _tree(x._tree) {}
 
   ~map() {}
 
@@ -201,7 +133,8 @@ class map {
     //    iterator target = find(k);
     //    if (target != end())
     //      return (*target).second;
-    ft::pair<iterator, bool> p = insert(ft::make_pair(k, mapped_type()));
+    ft::pair<iterator, bool> p =
+        insert(ft::make_pair(k, mapped_type()));
     return (p.first)->second;
   }
 
@@ -235,7 +168,7 @@ class map {
       erase(first++);
   }
 
-  void swap(map & x) {
+  void swap(map& x) {
     _tree.swap(x._tree);
     std::swap(_comp, x._comp);
     std::swap(_alloc, x._alloc);
@@ -251,17 +184,25 @@ class map {
   // * operations
   iterator find(const key_type& k) { return _tree.find(k); }
 
-  const_iterator find(const key_type& k) const { return _tree.find(k); }
+  const_iterator find(const key_type& k) const {
+    return _tree.find(k);
+  }
 
-  size_type count(const key_type& k) const { return find(k) != end(); }
+  size_type count(const key_type& k) const {
+    return find(k) != end();
+  }
 
-  iterator lower_bound(const key_type& k) { return _tree.lower_bound(k); }
+  iterator lower_bound(const key_type& k) {
+    return _tree.lower_bound(k);
+  }
 
   const_iterator lower_bound(const key_type& k) const {
     return _tree.lower_bound(k);
   }
 
-  iterator upper_bound(const key_type& k) { return _tree.upper_bound(k); }
+  iterator upper_bound(const key_type& k) {
+    return _tree.upper_bound(k);
+  }
 
   const_iterator upper_bound(const key_type& k) const {
     return _tree.upper_bound(k);
@@ -271,8 +212,10 @@ class map {
     return pair<iterator, iterator>(lower_bound(k), upper_bound(k));
   }
 
-  pair<const_iterator, const_iterator> equal_range(const key_type& k) const {
-    return pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k));
+  pair<const_iterator, const_iterator> equal_range(
+      const key_type& k) const {
+    return pair<const_iterator, const_iterator>(lower_bound(k),
+                                                upper_bound(k));
   }
 
   // * allocator
@@ -282,7 +225,8 @@ class map {
 template <typename Key, typename T, typename Comp, typename Allocator>
 bool operator==(const map<Key, T, Comp, Allocator>& x,
                 const map<Key, T, Comp, Allocator>& y) {
-  return x.size() == y.size() && ft::equal(x.begin(), x.end(), y.begin());
+  return x.size() == y.size() &&
+         ft::equal(x.begin(), x.end(), y.begin());
 }
 
 template <typename Key, typename T, typename Comp, typename Allocator>
@@ -294,7 +238,8 @@ bool operator!=(const map<Key, T, Comp, Allocator>& x,
 template <typename Key, typename T, typename Comp, typename Allocator>
 bool operator<(const map<Key, T, Comp, Allocator>& x,
                const map<Key, T, Comp, Allocator>& y) {
-  return ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
+  return ft::lexicographical_compare(x.begin(), x.end(), y.begin(),
+                                     y.end());
 }
 
 template <typename Key, typename T, typename Comp, typename Allocator>
