@@ -24,85 +24,37 @@ class tree_const_iterator {
 
  public:
   // * constructor
-  tree_const_iterator() {}
+  tree_const_iterator();
+  tree_const_iterator(const node_pointer other);
+  tree_const_iterator(const tree_const_iterator& other);
+  tree_const_iterator(non_const_iterator other);
+  ~tree_const_iterator();
 
-  tree_const_iterator(const node_pointer x) : node_(x) {}
+  // Getters/Setters
 
-  tree_const_iterator(const tree_const_iterator& x) : node_(x.base()) {}
+  node_pointer base() const;
+  void tree_min(node_pointer node);
+  void tree_max(node_pointer node);
+  bool tree_is_left_child() const;
 
-  tree_const_iterator(non_const_iterator x) : node_(x.base()) {}
+  // Operators
+  reference operator*() const;
+  pointer operator->() const;
 
-  ~tree_const_iterator() {}
+  bool operator==(const tree_const_iterator& other) const;
+  bool operator!=(const tree_const_iterator& other) const;
 
-  node_pointer base() const { return node_; }
+  tree_const_iterator& operator=(const tree_const_iterator& other);
 
-  // * operations
-  void tree_min(node_pointer node) {
-    while (node->left != u_nullptr)
-      node = node->left;
-    node_ = node;
-  }
-
-  void tree_max(node_pointer node) {
-    while (node->right != u_nullptr)
-      node = node->right;
-    node_ = node;
-  }
-
-  tree_const_iterator& operator=(const tree_const_iterator& x) {
-    node_ = x.node_;
-    return (*this);
-  }
-
-  tree_const_iterator& operator++() {
-    if (node_->right != u_nullptr) {
-      tree_min(node_->right);
-      return *this;
-    }
-    while (!tree_is_left_child())
-      node_ = node_->parent;
-    node_ = node_->parent;
-    return *this;
-  }
-
-  tree_const_iterator operator++(int) {
-    tree_const_iterator temp(*this);
-    ++(*this);
-    return temp;
-  }
-
-  tree_const_iterator& operator--() {
-    if (node_->left != u_nullptr) {
-      tree_max(node_->left);
-      return *this;
-    }
-    while (tree_is_left_child())
-      node_ = node_->parent;
-    node_ = node_->parent;
-    return *this;
-  }
-
-  tree_const_iterator operator--(int) {
-    tree_const_iterator temp(*this);
-    --(*this);
-    return temp;
-  }
-
-  bool operator==(const tree_const_iterator& x) const {
-    return this->node_ == x.node_;
-  }
-
-  bool operator!=(const tree_const_iterator& x) const {
-    return this->node_ != x.node_;
-  }
-
-  reference operator*() const { return node_->data; }
-
-  pointer operator->() const { return &node_->data; }
-
-  bool tree_is_left_child() const { return node_ == node_->parent->left; }
+  tree_const_iterator& operator++();
+  tree_const_iterator operator++(int);
+  
+  tree_const_iterator& operator--();
+  tree_const_iterator operator--(int);
 };
 
 }  // namespace ft
+
+#include "const_iterator.tpp"
 
 #endif  // RBTREE_CONST_ITERATOR_HPP

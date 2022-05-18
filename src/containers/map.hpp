@@ -92,14 +92,14 @@ class map_const_iterator {
  public:
   map_const_iterator() {}
 
-  map_const_iterator(const Iterator x) : _it(x) {}
+  map_const_iterator(const Iterator other) : _it(other) {}
 
-  map_const_iterator(non_const_iterator x) : _it(x.base()) {}
+  map_const_iterator(non_const_iterator other) : _it(other.base()) {}
 
   ~map_const_iterator() {}
 
-  map_const_iterator& operator=(const map_const_iterator& x) {
-    _it = x._it;
+  map_const_iterator& operator=(const map_const_iterator& other) {
+    _it = other._it;
     return (*this);
   }
 
@@ -131,12 +131,12 @@ class map_const_iterator {
     return temp;
   }
 
-  bool operator==(const map_const_iterator& x) const {
-    return this->_it == x._it;
+  bool operator==(const map_const_iterator& other) const {
+    return this->_it == other._it;
   }
 
-  bool operator!=(const map_const_iterator& x) const {
-    return this->_it != x._it;
+  bool operator!=(const map_const_iterator& other) const {
+    return this->_it != other._it;
   }
 };
 

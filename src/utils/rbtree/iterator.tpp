@@ -3,6 +3,7 @@
 
 #include "iterator.hpp"
 namespace ft {
+
 /// Constructors & Destructor
 template <typename T, typename Node>
 tree_iterator<T, Node>::tree_iterator() {}
