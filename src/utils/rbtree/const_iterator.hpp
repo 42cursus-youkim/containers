@@ -56,5 +56,7 @@ class tree_const_iterator {
 }  // namespace ft
 
 #include "const_iterator.tpp"
+#include "const_iterator_getter.tpp"
+#include "const_iterator_operator.tpp"
 
 #endif  // RBTREE_CONST_ITERATOR_HPP

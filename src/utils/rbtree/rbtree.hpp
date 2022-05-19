@@ -26,6 +26,7 @@ class rbtree {
   typedef ft::tree_const_iterator<value_type, node_pointer>
       const_iterator;
 
+  /// implementaiton
  private:
   node_pointer   begin_;
   node_pointer   end_;
@@ -33,16 +34,6 @@ class rbtree {
   allocator_type alloc_;
   compare_type   comp_;
 
- public:
-  /// Constructors & Destructor
-  rbtree(const compare_type& comp = compare_type());
-  rbtree(const rbtree& other);
-  ~rbtree();
-
-  /// Operators
-  rbtree& operator=(const rbtree& other);
-
-  /// implementaiton
  private:
   node_pointer  root() const;
   node_pointer* rootPtr() const;
@@ -77,6 +68,16 @@ class rbtree {
                          node_pointer&   parent,
                          node_pointer&   dummy,
                          const_reference data);
+
+  /// interface
+ public:
+  /// Constructors & Destructor
+  rbtree(const compare_type& comp = compare_type());
+  rbtree(const rbtree& other);
+  ~rbtree();
+
+  /// Operators
+  rbtree& operator=(const rbtree& other);
 
  public:
   /// iterator

@@ -58,5 +58,7 @@ class tree_iterator {
 }  // namespace ft
 
 #include "iterator.tpp"
+#include "iterator_getter.tpp"
+#include "iterator_operator.tpp"
 
 #endif  // RBTREE_ITERATOR_HPP

@@ -6,7 +6,7 @@
 
 namespace ft {
 
-template <typename T, typename Alloc = std::allocator<T> >
+template <typename T, typename Allocator = std::allocator<T> >
 class rb_node {
  public:
   typedef T        value_type;
@@ -17,18 +17,12 @@ class rb_node {
   node_pointer     left, right, parent;
 
  public:
-  explicit rb_node() {
-    this->is_black = true;
-    this->left = this->right = this->parent = u_nullptr;
-  }
-
-  explicit rb_node(value_type data) {
-    this->data     = data;
-    this->is_black = false;
-    this->left = this->right = this->parent = u_nullptr;
-  }
+  explicit rb_node();
+  explicit rb_node(value_type data);
 };
 
 }  // namespace ft
+
+#include "node.tpp"
 
 #endif  // RBTREE_NODE_HPP
