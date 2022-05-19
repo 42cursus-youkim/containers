@@ -42,10 +42,6 @@ void rbtree<T, Compare>::rotate_right(node_pointer node) {
  *             |             |             |             |
  */
 
-/*
-
-*/
-
 template <typename T, typename Compare>
 void rbtree<T, Compare>::rotate_left(node_pointer node) {
   node_pointer right_child = node->right;

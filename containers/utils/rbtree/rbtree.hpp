@@ -48,6 +48,7 @@ class rbtree {
   /// rotate
   void          rotate_right(node_pointer node);
   void          rotate_left(node_pointer node);
+  
   void          rebuild_insert(node_pointer new_node);
 
   iterator      remove_node_pointer(node_pointer node);

@@ -9,14 +9,14 @@ template <typename T, typename Compare>
 pair<typename rbtree<T, Compare>::iterator, bool>
 rbtree<T, Compare>::insert(const_reference data) {
   node_pointer  Parent;
-  node_pointer  new_node = create_node(data);
   node_pointer& dest     = find_pos(Parent, data);
   node_pointer  ret      = dest;
   bool          inserted = false;
   if (dest == u_nullptr) {
-    dest         = new_node;
-    ret          = dest;
-    dest->parent = Parent;
+    node_pointer new_node = create_node(data);
+    dest                  = new_node;
+    ret                   = dest;
+    dest->parent          = Parent;
     if (begin_->has_left_child())
       begin_ = begin_->left;
     rebuild_insert(new_node);
@@ -32,14 +32,14 @@ typename rbtree<T, Compare>::iterator rbtree<T, Compare>::insert(
     const_reference data) {
   node_pointer  Parent;
   node_pointer  dummy;
-  node_pointer  new_node = create_node(data);
-  node_pointer& dest     = find_pos(hint, Parent, dummy, data);
-  node_pointer  ret      = dest;
+  node_pointer& dest = find_pos(hint, Parent, dummy, data);
+  node_pointer  ret  = dest;
 
   if (dest == u_nullptr) {
-    dest         = new_node;
-    ret          = dest;
-    dest->parent = Parent;
+    node_pointer new_node = create_node(data);
+    dest                  = new_node;
+    ret                   = dest;
+    dest->parent          = Parent;
     if (begin_->has_left_child())
       begin_ = begin_->left;
     rebuild_insert(new_node);
