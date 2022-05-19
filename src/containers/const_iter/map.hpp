@@ -14,7 +14,7 @@ class map_const_iterator {
   typedef typename Iterator::difference_type   difference_type;
   typedef typename Iterator::size_type         size_type;
   typedef const value_type*                    pointer;
-  typedef const value_type&                    reference; // FIXME
+  typedef const value_type&                    reference;
   typedef typename Iterator::iterator_category iterator_category;
   typedef ft::map_iterator<typename Iterator::non_const_iterator>
       non_const_iterator;
@@ -23,55 +23,35 @@ class map_const_iterator {
   Iterator _it;
 
  public:
-  map_const_iterator() {}
+  /// Constructors & Destructor
+  map_const_iterator();
+  map_const_iterator(const Iterator other);
+  map_const_iterator(non_const_iterator other);
+  ~map_const_iterator();
 
-  map_const_iterator(const Iterator other) : _it(other) {}
+  /// Copy Assignment Operator
+  map_const_iterator& operator=(const map_const_iterator& other);
 
-  map_const_iterator(non_const_iterator other) : _it(other.base()) {}
 
-  ~map_const_iterator() {}
+  /// Getters
+  Iterator            base();
 
-  map_const_iterator& operator=(const map_const_iterator& other) {
-    _it = other._it;
-    return (*this);
-  }
+  /// Operators
+  reference           operator*() const;
+  pointer             operator->() const;
 
-  Iterator            base() { return _it; }
+  map_const_iterator& operator++();
+  map_const_iterator  operator++(int);
 
-  reference           operator*() const { return *_it; }
+  map_const_iterator& operator--();
+  map_const_iterator  operator--(int);
 
-  pointer             operator->() const { return &(*_it); }
-
-  map_const_iterator& operator++() {
-    ++_it;
-    return *this;
-  }
-
-  map_const_iterator operator++(int) {
-    map_const_iterator temp(*this);
-    ++(*this);
-    return temp;
-  }
-
-  map_const_iterator& operator--() {
-    --_it;
-    return *this;
-  }
-
-  map_const_iterator operator--(int) {
-    map_const_iterator temp(*this);
-    --(*this);
-    return temp;
-  }
-
-  bool operator==(const map_const_iterator& other) const {
-    return this->_it == other._it;
-  }
-
-  bool operator!=(const map_const_iterator& other) const {
-    return this->_it != other._it;
-  }
+  bool operator==(const map_const_iterator& other) const;
+  bool operator!=(const map_const_iterator& other) const;
 };
 }  // namespace ft
+
+#include "map.tpp"
+#include "map_operator.tpp"
 
 #endif  // CONST_ITER_MAP_HPP

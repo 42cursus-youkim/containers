@@ -22,55 +22,30 @@ class set_const_iterator {
   Iterator _it;
 
  public:
-  set_const_iterator() {}
+  set_const_iterator();
+  set_const_iterator(const Iterator other);
+  set_const_iterator(non_const_iterator other);
+  ~set_const_iterator();
 
-  set_const_iterator(const Iterator x) : _it(x) {}
+  set_const_iterator& operator=(const set_const_iterator& other);
 
-  set_const_iterator(non_const_iterator x) : _it(x.base()) {}
+  Iterator            base() const;
 
-  ~set_const_iterator() {}
+  reference           operator*() const;
+  pointer             operator->() const;
 
-  set_const_iterator& operator=(const set_const_iterator& x) {
-    _it = x._it;
-    return (*this);
-  }
+  set_const_iterator& operator++();
+  set_const_iterator  operator++(int);
 
-  Iterator            base() const { return _it; }
+  set_const_iterator& operator--();
+  set_const_iterator  operator--(int);
 
-  reference           operator*() const { return *_it; }
-
-  pointer             operator->() const { return &(*_it); }
-
-  set_const_iterator& operator++() {
-    ++_it;
-    return *this;
-  }
-
-  set_const_iterator operator++(int) {
-    set_const_iterator temp(*this);
-    ++(*this);
-    return temp;
-  }
-
-  set_const_iterator& operator--() {
-    --_it;
-    return *this;
-  }
-
-  set_const_iterator operator--(int) {
-    set_const_iterator temp(*this);
-    --(*this);
-    return temp;
-  }
-
-  bool operator==(const set_const_iterator& x) const {
-    return this->_it == x._it;
-  }
-
-  bool operator!=(const set_const_iterator& x) const {
-    return this->_it != x._it;
-  }
+  bool operator==(const set_const_iterator& other) const;
+  bool operator!=(const set_const_iterator& other) const;
 };
 }  // namespace ft
+
+#include "set.tpp"
+#include "set_operator.tpp"
 
 #endif  // CONST_ITER_SET_HPP
