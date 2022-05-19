@@ -1,7 +1,14 @@
 {
   "configurations": [
     {
-      "name": "Launch containers test",
+      "name": "not my tester",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/_containers_test/a.out",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "my tester",
       "type": "lldb",
       "request": "launch",
       "program": "${workspaceFolder}/test.out",

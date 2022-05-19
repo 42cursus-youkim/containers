@@ -17,7 +17,7 @@ rbtree<T, Compare>::insert(const_reference data) {
     dest         = new_node;
     ret          = dest;
     dest->parent = Parent;
-    if (begin_->left != u_nullptr)
+    if (begin_->has_left_child())
       begin_ = begin_->left;
     rebuild_insert(new_node);
     inserted = true;
@@ -31,16 +31,16 @@ typename rbtree<T, Compare>::iterator rbtree<T, Compare>::insert(
     iterator        hint,
     const_reference data) {
   node_pointer  Parent;
-  node_pointer  new_node = create_node(data);
   node_pointer  dummy;
-  node_pointer& dest = find_pos(hint, Parent, dummy, data);
-  node_pointer  ret  = dest;
+  node_pointer  new_node = create_node(data);
+  node_pointer& dest     = find_pos(hint, Parent, dummy, data);
+  node_pointer  ret      = dest;
 
   if (dest == u_nullptr) {
     dest         = new_node;
     ret          = dest;
     dest->parent = Parent;
-    if (begin_->left != u_nullptr)
+    if (begin_->has_left_child())
       begin_ = begin_->left;
     rebuild_insert(new_node);
     ++size_;

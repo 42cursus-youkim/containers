@@ -9,7 +9,7 @@ template <typename T, typename Compare>
 void rbtree<T, Compare>::rotate_right(node_pointer node) {
   node_pointer left_child = node->left;
   node->left              = left_child->right;
-  if (node->left != u_nullptr)
+  if (node->has_left_child())
     node->left->parent = node;
   left_child->parent = node->parent;
   if (node->is_left_child())
@@ -90,8 +90,7 @@ void rbtree<T, Compare>::rebuild_insert(node_pointer new_node) {
         rotate_right(new_node);
         break;
       }
-      }
-    else {
+    } else {
       node_pointer uncle = new_node->parent->parent->left;
       if (uncle != u_nullptr and not uncle->is_black) {
         new_node           = new_node->parent;
@@ -136,7 +135,7 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
           ? node
           : next_node(node);
   node_pointer succesor =
-      remove->left != u_nullptr ? remove->left : remove->right;
+      remove->has_left_child() ? remove->left : remove->right;
   node_pointer sibling = u_nullptr;
   if (succesor != u_nullptr)
     succesor->parent = remove->parent;
@@ -160,7 +159,7 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
     remove->left         = node->left;
     remove->left->parent = remove;
     remove->right        = node->right;
-    if (remove->right != u_nullptr)
+    if (remove->has_right_child())
       remove->right->parent = remove;
     remove->is_black = node->is_black;
     if (root == node)
@@ -277,7 +276,7 @@ rbtree<T, Compare>::find_pos(node_pointer&   parent,
   if (node != u_nullptr) {
     while (true) {
       if (comp_(data, node->data)) {
-        if (node->left != u_nullptr) {
+        if (node->has_left_child()) {
           p_node = &(node->left);
           node   = node->left;
         } else {
@@ -285,7 +284,7 @@ rbtree<T, Compare>::find_pos(node_pointer&   parent,
           return parent->left;
         }
       } else if (comp_(node->data, data)) {
-        if (node->right != u_nullptr) {
+        if (node->has_right_child()) {
           p_node = &node->right;
           node   = node->right;
         } else {

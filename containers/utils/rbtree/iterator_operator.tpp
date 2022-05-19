@@ -37,7 +37,7 @@ tree_iterator<T, Node>& tree_iterator<T, Node>::operator=(
 
 template <typename T, typename Node>
 tree_iterator<T, Node>& tree_iterator<T, Node>::operator++() {
-  if (node_->right != u_nullptr) {
+  if (node_->has_right_child()) {
     tree_min(node_->right);
     return *this;
   }
@@ -56,7 +56,7 @@ tree_iterator<T, Node> tree_iterator<T, Node>::operator++(int) {
 
 template <typename T, typename Node>
 tree_iterator<T, Node>& tree_iterator<T, Node>::operator--() {
-  if (node_->left != u_nullptr) {
+  if (node_->has_left_child()) {
     tree_max(node_->left);
     return *this;
   }
@@ -74,4 +74,4 @@ tree_iterator<T, Node> tree_iterator<T, Node>::operator--(int) {
 }
 }  // namespace ft
 
-#endif // RBTREE_ITERATOR_OPERATOR_TPP
+#endif  // RBTREE_ITERATOR_OPERATOR_TPP

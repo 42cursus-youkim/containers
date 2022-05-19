@@ -12,14 +12,14 @@ tree_iterator<T, Node>::base() const {
 
 template <typename T, typename Node>
 void tree_iterator<T, Node>::tree_min(node_pointer node) {
-  while (node->left != u_nullptr)
+  while (node->has_left_child())
     node = node->left;
   node_ = node;
 }
 
 template <typename T, typename Node>
 void tree_iterator<T, Node>::tree_max(node_pointer node) {
-  while (node->right != u_nullptr)
+  while (node->has_right_child())
     node = node->right;
   node_ = node;
 }
@@ -30,4 +30,4 @@ bool tree_iterator<T, Node>::tree_is_left_child() const {
 }
 }  // namespace ft
 
-#endif // RBTREE_ITERATOR_GETTER_TPP
+#endif  // RBTREE_ITERATOR_GETTER_TPP
