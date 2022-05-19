@@ -107,7 +107,7 @@ class map {
   key_compare    key_comp() const;
   value_compare  value_comp() const;
 
-  // * operations
+  // operations
   iterator       find(const key_type& key);
   const_iterator find(const key_type& key) const;
   size_type      count(const key_type& key) const;
@@ -127,7 +127,6 @@ class map {
 #include "map_compare.tpp"
 #include "map_element.tpp"
 #include "map_find.tpp"
-#include "map_impl.tpp"
 #include "map_iter.tpp"
 #include "map_modifier.tpp"
 #include "map_property.tpp"

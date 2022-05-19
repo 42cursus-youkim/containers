@@ -123,6 +123,16 @@
       "tsconfig.json": "tsconfig.*.json",
       "package.json": "package-lock.json, yarn.lock",
       "*.hpp": "${capture}_*.tpp, ${capture}.tpp, ${capture}.cpp"
+    },
+    "editor.tokenColorCustomizations": {
+      "textMateRules": [
+        {
+          "scope": "entity.name.function.member.cpp",
+          "settings": {
+            "fontStyle": "bold"
+          }
+        }
+      ]
     }
   }
 }
