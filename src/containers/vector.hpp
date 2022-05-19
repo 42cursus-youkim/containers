@@ -196,5 +196,12 @@ void swap(vector<T, Alloc>& x, vector<T, Alloc>& y);
 }  // namespace ft
 
 #include "vector.tpp"
+#include "vector_element.tpp"
+#include "vector_impl.tpp"
+#include "vector_iter.tpp"
+#include "vector_modifier.tpp"
+#include "vector_nonmember.tpp"
+#include "vector_property.tpp"
+#include "vector_relational.tpp"
 
 #endif  // VECTOR_VECTOR_HPP

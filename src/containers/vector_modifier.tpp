@@ -1,0 +1,145 @@
+#ifndef CONTAINERS_VECTOR_MODIFIER_TPP
+#define CONTAINERS_VECTOR_MODIFIER_TPP
+
+#include "vector.hpp"
+
+namespace ft {
+
+/// range
+template <class T, class Allocator>
+template <class InputIterator>
+void VEC::assign(InputIterator first, InputIterator last) {
+  // clear();
+  // insert(begin(), first, last);
+  typedef typename is_integral<InputIterator>::type is_integral;
+  assign_dispatch(first, last, is_integral());
+}
+
+/// fill
+template <class T, class Allocator>
+void VEC::assign(size_type n, const value_type& val) {
+  /// TODO: make it into FILL_ASSIGN impl
+  clear();
+  insert(begin(), n, val);
+}
+
+template <class T, class Allocator>
+template <typename Integer>
+void VEC::assign_dispatch(Integer n, Integer val, true_type) {
+  clear();
+  insert(begin(), n, val);
+}
+
+template <class T, class Allocator>
+template <typename InputIterator>
+void VEC::assign_dispatch(InputIterator first,
+                          InputIterator last,
+                          false_type) {
+  clear();
+  insert(begin(), first, last);
+}
+
+template <class T, class Allocator>
+void VEC::push_back(const value_type& val) {
+  if (size() == capacity())
+    reserve(GetNewCapacity(size() + 1));
+  allocator_.construct(data_end_, val);
+  ++data_end_;
+}
+
+template <class T, class Allocator>
+void VEC::pop_back() {
+  allocator_.destroy(data_end_ - 1);
+  --data_end_;
+}
+
+/// single element
+template <class T, class Allocator>
+typename VEC::iterator VEC::insert(iterator          position,
+                                   const value_type& val) {
+#ifdef FT_VECTOR_DEBUG
+  FUN << "pos: " << position << " value: " << val << END "\n";
+#endif
+  iterator new_position = RightShift(position, 1);
+
+#ifdef FT_VECTOR_DEBUG
+  FUN << "new position: " << Index(new_position) << END "\n";
+#endif
+  allocator_.construct(new_position, val);
+  return new_position;
+}
+
+/// fill
+template <class T, class Allocator>
+void VEC::insert(iterator          position,
+                 size_type         n,
+                 const value_type& val) {
+  iterator new_position = RightShift(position, n);
+  for (size_type i = 0; i < n; ++i)
+    allocator_.construct(new_position + i, val);
+}
+
+/// range
+template <class T, class Allocator>
+template <class InputIterator>
+void VEC::insert(iterator      position,
+                 InputIterator first,
+                 InputIterator last) {
+  typedef typename is_integral<InputIterator>::type is_integral;
+  insert_dispatch(position, first, last, is_integral());
+}
+
+template <class T, class Allocator>
+template <class Integer>
+void VEC::insert_dispatch(iterator position,
+                          Integer  n,
+                          Integer  val,
+                          true_type) {
+  iterator new_position =
+      RightShift(position, static_cast<size_type>(n));
+  for (size_type i = 0; i < static_cast<size_type>(n); ++i)
+    allocator_.construct(new_position + i, val);
+}
+
+template <class T, class Allocator>
+template <class InputIterator>
+void VEC::insert_dispatch(iterator      position,
+                          InputIterator first,
+                          InputIterator last,
+                          false_type) {
+  const difference_type count = std::distance(first, last);
+  iterator              new_position =
+      RightShift(position, static_cast<size_type>(count));
+
+  InputIterator it = first;
+  for (difference_type i = 0; i < count; ++i, ++it)
+    allocator_.construct(&new_position[i], *it);
+}
+
+template <class T, class Allocator>
+typename VEC::iterator VEC::erase(iterator position) {
+  return LeftShift(position, 1);
+}
+
+template <class T, class Allocator>
+typename VEC::iterator VEC::erase(iterator first, iterator last) {
+  return LeftShift(first, size_type(std::distance(first, last)));
+}
+
+template <class T, class Allocator>
+void VEC::swap(vector& other) {
+  std::swap(data_start_, other.data_start_);
+  std::swap(data_end_, other.data_end_);
+  std::swap(capacity_ptr_, other.capacity_ptr_);
+  std::swap(allocator_, other.allocator_);
+}
+
+template <class T, class Allocator>
+void VEC::clear() {
+  for (iterator it = data_start_; it != data_end_; ++it)
+    allocator_.destroy(it);
+  data_end_ = data_start_;
+}
+}  // namespace ft
+
+#endif // CONTAINERS_VECTOR_MODIFIER_TPP
