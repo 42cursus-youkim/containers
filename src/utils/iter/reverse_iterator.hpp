@@ -52,5 +52,8 @@ class reverse_iterator {
 }  // namespace ft
 
 #include "reverse_iterator.tpp"
+#include "reverse_iterator_arithmatic.tpp"
+#include "reverse_iterator_operator.tpp"
+#include "reverse_iterator_relational.tpp"
 
 #endif  // ITER_REVERSE_ITERATOR_HPP

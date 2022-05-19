@@ -61,5 +61,6 @@ struct pair<const T1, T2> {
 }  // namespace ft
 
 #include "pair.tpp"
+#include "pair_relational.tpp"
 
 #endif  // PAIR_PAIR_HPP

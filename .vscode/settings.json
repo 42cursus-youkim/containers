@@ -1,4 +1,5 @@
 {
+  "editor.rulers": [70],
   "files.associations": {
     "**/*.pug": "jade",
     "**/*.h": "cpp",
