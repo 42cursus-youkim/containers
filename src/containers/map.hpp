@@ -37,7 +37,7 @@ class map {
   // value_compare
   class value_compare;
 
-  typedef ft::rb_tree<value_type, value_compare>         tree_type;
+  typedef ft::rbtree<value_type, value_compare>          tree_type;
   typedef ft::map_iterator<typename tree_type::iterator> iterator;
   typedef ft::map_const_iterator<typename tree_type::const_iterator>
                                                const_iterator;

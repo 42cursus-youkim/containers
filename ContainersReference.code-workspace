@@ -114,6 +114,15 @@
       "queue": "cpp",
       "stack": "cpp",
       "set": "cpp"
+    },
+    "explorer.fileNesting.patterns": {
+      "*.ts": "${capture}.js",
+      "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+      "*.jsx": "${capture}.js",
+      "*.tsx": "${capture}.ts",
+      "tsconfig.json": "tsconfig.*.json",
+      "package.json": "package-lock.json, yarn.lock",
+      "*.hpp": "${capture}_*.tpp, ${capture}.tpp, ${capture}.cpp"
     }
   }
 }

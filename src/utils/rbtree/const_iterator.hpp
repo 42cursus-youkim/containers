@@ -9,14 +9,14 @@ template <class T, class NodePtr>
 class tree_const_iterator {
   // * typedef
  public:
-  typedef T                               value_type;
-  typedef const T*                        pointer;
-  typedef const T&                        reference;
-  typedef NodePtr                         node_pointer;
-  typedef long                            difference_type;
-  typedef unsigned long                   size_type;
-  typedef std::bidirectional_iterator_tag iterator_category;
-  typedef ft::tree_iterator<T, NodePtr>   non_const_iterator;
+  typedef T                              value_type;
+  typedef const T*                       pointer;
+  typedef const T&                       reference;
+  typedef NodePtr                        node_pointer;
+  typedef long                           difference_type;
+  typedef unsigned long                  size_type;
+  typedef ft::bidirectional_iterator_tag iterator_category;
+  typedef ft::tree_iterator<T, NodePtr>  non_const_iterator;
 
  private:
   // * private member
