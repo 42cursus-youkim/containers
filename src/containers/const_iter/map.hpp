@@ -14,7 +14,7 @@ class map_const_iterator {
   typedef typename Iterator::difference_type   difference_type;
   typedef typename Iterator::size_type         size_type;
   typedef const value_type*                    pointer;
-  typedef const value_type&                    reference;
+  typedef const value_type&                    reference; // FIXME
   typedef typename Iterator::iterator_category iterator_category;
   typedef ft::map_iterator<typename Iterator::non_const_iterator>
       non_const_iterator;
