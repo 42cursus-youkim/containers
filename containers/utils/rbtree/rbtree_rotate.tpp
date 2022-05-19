@@ -127,7 +127,7 @@ template <typename T, typename Compare>
 void rbtree<T, Compare>::remove_node(node_pointer root,
                                      node_pointer node) {
   node_pointer remove =
-      (node->left == u_nullptr || node->right == u_nullptr)
+      (node->left == u_nullptr or node->right == u_nullptr)
           ? node
           : next_node(node);
   node_pointer succesor =
@@ -175,13 +175,13 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
               root = sibling;
             sibling = sibling->left->right;
           }
-          if ((sibling->left == u_nullptr ||
+          if ((sibling->left == u_nullptr or
                sibling->left->is_black) and
-              (sibling->right == u_nullptr ||
+              (sibling->right == u_nullptr or
                sibling->right->is_black)) {
             sibling->is_black = false;
             succesor          = sibling->parent;
-            if (succesor == root || !succesor->is_black) {
+            if (succesor == root or !succesor->is_black) {
               succesor->is_black = true;
               break;
             }
@@ -189,7 +189,7 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
                           ? succesor->parent->right
                           : succesor->parent->left;
           } else {
-            if (sibling->right == u_nullptr ||
+            if (sibling->right == u_nullptr or
                 sibling->right->is_black) {
               sibling->left->is_black = true;
               sibling->is_black       = false;
@@ -211,13 +211,13 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
               root = sibling;
             sibling = sibling->right->left;
           }
-          if ((sibling->left == u_nullptr ||
+          if ((sibling->left == u_nullptr or
                sibling->left->is_black) and
-              (sibling->right == u_nullptr ||
+              (sibling->right == u_nullptr or
                sibling->right->is_black)) {
             sibling->is_black = false;
             succesor          = sibling->parent;
-            if (!succesor->is_black || succesor == root) {
+            if (!succesor->is_black or succesor == root) {
               succesor->is_black = true;
               break;
             }
@@ -225,7 +225,7 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
                           ? succesor->parent->right
                           : succesor->parent->left;
           } else {
-            if (sibling->left == u_nullptr ||
+            if (sibling->left == u_nullptr or
                 sibling->left->is_black) {
               sibling->right->is_black = true;
               sibling->is_black        = false;
@@ -303,9 +303,9 @@ rbtree<T, Compare>::find_pos(iterator        hint,
                              node_pointer&   parent,
                              node_pointer&   dummy,
                              const_reference data) {
-  if (hint == end() || comp_(data, *hint)) {
+  if (hint == end() or comp_(data, *hint)) {
     iterator prev = hint;
-    if (hint == begin() || comp_(*--prev, data)) {
+    if (hint == begin() or comp_(*--prev, data)) {
       if (hint.base()->left == u_nullptr) {
         parent = hint.base();
         return parent->left;
@@ -318,7 +318,7 @@ rbtree<T, Compare>::find_pos(iterator        hint,
   } else if (comp_(*hint, data)) {
     iterator next = hint;
     ++next;
-    if (next == end() || comp_(data, *next)) {
+    if (next == end() or comp_(data, *next)) {
       if (hint.base()->right == u_nullptr) {
         parent = hint.base();
         return hint.base()->right;

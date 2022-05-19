@@ -34,7 +34,7 @@ class foo {
     return *this;
   };
   foo& operator=(foo const& src) {
-    if (this->_verbose || src._verbose)
+    if (this->_verbose or src._verbose)
       std::cout << "foo::operator=(foo) CALLED" << std::endl;
     this->value = src.value;
     return *this;

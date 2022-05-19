@@ -30,7 +30,7 @@ bool lexicographical_compare(InputIterator1 first1,
                              InputIterator2 first2,
                              InputIterator2 last2) {
   for (; first1 != last1; ++first1, ++first2) {
-    if (first2 == last2 || *first1 > *first2)
+    if (first2 == last2 or *first1 > *first2)
       return false;
     else if (*first1 < *first2)
       return true;
@@ -48,7 +48,7 @@ bool lexicographical_compare(InputIterator1 first1,
                              InputIterator2 last2,
                              Compare        comp) {
   for (; first1 != last1; ++first1, ++first2) {
-    if (first2 == last2 || is_left_bigger(first1, first2, comp))
+    if (first2 == last2 or is_left_bigger(first1, first2, comp))
       return false;
     else if (is_right_bigger(*first1, *first2, comp))
       return true;
