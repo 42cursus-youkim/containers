@@ -34,29 +34,8 @@ class map {
   typedef typename allocator_type::difference_type difference_type;
   typedef typename allocator_type::size_type       size_type;
 
-  // * value_compare typename
-  class value_compare
-      : public ft::binary_function<value_type, value_type, bool> {
-    friend class map;
-
-   protected:
-    key_compare comp;
-
-    value_compare(key_compare c) : comp(c) {}
-
-   public:
-    bool operator()(const value_type& x, const value_type& y) const {
-      return comp(x.first, y.first);
-    }
-
-    bool operator()(const value_type& x, const key_type& y) const {
-      return comp(x.first, y);
-    }
-
-    bool operator()(const key_type& x, const value_type& y) const {
-      return comp(x, y.first);
-    }
-  };
+  // value_compare
+  class value_compare;
 
   typedef ft::rb_tree<value_type, value_compare>         tree_type;
   typedef ft::map_iterator<typename tree_type::iterator> iterator;
@@ -66,31 +45,26 @@ class map {
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
  private:
-  // * private member
   key_compare    _comp;
   allocator_type _alloc;
   tree_type      _tree;
 
  public:
-  // * constructor
+  /// Constructors & Destructor
   explicit map(const key_compare&    comp  = key_compare(),
-               const allocator_type& alloc = allocator_type())
-      : _comp(comp), _alloc(alloc), _tree(value_compare(comp)) {}
+               const allocator_type& alloc = allocator_type());
 
   template <typename InputIterator>
   map(InputIterator         first,
       InputIterator         last,
       const key_compare&    comp  = key_compare(),
-      const allocator_type& alloc = allocator_type())
-      : _comp(comp), _alloc(alloc), _tree(value_compare(_comp)) {
-    insert(first, last);
-  }
+      const allocator_type& alloc = allocator_type());
 
-  map(const map& x)
-      : _comp(x._comp), _alloc(x._alloc), _tree(x._tree) {}
+  map(const map& other);
 
-  ~map() {}
+  ~map();
 
+  /// Operators
   map& operator=(const map& x) {
     if (this != &x) {
       this->clear();
@@ -259,5 +233,7 @@ bool operator>=(const map<Key, T, Comp, Allocator>& x,
 }
 
 }  // namespace ft
+
+#include "map.tpp"
 
 #endif  // CONTAINERS_MAP_HPP
