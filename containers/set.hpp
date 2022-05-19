@@ -1,9 +1,9 @@
-#ifndef CONTAINERS_MAP_HPP
-#define CONTAINERS_MAP_HPP
+#ifndef CONTAINERS_SET_HPP
+#define CONTAINERS_SET_HPP
 
-#include <containers/const_iter/map.hpp>
-#include <containers/iter/map.hpp>
+#include <const_iter/set.hpp>
 #include <functional>
+#include <iter/set.hpp>
 #include <memory>
 #include <utils/general/binary_function.hpp>
 #include <utils/general/equal.hpp>
@@ -11,22 +11,21 @@
 #include <utils/iter/reverse_iterator.hpp>
 #include <utils/pair/pair.hpp>
 #include <utils/rbtree/rbtree.hpp>
+
 namespace ft {
 
-template <typename Key,
-          typename T,
-          typename Compare = std::less<Key>,
-          typename Allocator =
-              std::allocator<ft::pair<const Key, T> > >
-class map {
+template <typename T,
+          typename Compare   = std::less<T>,
+          typename Allocator = std::allocator<T> >
+class set {
  public:
   // * typedef
-  typedef Key                                      key_type;
-  typedef T                                        mapped_type;
-  typedef ft::pair<const key_type, mapped_type>    value_type;
+  typedef T                                        key_type;
+  typedef T                                        value_type;
   typedef Compare                                  key_compare;
-  typedef Allocator                                allocator_type;
+  typedef Compare                                  value_compare;
 
+  typedef Allocator                                allocator_type;
   typedef typename allocator_type::reference       reference;
   typedef typename allocator_type::const_reference const_reference;
   typedef typename allocator_type::pointer         pointer;
@@ -34,12 +33,9 @@ class map {
   typedef typename allocator_type::difference_type difference_type;
   typedef typename allocator_type::size_type       size_type;
 
-  // value_compare
-  class value_compare;
-
-  typedef ft::rbtree<value_type, value_compare>          tree_type;
-  typedef ft::map_iterator<typename tree_type::iterator> iterator;
-  typedef ft::map_const_iterator<typename tree_type::const_iterator>
+  typedef ft::rbtree<value_type, key_compare>      tree_type;
+  typedef ft::set_iterator<typename tree_type::iterator> iterator;
+  typedef ft::set_const_iterator<typename tree_type::const_iterator>
                                                const_iterator;
   typedef ft::reverse_iterator<iterator>       reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
@@ -51,24 +47,20 @@ class map {
 
  public:
   /// Constructors & Destructor
-  explicit map(const key_compare&    comp  = key_compare(),
+  explicit set(const key_compare&    comp  = key_compare(),
                const allocator_type& alloc = allocator_type());
 
   template <typename InputIterator>
-  map(InputIterator         first,
+  set(InputIterator         first,
       InputIterator         last,
       const key_compare&    comp  = key_compare(),
       const allocator_type& alloc = allocator_type());
 
-  map(const map& other);
+  set(const set& other);
+  ~set();
 
-  ~map();
-
-  /// operators
-  map&                     operator=(const map& other);
-
-  /// allocator
-  allocator_type           get_allocator() const;
+  /// Operators
+  set&                     operator=(const set& other);
 
   /// iterator
   iterator                 begin();
@@ -86,21 +78,15 @@ class map {
   size_type                size() const;
   size_type                max_size() const;
 
-  /// element access
-  mapped_type&             operator[](const key_type& key);
-
   /// modifiers
   ft::pair<iterator, bool> insert(const value_type& val);
   iterator insert(iterator position, const value_type& val);
   template <typename InputIterator>
   void           insert(InputIterator first, InputIterator last);
-
   void           erase(iterator position);
-  size_type      erase(const key_type& key);
-
+  size_type      erase(const value_type& val);
   void           erase(iterator first, iterator last);
-  void           swap(map& other);
-
+  void           swap(set& other);
   void           clear();
 
   // observers
@@ -108,8 +94,8 @@ class map {
   value_compare  value_comp() const;
 
   // operations
-  iterator       find(const key_type& key);
-  const_iterator find(const key_type& key) const;
+  iterator       find(const value_type& val);
+  const_iterator find(const value_type& val) const;
   size_type      count(const key_type& key) const;
   iterator       lower_bound(const key_type& key);
   const_iterator lower_bound(const key_type& key) const;
@@ -118,18 +104,20 @@ class map {
   pair<iterator, iterator> equal_range(const key_type& key);
   pair<const_iterator, const_iterator> equal_range(
       const key_type& key) const;
-  ;
+
+  // allocator
+  allocator_type get_allocator() const;
 };
 
 }  // namespace ft
 
-#include "map.tpp"
-#include "map_compare.tpp"
-#include "map_element.tpp"
-#include "map_find.tpp"
-#include "map_iter.tpp"
-#include "map_modifier.tpp"
-#include "map_property.tpp"
-#include "map_relational.tpp"
+#include "set.tpp"
+#include "set_compare.tpp"
+#include "set_element.tpp"
+#include "set_find.tpp"
+#include "set_iter.tpp"
+#include "set_modifier.tpp"
+#include "set_property.tpp"
+#include "set_relational.tpp"
 
-#endif  // CONTAINERS_MAP_HPP
+#endif  // CONTAINERS_SET_HPP
