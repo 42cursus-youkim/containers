@@ -8,7 +8,7 @@ namespace ft {
 template <typename Key, typename T, typename Comp, typename Allocator>
 bool operator==(const map<Key, T, Comp, Allocator>& x,
                 const map<Key, T, Comp, Allocator>& y) {
-  return x.size() == y.size() &&
+  return x.size() == y.size() and
          ft::equal(x.begin(), x.end(), y.begin());
 }
 

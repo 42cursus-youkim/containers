@@ -32,3 +32,6 @@ also implement:
 ### typename vs class
 
 [](https://mariusbancila.ro/blog/2021/03/15/typename-or-class/)
+### rbtree
+[basics](https://www.youtube.com/watch?v=qvZGUFHWChY)
+[rotations](https://www.youtube.com/watch?v=95s3ndZRGbk)

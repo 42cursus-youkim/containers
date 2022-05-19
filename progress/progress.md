@@ -1,14 +1,14 @@
-written / tested
+stl / doc
 
 - [ ][ ] Set
 - [ ][ ] Map
-- [x][x] Stack
-- [x][x] Vector
-- [x][x] iterators_traits
-- [x][x] reverse_iterator
-- [x][x] enable_if
-- [x][x] is_integral
-- [x][ ] equal
-- [x][x] lexicographical_compare
-- [x][x] std::pair
-- [x][x] std::make_pair
+- [ ][ ] Stack
+- [ ][ ] Vector
+- [ ][ ] iterators_traits
+- [ ][ ] reverse_iterator
+- [ ][ ] enable_if
+- [ ][ ] is_integral
+- [ ][ ] equal
+- [ ][ ] lexicographical_compare
+- [ ][ ] std::pair
+- [ ][ ] std::make_pair

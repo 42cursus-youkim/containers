@@ -10,7 +10,7 @@ template <typename Key>
 typename rbtree<T, Compare>::iterator rbtree<T, Compare>::find(
     const Key& k) {
   iterator it = lower_bound(k);
-  if (it != end() && !comp_(k, *it))
+  if (it != end() and !comp_(k, *it))
     return it;
   return end();
 }
@@ -20,7 +20,7 @@ template <typename Key>
 typename rbtree<T, Compare>::const_iterator rbtree<T, Compare>::find(
     const Key& k) const {
   const_iterator it = lower_bound(k);
-  if (it != end() && !comp_(k, *it))
+  if (it != end() and !comp_(k, *it))
     return it;
   return end();
 }

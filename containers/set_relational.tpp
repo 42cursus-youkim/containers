@@ -8,14 +8,14 @@ namespace ft {
 template <typename T, typename Comp, typename Allocator>
 bool operator==(const set<T, Comp, Allocator>& other,
                 const set<T, Comp, Allocator>& y) {
-  return other.size() == y.size() &&
+  return other.size() == y.size() and
          ft::equal(other.begin(), other.end(), y.begin());
 }
 
 template <typename T, typename Comp, typename Allocator>
 bool operator!=(const set<T, Comp, Allocator>& other,
                 const set<T, Comp, Allocator>& y) {
-  return not (other == y);
+  return not(other == y);
 }
 
 template <typename T, typename Comp, typename Allocator>
@@ -45,4 +45,4 @@ bool operator>=(const set<T, Comp, Allocator>& other,
 
 }  // namespace ft
 
-#endif // CONTAINERS_SET_RELATIONAL_TPP
+#endif  // CONTAINERS_SET_RELATIONAL_TPP

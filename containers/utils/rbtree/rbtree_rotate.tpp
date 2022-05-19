@@ -4,7 +4,7 @@
 #include "rbtree.hpp"
 
 namespace ft {
-/// rotate
+
 template <typename T, typename Compare>
 void rbtree<T, Compare>::rotate_right(node_pointer node) {
   node_pointer left_child = node->left;
@@ -20,12 +20,48 @@ void rbtree<T, Compare>::rotate_right(node_pointer node) {
   node->parent      = left_child;
 }
 
+/**
+ * @note example of rotate_left:
+ *
+ * @b node[5]
+ * @b right_child<10>
+ * @b grand_child(8)
+ *
+ * 1. @b right_child<10> swaps position with @c node[5]
+ * 2. @b grand_child(8) becomes @c node[5] 's left child
+ *
+ *
+ *  @b start   |  @b step-1  |  @b step-2  |
+ *    [5]      |   [5]-<10>  |             |
+ *   /  \      |  /  \  (..) |             |
+ *  2  <10>    | 2   (8)     |             |
+ *     /  \    |    /  \     |             |
+ *   (8)  12   |   6   9     |             |
+ *   / \       |             |             |
+ *  6  9       |             |             |
+ *             |             |             |
+ */
+
+/*
+      <10>
+     /   \
+   [5]   12
+  /  \
+ 2   (8)
+     / \
+    6  9
+*/
+
 template <typename T, typename Compare>
 void rbtree<T, Compare>::rotate_left(node_pointer node) {
   node_pointer right_child = node->right;
-  node->right              = right_child->left;
+  node_pointer grand_child = right_child->left;
+
+  /// @b step-1: grand_child becomes node's left child
+  node->right = grand_child;
   if (node->right != u_nullptr)
     node->right->parent = node;
+  /// @b step-2
   right_child->parent = node->parent;
   if (is_left_child(node))
     node->parent->left = right_child;
@@ -38,10 +74,10 @@ void rbtree<T, Compare>::rotate_left(node_pointer node) {
 template <typename T, typename Compare>
 void rbtree<T, Compare>::rebuild_insert(node_pointer new_node) {
   new_node->is_black = new_node == root();
-  while (new_node != root() && !new_node->parent->is_black) {
+  while (new_node != root() and not new_node->parent->is_black) {
     if (is_left_child(new_node->parent)) {
       node_pointer uncle = new_node->parent->parent->right;
-      if (uncle != u_nullptr && !uncle->is_black) {
+      if (uncle != u_nullptr and !uncle->is_black) {
         new_node           = new_node->parent;
         new_node->is_black = true;
         new_node           = new_node->parent;
@@ -61,7 +97,7 @@ void rbtree<T, Compare>::rebuild_insert(node_pointer new_node) {
       }
     } else {
       node_pointer uncle = new_node->parent->parent->left;
-      if (uncle != u_nullptr && !uncle->is_black) {
+      if (uncle != u_nullptr and !uncle->is_black) {
         new_node           = new_node->parent;
         new_node->is_black = true;
         new_node           = new_node->parent;
@@ -133,7 +169,7 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
     if (root == node)
       root = remove;
   }
-  if (removed_black && root != u_nullptr) {
+  if (removed_black and root != u_nullptr) {
     if (succesor != u_nullptr)
       succesor->is_black = true;
     else {
@@ -148,7 +184,7 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
             sibling = sibling->left->right;
           }
           if ((sibling->left == u_nullptr ||
-               sibling->left->is_black) &&
+               sibling->left->is_black) and
               (sibling->right == u_nullptr ||
                sibling->right->is_black)) {
             sibling->is_black = false;
@@ -184,7 +220,7 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
             sibling = sibling->right->left;
           }
           if ((sibling->left == u_nullptr ||
-               sibling->left->is_black) &&
+               sibling->left->is_black) and
               (sibling->right == u_nullptr ||
                sibling->right->is_black)) {
             sibling->is_black = false;
