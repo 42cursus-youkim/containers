@@ -3,3 +3,5 @@ BasedOnStyle: chromium
 Standard: C++03
 ColumnLimit: 70
 AllowShortFunctionsOnASingleLine: All
+AlignConsecutiveAssignments: Consecutive
+AlignConsecutiveDeclarations: AcrossEmptyLinesAndComments

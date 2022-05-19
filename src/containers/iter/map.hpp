@@ -5,12 +5,12 @@ namespace ft {
 template <typename Iterator>
 class map_iterator {
  public:
-  typedef typename Iterator::value_type value_type;
-  typedef typename Iterator::node_pointer node_pointer;
-  typedef typename Iterator::pointer pointer;
-  typedef typename Iterator::reference reference;
-  typedef typename Iterator::difference_type difference_type;
-  typedef typename Iterator::size_type size_type;
+  typedef typename Iterator::value_type        value_type;
+  typedef typename Iterator::node_pointer      node_pointer;
+  typedef typename Iterator::pointer           pointer;
+  typedef typename Iterator::reference         reference;
+  typedef typename Iterator::difference_type   difference_type;
+  typedef typename Iterator::size_type         size_type;
   typedef typename Iterator::iterator_category iterator_category;
 
  private:
@@ -28,11 +28,11 @@ class map_iterator {
     return (*this);
   }
 
-  Iterator base() { return _it; }
+  Iterator      base() { return _it; }
 
-  reference operator*() const { return *_it; }
+  reference     operator*() const { return *_it; }
 
-  pointer operator->() const { return &(*_it); }
+  pointer       operator->() const { return &(*_it); }
 
   map_iterator& operator++() {
     ++_it;
@@ -67,4 +67,4 @@ class map_iterator {
 
 }  // namespace ft
 
-#endif // ITER_MAP_HPP
+#endif  // ITER_MAP_HPP

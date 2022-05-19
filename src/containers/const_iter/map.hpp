@@ -9,12 +9,12 @@ class map_iterator;
 template <typename Iterator>
 class map_const_iterator {
  public:
-  typedef typename Iterator::value_type value_type;
-  typedef typename Iterator::node_pointer node_pointer;
-  typedef typename Iterator::difference_type difference_type;
-  typedef typename Iterator::size_type size_type;
-  typedef const value_type* pointer;
-  typedef const value_type& reference;
+  typedef typename Iterator::value_type        value_type;
+  typedef typename Iterator::node_pointer      node_pointer;
+  typedef typename Iterator::difference_type   difference_type;
+  typedef typename Iterator::size_type         size_type;
+  typedef const value_type*                    pointer;
+  typedef const value_type&                    reference;
   typedef typename Iterator::iterator_category iterator_category;
   typedef ft::map_iterator<typename Iterator::non_const_iterator>
       non_const_iterator;
@@ -36,11 +36,11 @@ class map_const_iterator {
     return (*this);
   }
 
-  Iterator base() { return _it; }
+  Iterator            base() { return _it; }
 
-  reference operator*() const { return *_it; }
+  reference           operator*() const { return *_it; }
 
-  pointer operator->() const { return &(*_it); }
+  pointer             operator->() const { return &(*_it); }
 
   map_const_iterator& operator++() {
     ++_it;

@@ -8,9 +8,9 @@ namespace ft {
 template <typename T, typename Container = ft::vector<T> >
 class stack {
  public:
-  typedef T value_type;
+  typedef T         value_type;
   typedef Container container_type;
-  typedef size_t size_type;
+  typedef size_t    size_type;
 
  protected:
   container_type container_;
@@ -21,14 +21,14 @@ class stack {
   ~stack();
 
   /// getters
-  bool empty() const;
-  size_type size() const;
-  value_type& top();
+  bool              empty() const;
+  size_type         size() const;
+  value_type&       top();
   const value_type& top() const;
 
   /// modifiers
-  void push(const value_type& val);
-  void pop();
+  void              push(const value_type& val);
+  void              pop();
 
   /// friend relational operator
   template <typename Tn, typename ContainerN>

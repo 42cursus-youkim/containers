@@ -27,7 +27,7 @@
 
 #define PAIR_DOUBLE_ASGN(type, assign)        \
   std::type<T1, T2> std_##type = std::assign; \
-  ft::type<T1, T2> ft_##type = ft::assign;
+  ft::type<T1, T2>  ft_##type  = ft::assign;
 
 namespace test {
 namespace pair {

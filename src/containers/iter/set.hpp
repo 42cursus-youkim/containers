@@ -8,14 +8,14 @@ class set_const_iterator;
 template <typename Iterator>
 class set_iterator {
  public:
-  typedef typename Iterator::value_type value_type;
-  typedef typename Iterator::node_pointer node_pointer;
+  typedef typename Iterator::value_type        value_type;
+  typedef typename Iterator::node_pointer      node_pointer;
   //  typedef typename Iterator::pointer pointer;
   //  typedef typename Iterator::reference reference;
-  typedef const value_type* pointer;
-  typedef const value_type& reference;
-  typedef typename Iterator::difference_type difference_type;
-  typedef typename Iterator::size_type size_type;
+  typedef const value_type*                    pointer;
+  typedef const value_type&                    reference;
+  typedef typename Iterator::difference_type   difference_type;
+  typedef typename Iterator::size_type         size_type;
   typedef typename Iterator::iterator_category iterator_category;
   typedef ft::set_const_iterator<typename Iterator::const_iterator>
       const_iterator;
@@ -37,11 +37,11 @@ class set_iterator {
     return (*this);
   }
 
-  Iterator base() const { return _it; }
+  Iterator      base() const { return _it; }
 
-  reference operator*() const { return *_it; }
+  reference     operator*() const { return *_it; }
 
-  pointer operator->() const { return &(*_it); }
+  pointer       operator->() const { return &(*_it); }
 
   set_iterator& operator++() {
     ++_it;
@@ -75,4 +75,4 @@ class set_iterator {
 };
 }  // namespace ft
 
-#endif // ITER_SET_HPP
+#endif  // ITER_SET_HPP

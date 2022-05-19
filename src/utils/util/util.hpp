@@ -15,7 +15,8 @@ using std::string;
 
 #define LOG_VAL(x) logging::val(#x, x)
 
-#define LOG_CLASS_COPY logging::val(__func__, GRN "is copy constructed")
+#define LOG_CLASS_COPY \
+  logging::val(__func__, GRN "is copy constructed")
 #define LOG_CLASS                                        \
   do {                                                   \
     const string specialMethod = __func__;               \
@@ -35,12 +36,14 @@ void val(const string& str, T value) {
   cout << BBLU << str << HYEL ": " MAG << value << END "\n";
 }
 
-}  // namespace log
+}  // namespace logging
 
 // Test
 #define MSG_OK(str) cout << HWHT "✅ " BBLU << str << "\n" END;
-#define MSG_OK_SAME(expr1, expr2) MSG_OK(BGRN #expr1 BHWHT "==" BGRN #expr2)
-#define MSG_OK_DIFF(expr1, expr2) MSG_OK(BBLU #expr1 BHWHT "!=" BBLU #expr2)
+#define MSG_OK_SAME(expr1, expr2) \
+  MSG_OK(BGRN #expr1 BHWHT "==" BGRN #expr2)
+#define MSG_OK_DIFF(expr1, expr2) \
+  MSG_OK(BBLU #expr1 BHWHT "!=" BBLU #expr2)
 
 #define ASSERT_TRUE(expr) \
   do {                    \

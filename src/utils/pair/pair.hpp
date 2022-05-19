@@ -10,10 +10,10 @@ namespace ft {
  */
 template <typename T1, typename T2>
 struct pair {
-  typedef T1 first_type;
-  typedef T2 second_type;
+  typedef T1  first_type;
+  typedef T2  second_type;
 
-  first_type first;
+  first_type  first;
   second_type second;
 
   /// default constructor, value initialized.
@@ -21,10 +21,12 @@ struct pair {
 
   /// copy constructor.
   template <typename U, typename V>
-  pair(const pair<U, V>& other) : first(other.first), second(other.second) {}
+  pair(const pair<U, V>& other)
+      : first(other.first), second(other.second) {}
 
   /// initialization constructor.
-  pair(const first_type& a, const second_type& b) : first(a), second(b) {}
+  pair(const first_type& a, const second_type& b)
+      : first(a), second(b) {}
 
   /// assignment operator.
   pair& operator=(const pair& other);
@@ -34,10 +36,10 @@ struct pair {
 /// TODO: is it in standard?
 template <typename T1, typename T2>
 struct pair<const T1, T2> {
-  typedef T1 first_type;
-  typedef T2 second_type;
+  typedef T1  first_type;
+  typedef T2  second_type;
 
-  first_type first;
+  first_type  first;
   second_type second;
 
   /// default constructor, value initialized.
@@ -45,10 +47,12 @@ struct pair<const T1, T2> {
 
   /// copy constructor.
   template <typename U, typename V>
-  pair(const pair<U, V>& other) : first(other.first), second(other.second) {}
+  pair(const pair<U, V>& other)
+      : first(other.first), second(other.second) {}
 
   /// initialization constructor.
-  pair(const first_type& a, const second_type& b) : first(a), second(b) {}
+  pair(const first_type& a, const second_type& b)
+      : first(a), second(b) {}
 
   /// assignment operator.
   pair& operator=(const pair& other);

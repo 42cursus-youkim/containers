@@ -26,7 +26,8 @@ class foo {
     std::cout << "foo::m called [" << this->value << "]" << std::endl;
   };
   void m(void) const {
-    std::cout << "foo::m const called [" << this->value << "]" << std::endl;
+    std::cout << "foo::m const called [" << this->value << "]"
+              << std::endl;
   };
   foo& operator=(value_type src) {
     this->value = src;
@@ -45,7 +46,7 @@ class foo {
 
  private:
   value_type value;
-  bool _verbose;
+  bool       _verbose;
 };
 
 template <typename T>
@@ -72,7 +73,8 @@ T dec(T it, int n) {
 using std::cout;
 using std::string;
 // template <unsigned n>
-// struct factorial : ft::integral_constant<int, n * factorial<n - 1>::value>
+// struct factorial : ft::integral_constant<int, n * factorial<n -
+// 1>::value>
 // {};
 
 // template <>
@@ -87,7 +89,8 @@ using std::string;
 
 template <typename T>
 void print_vector(const TESTED_NAMESPACE::vector<T>& v) {
-  for (typename TESTED_NAMESPACE::vector<T>::const_iterator it = v.begin();
+  for (typename TESTED_NAMESPACE::vector<T>::const_iterator it =
+           v.begin();
        it != v.end(); ++it) {
     cout << *it << ", ";
   }
@@ -97,26 +100,30 @@ void print_vector(const TESTED_NAMESPACE::vector<T>& v) {
 template <typename T>
 void printSize(TESTED_NAMESPACE::vector<T> const& vct,
                bool print_content = true) {
-  const T_SIZE_TYPE size = vct.size();
-  const T_SIZE_TYPE capacity = vct.capacity();
+  const T_SIZE_TYPE size         = vct.size();
+  const T_SIZE_TYPE capacity     = vct.capacity();
   const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
-  // Cannot limit capacity's max value because it's implementation dependent
+  // Cannot limit capacity's max value because it's implementation
+  // dependent
 
   std::cout << "size: " << size << std::endl;
   std::cout << "capacity: " << isCapacityOk << std::endl;
   std::cout << "max_size: " << vct.max_size() << std::endl;
   if (print_content) {
-    typename TESTED_NAMESPACE::vector<T>::const_iterator it = vct.begin();
-    typename TESTED_NAMESPACE::vector<T>::const_iterator ite = vct.end();
+    typename TESTED_NAMESPACE::vector<T>::const_iterator it =
+        vct.begin();
+    typename TESTED_NAMESPACE::vector<T>::const_iterator ite =
+        vct.end();
     std::cout << std::endl << "Content is:" << std::endl;
     for (; it != ite; ++it)
       std::cout << "- " << *it << std::endl;
   }
-  std::cout << "###############################################" << std::endl;
+  std::cout << "###############################################"
+            << std::endl;
 }
 
 void checkErase(
-    TESTED_NAMESPACE::vector<TESTED_TYPE> const& vct,
+    TESTED_NAMESPACE::vector<TESTED_TYPE> const&                 vct,
     TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator const& it) {
   static int i = 0;
   std::cout << "[" << i++ << "] "
@@ -125,16 +132,18 @@ void checkErase(
 }
 
 int main(void) {
-  const int size = 5;
-  TESTED_NAMESPACE::vector<TESTED_TYPE> vct(size);
-  TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator it(vct.rbegin());
-  TESTED_NAMESPACE::vector<TESTED_TYPE>::const_reverse_iterator ite(vct.rend());
+  const int                                               size = 5;
+  TESTED_NAMESPACE::vector<TESTED_TYPE>                   vct(size);
+  TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator it(
+      vct.rbegin());
+  TESTED_NAMESPACE::vector<TESTED_TYPE>::const_reverse_iterator ite(
+      vct.rend());
 
   for (int i = 1; it != ite; ++i)
     *it++ = (i * 7);
   printSize(vct, 1);
 
-  it = vct.rbegin();
+  it  = vct.rbegin();
   ite = vct.rbegin();
 
   std::cout << *(++ite) << std::endl;

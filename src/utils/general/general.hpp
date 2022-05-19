@@ -16,4 +16,4 @@ std::string to_string(T value) {
 
 }  // namespace ft
 
-#endif // GENERAL_GENERAL_HPP
+#endif  // GENERAL_GENERAL_HPP
