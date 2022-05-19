@@ -64,176 +64,73 @@ class map {
 
   ~map();
 
-  /// Operators
-  map& operator=(const map& x) {
-    if (this != &x) {
-      this->clear();
-      alloc_ = x.alloc_;
-      comp_  = x.comp_;
-      insert(x.begin(), x.end());
-    }
-    return (*this);
-  }
+  /// operators
+  map&                     operator=(const map& other);
 
-  // * iterator
-  iterator         begin() { return tree_.begin(); }
+  /// allocator
+  allocator_type           get_allocator() const;
 
-  const_iterator   begin() const { return tree_.begin(); }
+  /// iterator
+  iterator                 begin();
+  const_iterator           begin() const;
+  iterator                 end();
+  const_iterator           end() const;
 
-  iterator         end() { return tree_.end(); }
+  reverse_iterator         rbegin();
+  const_reverse_iterator   rbegin() const;
+  reverse_iterator         rend();
+  const_reverse_iterator   rend() const;
 
-  const_iterator   end() const { return tree_.end(); }
+  /// capacity
+  bool                     empty() const;
+  size_type                size() const;
+  size_type                max_size() const;
 
-  reverse_iterator rbegin() { return reverse_iterator(tree_.end()); }
+  /// element access
+  mapped_type&             operator[](const key_type& key);
 
-  const_reverse_iterator rbegin() const {
-    return reverse_iterator(tree_.end());
-  }
-
-  reverse_iterator rend() { return reverse_iterator(tree_.begin()); }
-
-  const_reverse_iterator rend() const {
-    return reverse_iterator(tree_.begin());
-  }
-
-  // * capacity
-  bool         empty() const { return tree_.size() == 0; }
-
-  size_type    size() const { return tree_.size(); }
-
-  size_type    max_size() const { return tree_.max_size(); }
-
-  // * access
-  mapped_type& operator[](const key_type& k) {
-    ft::pair<iterator, bool> p =
-        insert(ft::make_pair(k, mapped_type()));
-    return (p.first)->second;
-  }
-
-  // * modifiers
-  ft::pair<iterator, bool> insert(const value_type& val) {
-    return tree_.insert(val);
-  }
-
-  iterator insert(iterator position, const value_type& val) {
-    return tree_.insert(position.base(), val);
-  }
-
+  /// modifiers
+  ft::pair<iterator, bool> insert(const value_type& val);
+  iterator insert(iterator position, const value_type& val);
   template <typename InputIterator>
-  void insert(InputIterator first, InputIterator last) {
-    tree_.insert(first, last);
-  }
+  void           insert(InputIterator first, InputIterator last);
 
-  void      erase(iterator position) { tree_.erase(position.base()); }
+  void           erase(iterator position);
+  size_type      erase(const key_type& key);
 
-  size_type erase(const key_type& k) {
-    iterator target = find(k);
-    if (target != end()) {
-      erase(target);
-      return 1;
-    }
-    return 0;
-  }
+  void           erase(iterator first, iterator last);
+  void           swap(map& other);
 
-  void erase(iterator first, iterator last) {
-    while (first != last)
-      erase(first++);
-  }
+  void           clear();
 
-  void swap(map& x) {
-    tree_.swap(x.tree_);
-    std::swap(comp_, x.comp_);
-    std::swap(alloc_, x.alloc_);
-  }
-
-  void           clear() { tree_.clear(); }
-
-  // * observers
-  key_compare    key_comp() const { return comp_; }
-
-  value_compare  value_comp() const { return value_compare(comp_); }
+  // observers
+  key_compare    key_comp() const;
+  value_compare  value_comp() const;
 
   // * operations
-  iterator       find(const key_type& k) { return tree_.find(k); }
-
-  const_iterator find(const key_type& k) const {
-    return tree_.find(k);
-  }
-
-  size_type count(const key_type& k) const {
-    return find(k) != end();
-  }
-
-  iterator lower_bound(const key_type& k) {
-    return tree_.lower_bound(k);
-  }
-
-  const_iterator lower_bound(const key_type& k) const {
-    return tree_.lower_bound(k);
-  }
-
-  iterator upper_bound(const key_type& k) {
-    return tree_.upper_bound(k);
-  }
-
-  const_iterator upper_bound(const key_type& k) const {
-    return tree_.upper_bound(k);
-  }
-
-  pair<iterator, iterator> equal_range(const key_type& k) {
-    return pair<iterator, iterator>(lower_bound(k), upper_bound(k));
-  }
-
+  iterator       find(const key_type& key);
+  const_iterator find(const key_type& key) const;
+  size_type      count(const key_type& key) const;
+  iterator       lower_bound(const key_type& key);
+  const_iterator lower_bound(const key_type& key) const;
+  iterator       upper_bound(const key_type& key);
+  const_iterator upper_bound(const key_type& key) const;
+  pair<iterator, iterator> equal_range(const key_type& key);
   pair<const_iterator, const_iterator> equal_range(
-      const key_type& k) const {
-    return pair<const_iterator, const_iterator>(lower_bound(k),
-                                                upper_bound(k));
-  }
-
-  // * allocator
-  allocator_type get_allocator() const { return alloc_; }
+      const key_type& key) const;
+  ;
 };
-
-template <typename Key, typename T, typename Comp, typename Allocator>
-bool operator==(const map<Key, T, Comp, Allocator>& x,
-                const map<Key, T, Comp, Allocator>& y) {
-  return x.size() == y.size() &&
-         ft::equal(x.begin(), x.end(), y.begin());
-}
-
-template <typename Key, typename T, typename Comp, typename Allocator>
-bool operator!=(const map<Key, T, Comp, Allocator>& x,
-                const map<Key, T, Comp, Allocator>& y) {
-  return !(x == y);
-}
-
-template <typename Key, typename T, typename Comp, typename Allocator>
-bool operator<(const map<Key, T, Comp, Allocator>& x,
-               const map<Key, T, Comp, Allocator>& y) {
-  return ft::lexicographical_compare(x.begin(), x.end(), y.begin(),
-                                     y.end());
-}
-
-template <typename Key, typename T, typename Comp, typename Allocator>
-bool operator>(const map<Key, T, Comp, Allocator>& x,
-               const map<Key, T, Comp, Allocator>& y) {
-  return y < x;
-}
-
-template <typename Key, typename T, typename Comp, typename Allocator>
-bool operator<=(const map<Key, T, Comp, Allocator>& x,
-                const map<Key, T, Comp, Allocator>& y) {
-  return !(y < x);
-}
-
-template <typename Key, typename T, typename Comp, typename Allocator>
-bool operator>=(const map<Key, T, Comp, Allocator>& x,
-                const map<Key, T, Comp, Allocator>& y) {
-  return !(x < y);
-}
 
 }  // namespace ft
 
 #include "map.tpp"
+#include "map_compare.tpp"
+#include "map_element.tpp"
+#include "map_find.tpp"
+#include "map_impl.tpp"
+#include "map_iter.tpp"
+#include "map_modifier.tpp"
+#include "map_property.tpp"
+#include "map_relational.tpp"
 
 #endif  // CONTAINERS_MAP_HPP

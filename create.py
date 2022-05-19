@@ -61,7 +61,10 @@ def main():
 
     fullpath = Path(__file__).parent / args["--parent"] / args["<path>"]
     fullpath.parent.mkdir(parents=True, exist_ok=True)
-    fullpath.write_text(text)
+    if not fullpath.exists():
+        fullpath.write_text(text)
+    else:
+        print("file already exists")
 
 
 if __name__ == "__main__":

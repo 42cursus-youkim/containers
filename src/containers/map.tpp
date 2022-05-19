@@ -5,37 +5,6 @@
 
 namespace ft {
 
-template <typename Key,
-          typename T,
-          typename Compare,
-          typename Allocator>
-class map<Key, T, Compare, Allocator>::value_compare
-    : public ft::binary_function<value_type, value_type, bool> {
-  friend class map<Key, T, Compare, Allocator>;
-
- protected:
-  key_compare comp;
-
-  /// Constructors & Destructor
-  value_compare(key_compare comparator) : comp(comparator) {}
-
- public:
-  bool operator()(const value_type& left,
-                  const value_type& right) const {
-    return comp(left.first, right.first);
-  }
-
-  bool operator()(const value_type& left,
-                  const key_type&   right) const {
-    return comp(left.first, right);
-  }
-
-  bool operator()(const key_type&   left,
-                  const value_type& right) const {
-    return comp(left, right.first);
-  }
-};
-
 /// Constructors & Destructor
 template <typename Key,
           typename T,
@@ -71,6 +40,22 @@ template <typename Key,
           typename Allocator>
 map<Key, T, Compare, Allocator>::~map() {}
 
+/// Operators
+template <typename Key,
+          typename T,
+          typename Compare,
+          typename Allocator>
+map<Key, T, Compare, Allocator>&
+map<Key, T, Compare, Allocator>::operator=(
+    const map<Key, T, Compare, Allocator>& other) {
+  if (this != &other) {
+    this->clear();
+    alloc_ = other.alloc_;
+    comp_  = other.comp_;
+    insert(other.begin(), other.end());
+  }
+  return (*this);
+}
 }  // namespace ft
 
 #endif  // CONTAINERS_MAP_TPP
