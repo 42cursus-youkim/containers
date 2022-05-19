@@ -29,34 +29,34 @@ class rb_tree {
 
  private:
   // * private member
-  node_pointer   _begin;
-  node_pointer   _end;
-  size_type      _size;
-  allocator_type _alloc;
-  compare_type   _comp;
+  node_pointer   begin_;
+  node_pointer   end_;
+  size_type      size_;
+  allocator_type alloc_;
+  compare_type   comp_;
 
  public:
   // * constructor
   rb_tree(const compare_type& comp = compare_type())
-      : _size(0), _alloc(allocator_type()), _comp(comp) {
-    _end = _alloc.allocate(1);
-    _alloc.construct(_end, node_type());
-    _begin = _end;
+      : size_(0), alloc_(allocator_type()), comp_(comp) {
+    end_ = alloc_.allocate(1);
+    alloc_.construct(end_, node_type());
+    begin_ = end_;
   }
 
   rb_tree(const rb_tree& x)
-      : _size(0), _alloc(x._alloc), _comp(x._comp) {
-    _end = _alloc.allocate(1);
-    _alloc.construct(_end, node_type());
-    _begin = _end;
+      : size_(0), alloc_(x.alloc_), comp_(x.comp_) {
+    end_ = alloc_.allocate(1);
+    alloc_.construct(end_, node_type());
+    begin_ = end_;
     *this  = x;
   }
 
   rb_tree& operator=(const rb_tree& x) {
     if (this != &x) {
       clear();
-      _alloc = x._alloc;
-      _comp  = x._comp;
+      alloc_ = x.alloc_;
+      comp_  = x.comp_;
       insert(x.begin(), x.end());
     }
     return (*this);
@@ -64,15 +64,15 @@ class rb_tree {
 
   ~rb_tree() {
     clear();
-    _alloc.destroy(_end);
-    _alloc.deallocate(_end, 1);
+    alloc_.destroy(end_);
+    alloc_.deallocate(end_, 1);
   }
 
  private:
   // * tree
-  node_pointer  root() const { return _end->left; }
+  node_pointer  root() const { return end_->left; }
 
-  node_pointer* rootPtr() const { return &_end->left; }
+  node_pointer* rootPtr() const { return &end_->left; }
 
   bool          is_left_child(node_pointer node) const {
              return node == node->parent->left;
@@ -93,8 +93,8 @@ class rb_tree {
   }
 
   node_pointer create_node(const_reference data) {
-    node_pointer temp = _alloc.allocate(1);
-    _alloc.construct(temp, node_type(data));
+    node_pointer temp = alloc_.allocate(1);
+    alloc_.construct(temp, node_type(data));
     return temp;
   }
 
@@ -184,10 +184,10 @@ class rb_tree {
   iterator remove_node_pointer(node_pointer node) {
     iterator it(node);
     ++it;
-    if (node == _begin)
-      _begin = it.base();
+    if (node == begin_)
+      begin_ = it.base();
     remove_node(root(), node);
-    --_size;
+    --size_;
     return it;
   }
 
@@ -314,15 +314,15 @@ class rb_tree {
     node_pointer remove = find_pos(remove, value);
     if (remove != u_nullptr)
       remove_node(root(), remove);
-    --_size;
+    --size_;
   }
 
   void delete_tree(node_pointer node) {
     if (node != u_nullptr) {
       delete_tree(node->left);
       delete_tree(node->right);
-      _alloc.destroy(node);
-      _alloc.deallocate(node, 1);
+      alloc_.destroy(node);
+      alloc_.deallocate(node, 1);
     }
   }
 
@@ -332,7 +332,7 @@ class rb_tree {
 
     if (node != u_nullptr) {
       while (true) {
-        if (_comp(data, node->data)) {
+        if (comp_(data, node->data)) {
           if (node->left != u_nullptr) {
             p_node = &(node->left);
             node   = node->left;
@@ -340,7 +340,7 @@ class rb_tree {
             parent = node;
             return parent->left;
           }
-        } else if (_comp(node->data, data)) {
+        } else if (comp_(node->data, data)) {
           if (node->right != u_nullptr) {
             p_node = &node->right;
             node   = node->right;
@@ -354,17 +354,17 @@ class rb_tree {
         }
       }
     }
-    parent = _end;
-    return _end->left;
+    parent = end_;
+    return end_->left;
   }
 
   node_pointer& find_pos(iterator        hint,
                          node_pointer&   parent,
                          node_pointer&   dummy,
                          const_reference data) {
-    if (hint == end() || _comp(data, *hint)) {
+    if (hint == end() || comp_(data, *hint)) {
       iterator prev = hint;
-      if (hint == begin() || _comp(*--prev, data)) {
+      if (hint == begin() || comp_(*--prev, data)) {
         if (hint.base()->left == u_nullptr) {
           parent = hint.base();
           return parent->left;
@@ -374,10 +374,10 @@ class rb_tree {
         }
       }
       return find_pos(parent, data);
-    } else if (_comp(*hint, data)) {
+    } else if (comp_(*hint, data)) {
       iterator next = hint;
       ++next;
-      if (next == end() || _comp(data, *next)) {
+      if (next == end() || comp_(data, *next)) {
         if (hint.base()->right == u_nullptr) {
           parent = hint.base();
           return hint.base()->right;
@@ -397,20 +397,20 @@ class rb_tree {
   // * map
 
   // * iterator
-  iterator       begin() { return iterator(_begin); }
+  iterator       begin() { return iterator(begin_); }
 
-  const_iterator begin() const { return const_iterator(_begin); }
+  const_iterator begin() const { return const_iterator(begin_); }
 
-  iterator       end() { return iterator(_end); }
+  iterator       end() { return iterator(end_); }
 
-  const_iterator end() const { return const_iterator(_end); }
+  const_iterator end() const { return const_iterator(end_); }
 
   // * capacity
-  size_type      size() const { return _size; }
+  size_type      size() const { return size_; }
 
   size_type      max_size() const {
          return std::min<size_type>(
-        _alloc.max_size(),
+        alloc_.max_size(),
         std::numeric_limits<difference_type>::max());
   }
 
@@ -418,7 +418,7 @@ class rb_tree {
   template <typename Key>
   iterator find(const Key& k) {
     iterator it = lower_bound(k);
-    if (it != end() && !_comp(k, *it))
+    if (it != end() && !comp_(k, *it))
       return it;
     return end();
   }
@@ -426,7 +426,7 @@ class rb_tree {
   template <typename Key>
   const_iterator find(const Key& k) const {
     const_iterator it = lower_bound(k);
-    if (it != end() && !_comp(k, *it))
+    if (it != end() && !comp_(k, *it))
       return it;
     return end();
   }
@@ -434,9 +434,9 @@ class rb_tree {
   template <typename Key>
   iterator lower_bound(const Key& k) {
     node_pointer root_node = root();
-    node_pointer ret       = _end;
+    node_pointer ret       = end_;
     while (root_node != u_nullptr) {
-      if (!_comp(root_node->data, k)) {
+      if (!comp_(root_node->data, k)) {
         ret       = root_node;
         root_node = root_node->left;
       } else
@@ -448,9 +448,9 @@ class rb_tree {
   template <typename Key>
   const_iterator lower_bound(const Key& k) const {
     node_pointer root_node = root();
-    node_pointer ret       = _end;
+    node_pointer ret       = end_;
     while (root_node != u_nullptr) {
-      if (!_comp(root_node->data, k)) {
+      if (!comp_(root_node->data, k)) {
         ret       = root_node;
         root_node = root_node->left;
       } else
@@ -462,10 +462,10 @@ class rb_tree {
   template <typename Key>
   iterator upper_bound(const Key& k) {
     node_pointer root_node = root();
-    node_pointer ret       = _end;
+    node_pointer ret       = end_;
 
     while (root_node != u_nullptr) {
-      if (_comp(k, root_node->data)) {
+      if (comp_(k, root_node->data)) {
         ret       = root_node;
         root_node = root_node->left;
       } else
@@ -477,10 +477,10 @@ class rb_tree {
   template <typename Key>
   const_iterator upper_bound(const Key& k) const {
     node_pointer root_node = root();
-    node_pointer ret       = _end;
+    node_pointer ret       = end_;
 
     while (root_node != u_nullptr) {
-      if (_comp(k, root_node->data)) {
+      if (comp_(k, root_node->data)) {
         ret       = root_node;
         root_node = root_node->left;
       } else
@@ -491,11 +491,11 @@ class rb_tree {
 
   // * modifiers
   void swap(rb_tree& x) {
-    std::swap(_end, x._end);
-    std::swap(_begin, x._begin);
-    std::swap(_comp, x._comp);
-    std::swap(_alloc, x._alloc);
-    std::swap(_size, x._size);
+    std::swap(end_, x.end_);
+    std::swap(begin_, x.begin_);
+    std::swap(comp_, x.comp_);
+    std::swap(alloc_, x.alloc_);
+    std::swap(size_, x.size_);
   }
 
   pair<iterator, bool> insert(const_reference data) {
@@ -508,11 +508,11 @@ class rb_tree {
       dest         = new_node;
       ret          = dest;
       dest->parent = Parent;
-      if (_begin->left != u_nullptr)
-        _begin = _begin->left;
+      if (begin_->left != u_nullptr)
+        begin_ = begin_->left;
       rebuild_insert(new_node);
       inserted = true;
-      ++_size;
+      ++size_;
     }
     //    node_pointer ret = reinterpret_cast<node_pointer>(dest);
     return pair<iterator, bool>(iterator(ret), inserted);
@@ -529,10 +529,10 @@ class rb_tree {
       dest         = new_node;
       ret          = dest;
       dest->parent = Parent;
-      if (_begin->left != u_nullptr)
-        _begin = _begin->left;
+      if (begin_->left != u_nullptr)
+        begin_ = begin_->left;
       rebuild_insert(new_node);
-      ++_size;
+      ++size_;
     }
     return iterator(ret);
   }
@@ -547,9 +547,9 @@ class rb_tree {
 
   void clear() {
     delete_tree(root());
-    _begin     = _end;
-    _size      = 0;
-    _end->left = u_nullptr;
+    begin_     = end_;
+    size_      = 0;
+    end_->left = u_nullptr;
   }
 };
 }  // namespace ft

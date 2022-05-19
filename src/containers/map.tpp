@@ -43,7 +43,7 @@ template <typename Key,
           typename Allocator>
 map<Key, T, Compare, Allocator>::map(const key_compare&    comp,
                                      const allocator_type& alloc)
-    : _comp(comp), _alloc(alloc), _tree(value_compare(comp)) {}
+    : comp_(comp), alloc_(alloc), tree_(value_compare(comp)) {}
 
 template <typename Key,
           typename T,
@@ -54,7 +54,7 @@ map<Key, T, Compare, Allocator>::map(InputIterator         first,
                                      InputIterator         last,
                                      const key_compare&    comp,
                                      const allocator_type& alloc)
-    : _comp(comp), _alloc(alloc), _tree(value_compare(_comp)) {
+    : comp_(comp), alloc_(alloc), tree_(value_compare(comp_)) {
   insert(first, last);
 }
 
@@ -63,7 +63,7 @@ template <typename Key,
           typename Compare,
           typename Allocator>
 map<Key, T, Compare, Allocator>::map(const map& other)
-    : _comp(other._comp), _alloc(other._alloc), _tree(other._tree) {}
+    : comp_(other.comp_), alloc_(other.alloc_), tree_(other.tree_) {}
 
 template <typename Key,
           typename T,
