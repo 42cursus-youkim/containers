@@ -38,8 +38,6 @@ class rbtree {
   node_pointer  root() const;
   node_pointer* rootPtr() const;
 
-  bool          is_left_child(node_pointer node) const;
-
   node_pointer  min_node(node_pointer node) const;
   node_pointer  max_node(node_pointer node) const;
 

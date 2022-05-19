@@ -7,7 +7,7 @@ Usage:
 
 Options:
   -n , --namespace <ns>     namespace to use [default: ft]
-  -p , --parent <parent>    root of directory path [default: src]
+  -p , --parent <parent>    root of directory path [default: containers]
 
 """
 

@@ -17,11 +17,6 @@ rbtree<T, Compare>::rootPtr() const {
 }
 
 template <typename T, typename Compare>
-bool rbtree<T, Compare>::is_left_child(node_pointer node) const {
-  return node == node->parent->left;
-}
-
-template <typename T, typename Compare>
 typename rbtree<T, Compare>::node_pointer
 rbtree<T, Compare>::min_node(node_pointer node) const {
   node_pointer temp = node;
@@ -52,7 +47,7 @@ typename rbtree<T, Compare>::node_pointer
 rbtree<T, Compare>::next_node(node_pointer node) const {
   if (node->right != u_nullptr)
     return min_node(node->right);
-  while (!is_left_child(node))
+  while (not node->is_left_child())
     node = node->parent;
   return node->parent;
 }
