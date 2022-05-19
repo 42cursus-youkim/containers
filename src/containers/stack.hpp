@@ -59,5 +59,8 @@ class stack {
 }  // namespace ft
 
 #include "stack.tpp"
+#include "stack_modifier.tpp"
+#include "stack_property.tpp"
+#include "stack_relational.tpp"
 
 #endif  // STACK_STACK_HPP

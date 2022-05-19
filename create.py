@@ -24,6 +24,8 @@ template = """\
 
 namespace {namespace} {{
 
+
+
 }}  // namespace {namespace}
 
 #endif // {name}{ext}
