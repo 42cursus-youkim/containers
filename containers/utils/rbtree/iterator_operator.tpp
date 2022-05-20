@@ -4,32 +4,30 @@
 #include "iterator.hpp"
 
 namespace ft {
-template <typename T, typename Node>
-typename tree_iterator<T, Node>::reference
-tree_iterator<T, Node>::operator*() const {
+template <typename T>
+typename tree_iterator<T>::reference tree_iterator<T>::operator*()
+    const {
   return node_->data;
 }
 
-template <typename T, typename Node>
-typename tree_iterator<T, Node>::pointer
-tree_iterator<T, Node>::operator->() const {
+template <typename T>
+typename tree_iterator<T>::pointer tree_iterator<T>::operator->()
+    const {
   return &node_->data;
 }
 
-template <typename T, typename Node>
-bool tree_iterator<T, Node>::operator==(
-    const tree_iterator& other) const {
+template <typename T>
+bool tree_iterator<T>::operator==(const tree_iterator& other) const {
   return node_ == other.node_;
 }
 
-template <typename T, typename Node>
-bool tree_iterator<T, Node>::operator!=(
-    const tree_iterator& other) const {
+template <typename T>
+bool tree_iterator<T>::operator!=(const tree_iterator& other) const {
   return node_ != other.node_;
 }
 
-template <typename T, typename Node>
-tree_iterator<T, Node>& tree_iterator<T, Node>::operator=(
+template <typename T>
+tree_iterator<T>& tree_iterator<T>::operator=(
     const tree_iterator& other) {
   node_ = other.node_;
   return (*this);
@@ -52,8 +50,8 @@ tree_iterator<T, Node>& tree_iterator<T, Node>::operator=(
  *    /
  *   10
  */
-template <typename T, typename Node>
-tree_iterator<T, Node>& tree_iterator<T, Node>::operator++() {
+template <typename T>
+tree_iterator<T>& tree_iterator<T>::operator++() {
   if (node_->has_right_child()) {
     node_ = min_child_from(node_->right);
     return *this;
@@ -65,16 +63,16 @@ tree_iterator<T, Node>& tree_iterator<T, Node>::operator++() {
 }
 
 /// return current, then move to next smallest element
-template <typename T, typename Node>
-tree_iterator<T, Node> tree_iterator<T, Node>::operator++(int) {
+template <typename T>
+tree_iterator<T> tree_iterator<T>::operator++(int) {
   tree_iterator temp(*this);
   ++(*this);
   return temp;
 }
 
 /// move to next biggest element then return
-template <typename T, typename Node>
-tree_iterator<T, Node>& tree_iterator<T, Node>::operator--() {
+template <typename T>
+tree_iterator<T>& tree_iterator<T>::operator--() {
   if (node_->has_left_child()) {
     node_ = max_child_from(node_->left);
     return *this;
@@ -86,8 +84,8 @@ tree_iterator<T, Node>& tree_iterator<T, Node>::operator--() {
 }
 
 /// return current, then move to next biggest element
-template <typename T, typename Node>
-tree_iterator<T, Node> tree_iterator<T, Node>::operator--(int) {
+template <typename T>
+tree_iterator<T> tree_iterator<T>::operator--(int) {
   tree_iterator temp(*this);
   --(*this);
   return temp;

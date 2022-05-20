@@ -8,7 +8,7 @@ namespace ft {
 
 /// leaf node (or NIL)
 template <typename T, typename Allocator>
-rb_node<T, Allocator>::rb_node()
+rbnode<T, Allocator>::rbnode()
     : is_black(true),
       left(u_nullptr),
       right(u_nullptr),
@@ -16,7 +16,7 @@ rb_node<T, Allocator>::rb_node()
 
 /// node with value
 template <typename T, typename Allocator>
-rb_node<T, Allocator>::rb_node(value_type data)
+rbnode<T, Allocator>::rbnode(value_type data)
     : data(data),
       is_black(false),
       left(u_nullptr),

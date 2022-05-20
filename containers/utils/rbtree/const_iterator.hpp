@@ -5,20 +5,22 @@
 
 namespace ft {
 
-template <typename T, typename NodePtr>
+template <typename T>
 class tree_const_iterator {
   // * typedef
  public:
   typedef T                              value_type;
   typedef const T*                       pointer;
   typedef const T&                       reference;
-  typedef NodePtr                        node_pointer;
+  typedef const rbnode<T>                node;
+  typedef node*                          node_pointer;
   typedef long                           difference_type;
   typedef unsigned long                  size_type;
   typedef ft::bidirectional_iterator_tag iterator_category;
-  typedef ft::tree_iterator<T, NodePtr>  tree_iterator;
+  // typedef ft::tree_iterator<T, node_pointer> tree_iterator;
 
  private:
+  friend class tree_iterator<T>;
   node_pointer node_;
 
  public:
@@ -26,7 +28,7 @@ class tree_const_iterator {
   tree_const_iterator();
   tree_const_iterator(const node_pointer base);
   tree_const_iterator(const tree_const_iterator& other);
-  tree_const_iterator(const tree_iterator &other);
+  tree_const_iterator(const tree_iterator<T>& other);
 
   ~tree_const_iterator();
 

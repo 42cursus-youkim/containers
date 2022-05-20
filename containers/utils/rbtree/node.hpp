@@ -6,17 +6,17 @@
 namespace ft {
 
 template <typename T, typename Allocator = std::allocator<T> >
-struct rb_node {
-  typedef T        value_type;
-  typedef rb_node* node_pointer;
+struct rbnode {
+  typedef T       value_type;
+  typedef rbnode* node_pointer;
 
-  value_type       data;
-  bool             is_black;
-  node_pointer     left, right, parent;
+  value_type      data;
+  bool            is_black;
+  node_pointer    left, right, parent;
 
   /// Constructor
-  explicit rb_node();
-  explicit rb_node(value_type data);
+  explicit rbnode();
+  explicit rbnode(value_type data);
 
   /// Property
   bool has_left_child() const;

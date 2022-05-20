@@ -3,24 +3,27 @@
 
 #include <utils/general/nullptr.hpp>
 #include <utils/iter/tag.hpp>
+#include "node.hpp"
 
 namespace ft {
-template <typename T, typename Node>
+template <typename T>
 class tree_const_iterator;
 
-template <typename T, typename Node>
+template <typename T>
 class tree_iterator {
  public:
-  typedef T                                value_type;
-  typedef T*                               pointer;
-  typedef T&                               reference;
-  typedef Node                             node_pointer;
-  typedef long                             difference_type;
-  typedef unsigned long                    size_type;
-  typedef ft::bidirectional_iterator_tag   iterator_category;
-  typedef ft::tree_const_iterator<T, Node> const_iterator;
+  typedef long                           difference_type;
+  typedef T                              value_type;
+  typedef T*                             pointer;
+  typedef T&                             reference;
+  typedef rbnode<T>                      node;
+  typedef node*                          node_pointer;
+  typedef unsigned long                  size_type;
+  typedef ft::bidirectional_iterator_tag iterator_category;
+  // typedef ft::tree_const_iterator<T>     const_iterator;
 
  private:
+  friend class tree_const_iterator<T>;
   node_pointer node_;
 
  public:
@@ -28,7 +31,7 @@ class tree_iterator {
   tree_iterator();
   tree_iterator(const node_pointer base);
   tree_iterator(const tree_iterator& other);
-  tree_iterator(const const_iterator& other);
+  tree_iterator(const tree_const_iterator<T>& other);
 
   ~tree_iterator();
 

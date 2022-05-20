@@ -2,6 +2,7 @@
 #define RBTREE_RBTREE_HPP
 
 #include <limits>
+#include <utils/iter/reverse_iterator.hpp>
 #include <utils/pair/pair.hpp>
 #include <utils/rbtree/const_iterator.hpp>
 #include <utils/rbtree/iterator.hpp>
@@ -11,20 +12,21 @@ namespace ft {
 template <typename T, typename Compare>
 class rbtree {
  public:
-  typedef T                                           value_type;
-  typedef T&                                          reference;
-  typedef const T&                                    const_reference;
-  typedef Compare                                     compare_type;
-  typedef ft::rb_node<T>                              node_type;
-  typedef node_type*                                  node_pointer;
+  typedef T                                        value_type;
+  typedef T&                                       reference;
+  typedef const T&                                 const_reference;
+  typedef Compare                                  compare_type;
+  typedef ft::rbnode<T>                            node_type;
+  typedef node_type*                               node_pointer;
 
-  typedef std::allocator<node_type>                   allocator_type;
-  typedef typename allocator_type::size_type          size_type;
-  typedef typename allocator_type::difference_type    difference_type;
+  typedef std::allocator<node_type>                allocator_type;
+  typedef typename allocator_type::size_type       size_type;
+  typedef typename allocator_type::difference_type difference_type;
 
-  typedef ft::tree_iterator<value_type, node_pointer> iterator;
-  typedef ft::tree_const_iterator<value_type, node_pointer>
-      const_iterator;
+  typedef ft::tree_iterator<value_type>            iterator;
+  typedef ft::tree_const_iterator<value_type>      const_iterator;
+  typedef ft::reverse_iterator<iterator>           reverse_iterator;
+  typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
   /// implementaiton
  private:
@@ -41,7 +43,6 @@ class rbtree {
   node_pointer  min_node(node_pointer node) const;
   node_pointer  max_node(node_pointer node) const;
   node_pointer  next_node(node_pointer node) const;
-
 
   /// rotate
   void          rotate_right(node_pointer node);
