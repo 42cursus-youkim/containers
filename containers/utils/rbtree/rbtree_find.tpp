@@ -20,7 +20,7 @@ template <typename Key>
 typename rbtree<T, Compare>::const_iterator rbtree<T, Compare>::find(
     const Key& k) const {
   const_iterator it = lower_bound(k);
-  if (it != end() and !comp_(k, *it))
+  if (it != end() and not comp_(k, *it))
     return it;
   return end();
 }
@@ -32,7 +32,7 @@ typename rbtree<T, Compare>::iterator rbtree<T, Compare>::lower_bound(
   node_pointer root_node = root();
   node_pointer ret       = end_;
   while (root_node != u_nullptr) {
-    if (!comp_(root_node->data, k)) {
+    if (not comp_(root_node->data, k)) {
       ret       = root_node;
       root_node = root_node->left;
     } else
@@ -48,7 +48,7 @@ rbtree<T, Compare>::lower_bound(const Key& k) const {
   node_pointer root_node = root();
   node_pointer ret       = end_;
   while (root_node != u_nullptr) {
-    if (!comp_(root_node->data, k)) {
+    if (not comp_(root_node->data, k)) {
       ret       = root_node;
       root_node = root_node->left;
     } else

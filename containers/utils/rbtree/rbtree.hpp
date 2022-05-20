@@ -48,9 +48,10 @@ class rbtree {
   /// rotate
   void          rotate_right(node_pointer node);
   void          rotate_left(node_pointer node);
-  
+
   void          rebuild_insert(node_pointer new_node);
 
+  // remove
   iterator      remove_node_pointer(node_pointer node);
 
   void          remove_node(node_pointer root, node_pointer node);
@@ -122,6 +123,7 @@ class rbtree {
 #include "rbtree_impl.tpp"
 #include "rbtree_iter.tpp"
 #include "rbtree_modifier.tpp"
+#include "rbtree_remove.tpp"
 #include "rbtree_rotate.tpp"
 
 #endif  // RBTREE_RBTREE_HPP

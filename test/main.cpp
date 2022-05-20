@@ -40,7 +40,7 @@ class foo {
     return *this;
   };
   value_type getValue(void) const { return this->value; };
-  void switchVerbose(void) { this->_verbose = !(this->_verbose); };
+  void switchVerbose(void) { this->_verbose = not(this->_verbose); };
 
   operator value_type(void) const { return value_type(this->value); }
 

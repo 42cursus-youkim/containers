@@ -43,7 +43,7 @@ tree_const_iterator<T, Node>::operator++() {
     tree_min(node_->right);
     return *this;
   }
-  while (!tree_is_left_child())
+  while (not tree_is_left_child())
     node_ = node_->parent;
   node_ = node_->parent;
   return *this;
