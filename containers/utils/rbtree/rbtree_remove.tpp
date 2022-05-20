@@ -5,6 +5,13 @@
 
 namespace ft {
 
+/// @brief: naively deallocate a node from @b memory, not from tree
+template <typename T, typename Compare>
+void rbtree<T, Compare>::deallocate_node(node_pointer node) {
+  alloc_.destroy(node);
+  alloc_.deallocate(node, 1);
+}
+
 template <typename T, typename Compare>
 typename rbtree<T, Compare>::iterator
 rbtree<T, Compare>::remove_node_pointer(node_pointer node) {
@@ -18,6 +25,7 @@ rbtree<T, Compare>::remove_node_pointer(node_pointer node) {
   return it;
 }
 
+// FIMXE: split into more functions
 template <typename T, typename Compare>
 void rbtree<T, Compare>::remove_node(node_pointer root,
                                      node_pointer node) {
@@ -61,8 +69,7 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
       root = to_remove;
   }
 
-  alloc_.destroy(node);
-  alloc_.deallocate(node, 1);
+  deallocate_node(node);
 
   if (removed_black and root != u_nullptr) {
     if (succesor != u_nullptr)

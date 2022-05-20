@@ -52,6 +52,7 @@ class rbtree {
   void          rebuild_insert(node_pointer new_node);
 
   // remove
+  void          deallocate_node(node_pointer node);
   iterator      remove_node_pointer(node_pointer node);
 
   void          remove_node(node_pointer root, node_pointer node);
@@ -115,6 +116,7 @@ class rbtree {
   void                 erase(iterator pos);
   void                 clear();
 };
+
 }  // namespace ft
 
 /// implementations

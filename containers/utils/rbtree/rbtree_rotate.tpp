@@ -149,8 +149,7 @@ void rbtree<T, Compare>::delete_tree(node_pointer node) {
 
   delete_tree(node->left);
   delete_tree(node->right);
-  alloc_.destroy(node);
-  alloc_.deallocate(node, 1);
+  deallocate_node(node);
 }
 
 template <typename T, typename Compare>

@@ -25,8 +25,7 @@ rbtree<T, Compare>::rbtree(const rbtree& other)
 template <typename T, typename Compare>
 rbtree<T, Compare>::~rbtree() {
   clear();
-  alloc_.destroy(end_);
-  alloc_.deallocate(end_, 1);
+  deallocate_node(end_);
 }
 
 ///  Operators
