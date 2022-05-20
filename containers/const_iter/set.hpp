@@ -19,7 +19,7 @@ class set_const_iterator {
       tree_iterator;
 
  private:
-  Iterator _it;
+  Iterator it_;
 
  public:
   /// Constructors & Destructor

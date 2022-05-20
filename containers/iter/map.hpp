@@ -14,7 +14,7 @@ class map_iterator {
   typedef typename Iterator::iterator_category iterator_category;
 
  private:
-  Iterator _it;
+  Iterator it_;
 
  public:
   /// Constructors & Destructor
@@ -34,10 +34,10 @@ class map_iterator {
   map_iterator  operator++(int);
 
   map_iterator& operator--();
-  map_iterator operator--(int);
+  map_iterator  operator--(int);
 
-  bool operator==(const map_iterator& other) const;
-  bool operator!=(const map_iterator& other) const;
+  bool          operator==(const map_iterator& other) const;
+  bool          operator!=(const map_iterator& other) const;
 };
 
 }  // namespace ft

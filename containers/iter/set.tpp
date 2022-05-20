@@ -9,11 +9,11 @@ set_iterator<Iterator>::set_iterator() {}
 
 template <typename Iterator>
 set_iterator<Iterator>::set_iterator(const Iterator other)
-    : _it(other) {}
+    : it_(other) {}
 
 template <typename Iterator>
 set_iterator<Iterator>::set_iterator(const_iterator other)
-    : _it(other.base()) {}
+    : it_(other.base()) {}
 
 template <typename Iterator>
 set_iterator<Iterator>::~set_iterator() {}
@@ -21,7 +21,7 @@ set_iterator<Iterator>::~set_iterator() {}
 template <typename Iterator>
 set_iterator<Iterator>& set_iterator<Iterator>::operator=(
     const set_iterator& other) {
-  _it = other._it;
+  it_ = other.it_;
   return (*this);
 }
 }  // namespace ft

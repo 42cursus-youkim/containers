@@ -20,7 +20,7 @@ class map_const_iterator {
       tree_iterator;
 
  private:
-  Iterator _it;
+  Iterator it_;
 
  public:
   /// Constructors & Destructor
@@ -31,7 +31,6 @@ class map_const_iterator {
 
   /// Copy Assignment Operator
   map_const_iterator& operator=(const map_const_iterator& other);
-
 
   /// Getters
   Iterator            base();

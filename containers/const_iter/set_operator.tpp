@@ -8,19 +8,19 @@ namespace ft {
 template <typename Iterator>
 typename set_const_iterator<Iterator>::reference
 set_const_iterator<Iterator>::operator*() const {
-  return *_it;
+  return *it_;
 }
 
 template <typename Iterator>
 typename set_const_iterator<Iterator>::pointer
 set_const_iterator<Iterator>::operator->() const {
-  return &(*_it);
+  return &(*it_);
 }
 
 template <typename Iterator>
 set_const_iterator<Iterator>&
 set_const_iterator<Iterator>::operator++() {
-  ++_it;
+  ++it_;
   return *this;
 }
 
@@ -35,7 +35,7 @@ set_const_iterator<Iterator> set_const_iterator<Iterator>::operator++(
 template <typename Iterator>
 set_const_iterator<Iterator>&
 set_const_iterator<Iterator>::operator--() {
-  --_it;
+  --it_;
   return *this;
 }
 
@@ -50,13 +50,13 @@ set_const_iterator<Iterator> set_const_iterator<Iterator>::operator--(
 template <typename Iterator>
 bool set_const_iterator<Iterator>::operator==(
     const set_const_iterator& other) const {
-  return this->_it == other._it;
+  return this->it_ == other.it_;
 }
 
 template <typename Iterator>
 bool set_const_iterator<Iterator>::operator!=(
     const set_const_iterator& other) const {
-  return this->_it != other._it;
+  return this->it_ != other.it_;
 }
 }  // namespace ft
-#endif // CONST_ITER_SET_OPERATOR_TPP
+#endif  // CONST_ITER_SET_OPERATOR_TPP

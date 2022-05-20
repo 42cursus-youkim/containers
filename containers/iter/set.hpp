@@ -21,7 +21,7 @@ class set_iterator {
       const_iterator;
 
  private:
-  Iterator _it;
+  Iterator it_;
 
  public:
   /// Constructors & Destructor
@@ -33,7 +33,7 @@ class set_iterator {
   /// Copy Assignment Operator
   set_iterator& operator=(const set_iterator& other);
 
-  Iterator      base() const { return _it; }
+  Iterator      base() const { return it_; }
 
   /// Operators
   reference     operator*() const;

@@ -11,7 +11,7 @@ map_iterator<Iterator>::map_iterator() {}
 
 template <typename Iterator>
 map_iterator<Iterator>::map_iterator(const Iterator other)
-    : _it(other) {}
+    : it_(other) {}
 
 template <typename Iterator>
 map_iterator<Iterator>::~map_iterator() {}
@@ -20,14 +20,14 @@ map_iterator<Iterator>::~map_iterator() {}
 template <typename Iterator>
 map_iterator<Iterator>& map_iterator<Iterator>::operator=(
     const map_iterator& other) {
-  _it = other._it;
+  it_ = other.it_;
   return (*this);
 }
 
 /// Getter
 template <typename Iterator>
 Iterator map_iterator<Iterator>::base() {
-  return _it;
+  return it_;
 }
 
 }  // namespace ft
