@@ -49,11 +49,11 @@ template <typename Key,
 typename map<Key, T, Compare, Allocator>::size_type
 map<Key, T, Compare, Allocator>::erase(const key_type& k) {
   iterator target = find(k);
-  if (target != end()) {
-    erase(target);
-    return 1;
-  }
-  return 0;
+  if (target == end())
+    return 0;
+
+  erase(target);
+  return 1;
 }
 
 template <typename Key,

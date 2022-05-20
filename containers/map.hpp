@@ -97,8 +97,8 @@ class map {
 
   void           erase(iterator position);
   size_type      erase(const key_type& key);
-
   void           erase(iterator first, iterator last);
+
   void           swap(map& other);
 
   void           clear();

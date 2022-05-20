@@ -61,6 +61,9 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
       root = to_remove;
   }
 
+  alloc_.destroy(node);
+  alloc_.deallocate(node, 1);
+
   if (removed_black and root != u_nullptr) {
     if (succesor != u_nullptr)
       succesor->is_black = true;
