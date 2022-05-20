@@ -6,17 +6,17 @@
 namespace ft {
 
 template <typename T, typename Allocator>
-bool rbnode<T, Allocator>::has_left_child() const {
+bool rb_node<T, Allocator>::has_left_child() const {
   return left != u_nullptr;
 }
 
 template <typename T, typename Allocator>
-bool rbnode<T, Allocator>::has_right_child() const {
+bool rb_node<T, Allocator>::has_right_child() const {
   return right != u_nullptr;
 }
 
 template <typename T, typename Allocator>
-bool rbnode<T, Allocator>::is_left_child() const {
+bool rb_node<T, Allocator>::is_left_child() const {
   return this == this->parent->left;
 }
 

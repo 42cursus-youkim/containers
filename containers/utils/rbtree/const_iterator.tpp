@@ -6,25 +6,26 @@
 namespace ft {
 
 /// Constructors & Destructor
-template <typename T>
-tree_const_iterator<T>::tree_const_iterator() {}
+template <typename T, typename Node>
+tree_const_iterator<T, Node>::tree_const_iterator() {}
 
-template <typename T>
-tree_const_iterator<T>::tree_const_iterator(const node_pointer other)
+template <typename T, typename Node>
+tree_const_iterator<T, Node>::tree_const_iterator(
+    const node_pointer other)
     : node_(other) {}
 
-template <typename T>
-tree_const_iterator<T>::tree_const_iterator(
+template <typename T, typename Node>
+tree_const_iterator<T, Node>::tree_const_iterator(
     const tree_const_iterator& other)
     : node_(other.base()) {}
 
-template <typename T>
-tree_const_iterator<T>::tree_const_iterator(
-    const tree_iterator<T>& other)
+template <typename T, typename Node>
+tree_const_iterator<T, Node>::tree_const_iterator(
+    const tree_iterator& other)
     : node_(other.base()) {}
 
-template <typename T>
-tree_const_iterator<T>::~tree_const_iterator() {}
+template <typename T, typename Node>
+tree_const_iterator<T, Node>::~tree_const_iterator() {}
 
 }  // namespace ft
 

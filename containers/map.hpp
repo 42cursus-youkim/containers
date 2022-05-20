@@ -1,9 +1,9 @@
 #ifndef CONTAINERS_MAP_HPP
 #define CONTAINERS_MAP_HPP
 
-// #include <const_iter/map.hpp>
+#include <const_iter/map.hpp>
 #include <functional>
-// #include <iter/map.hpp>
+#include <iter/map.hpp>
 #include <memory>
 #include <utils/general/binary_function.hpp>
 #include <utils/general/equal.hpp>
@@ -37,12 +37,12 @@ class map {
   // value_compare
   class value_compare;
 
-  typedef ft::rbtree<value_type, value_compare> tree_type;
-  typedef typename tree_type::iterator          iterator;
-  typedef typename tree_type::const_iterator    const_iterator;
-  typedef typename tree_type::reverse_iterator  reverse_iterator;
-  typedef typename tree_type::const_reverse_iterator
-      const_reverse_iterator;
+  typedef ft::rbtree<value_type, value_compare>          tree_type;
+  typedef ft::map_iterator<typename tree_type::iterator> iterator;
+  typedef ft::map_const_iterator<typename tree_type::const_iterator>
+                                               const_iterator;
+  typedef ft::reverse_iterator<iterator>       reverse_iterator;
+  typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
  private:
   key_compare    comp_;
