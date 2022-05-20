@@ -21,42 +21,46 @@ void rbtree<T, Compare>::rotate_right(node_pointer node) {
 }
 
 /**
- * @note example of rotate_left:
+ * @brief rotate nodes to left, with right_child as pivot.
  *
  * @b node[5]
  * @b right_child<10>
  * @b grand_child(8)
  *
- * 1. @b right_child<10> swaps position with @c node[5]
- * 2. @b grand_child(8) becomes @c node[5] 's left child
+ * @b step-1: @c grand_child(8) becomes node's @b new-right-child
+ * @b step-2 @c right_child<10> becomes the @b new-node
+ * @b step-3 @c node[5] becomes new-node's @b new-left-child
  *
  *
- *  @b start   |  @b step-1  |  @b step-2  |  @b result  |
- *    [5]      |   [5]-<10>  |             |      <10>   |
- *   /  \      |  /  \  (..) |             |     /   \   |
- *  2  <10>    | 2   (8)     |             |   [5]   12  |
- *     /  \    |    /  \     |             |  /  \       |
- *   (8)  12   |   6   9     |             | 2   (8)     |
- *   / \       |             |             |     / \     |
- *  6  9       |             |             |    6  9     |
- *             |             |             |             |
+ *  @b start   |  @b step-1  |  @b step-2  |  @b step-3  |
+ *    [5]      |   [5] <10>  |     <10>    |      <10>   |
+ *   /  \      |  /  \    \  |        \    |     /   \   |
+ *  2  <10>    | 2   (8)  12 |        12   |   [5]   12  |
+ *     /  \    |    /  \     |   [5]       |  /  \       |
+ *   (8)  12   |   6   9     |  /  \       | 2   (8)     |
+ *   / \       |             | 2   (8)     |     / \     |
+ *  6  9       |             |    /  \     |    6  9     |
+ *             |             |   6   9     |             |
  */
-
+// FIXME: what happens if there's no grandchild?
 template <typename T, typename Compare>
 void rbtree<T, Compare>::rotate_left(node_pointer node) {
-  node_pointer right_child = node->right;
-  node_pointer grand_child = right_child->left;
+  node_pointer right_child = node->right; //< <10>
+  node_pointer grand_child = right_child->left; //< (8)
 
-  /// @b step-1: grand_child becomes node's @b new-right-child
+  /// @b step-1: @c grand_child becomes node's @b new-right-child
   node->right = grand_child;
   if (node->has_right_child())
     node->right->parent = node;
-  /// @b step-2
+
+  /// @b step-2 @c right_child becomes the @b new-node
   right_child->parent = node->parent;
   if (node->is_left_child())
     node->parent->left = right_child;
   else
     node->parent->right = right_child;
+
+  /// @b step-3 @c node becomes new-node's @b new-left-child
   right_child->left = node;
   node->parent      = right_child;
 }
@@ -126,41 +130,46 @@ rbtree<T, Compare>::remove_node_pointer(node_pointer node) {
 template <typename T, typename Compare>
 void rbtree<T, Compare>::remove_node(node_pointer root,
                                      node_pointer node) {
-  node_pointer remove =
+  node_pointer to_remove =
       (node->left == u_nullptr or node->right == u_nullptr)
           ? node
           : next_node(node);
-  node_pointer succesor =
-      remove->has_left_child() ? remove->left : remove->right;
-  node_pointer sibling = u_nullptr;
+  node_pointer succesor = to_remove->has_left_child()
+                              ? to_remove->left
+                              : to_remove->right;
+  node_pointer sibling  = u_nullptr;
+
   if (succesor != u_nullptr)
-    succesor->parent = remove->parent;
-  if (remove->is_left_child()) {
-    remove->parent->left = succesor;
-    if (remove != root)
-      sibling = remove->parent->right;
+    succesor->parent = to_remove->parent;
+
+  if (to_remove->is_left_child()) {
+    to_remove->parent->left = succesor;
+    if (to_remove != root)
+      sibling = to_remove->parent->right;
     else
       root = succesor;
   } else {
-    remove->parent->right = succesor;
-    sibling               = remove->parent->left;
+    to_remove->parent->right = succesor;
+    sibling                  = to_remove->parent->left;
   }
-  bool removed_black = remove->is_black;
-  if (remove != node) {
-    remove->parent = node->parent;
+
+  bool removed_black = to_remove->is_black;
+  if (to_remove != node) {
+    to_remove->parent = node->parent;
     if (node->is_left_child())
-      remove->parent->left = remove;
+      to_remove->parent->left = to_remove;
     else
-      remove->parent->right = remove;
-    remove->left         = node->left;
-    remove->left->parent = remove;
-    remove->right        = node->right;
-    if (remove->has_right_child())
-      remove->right->parent = remove;
-    remove->is_black = node->is_black;
+      to_remove->parent->right = to_remove;
+    to_remove->left         = node->left;
+    to_remove->left->parent = to_remove;
+    to_remove->right        = node->right;
+    if (to_remove->has_right_child())
+      to_remove->right->parent = to_remove;
+    to_remove->is_black = node->is_black;
     if (root == node)
-      root = remove;
+      root = to_remove;
   }
+
   if (removed_black and root != u_nullptr) {
     if (succesor != u_nullptr)
       succesor->is_black = true;
@@ -297,6 +306,7 @@ rbtree<T, Compare>::find_pos(node_pointer&   parent,
   return end_->left;
 }
 
+// FIXME: leaks!
 template <typename T, typename Compare>
 typename rbtree<T, Compare>::node_pointer&
 rbtree<T, Compare>::find_pos(iterator        hint,
@@ -306,7 +316,7 @@ rbtree<T, Compare>::find_pos(iterator        hint,
   if (hint == end() or comp_(data, *hint)) {
     iterator prev = hint;
     if (hint == begin() or comp_(*--prev, data)) {
-      if (hint.base()->left == u_nullptr) {
+      if (not hint.base()->has_left_child()) {
         parent = hint.base();
         return parent->left;
       } else {
@@ -319,7 +329,7 @@ rbtree<T, Compare>::find_pos(iterator        hint,
     iterator next = hint;
     ++next;
     if (next == end() or comp_(data, *next)) {
-      if (hint.base()->right == u_nullptr) {
+      if (not hint.base()->has_right_child()) {
         parent = hint.base();
         return hint.base()->right;
       } else {
