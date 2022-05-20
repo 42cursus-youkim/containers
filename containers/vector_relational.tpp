@@ -7,7 +7,7 @@ namespace ft {
 
 /// relational operators
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 bool operator==(const VEC& left, const VEC& right) {
   if (left.size() != right.size())
     return false;
@@ -20,31 +20,31 @@ bool operator==(const VEC& left, const VEC& right) {
   return true;
 }
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 bool operator!=(const VEC& left, const VEC& right) {
   return not(left == right);
 }
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 bool operator<(const VEC& left, const VEC& right) {
   return lexicographical_compare(left.begin(), left.end(),
                                  right.begin(), right.end());
 }
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 bool operator<=(const VEC& left, const VEC& right) {
   return left == right or left < right;
 }
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 bool operator>(const VEC& left, const VEC& right) {
   return right < left;
 }
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 bool operator>=(const VEC& left, const VEC& right) {
   return left == right or left > right;
 }
 }  // namespace ft
 
-#endif // CONTAINERS_VECTOR_RELATIONAL_TPP
+#endif  // CONTAINERS_VECTOR_RELATIONAL_TPP

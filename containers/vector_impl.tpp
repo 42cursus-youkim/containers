@@ -8,7 +8,7 @@ namespace ft {
 /// implementation details
 
 /// returns
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 typename VEC::iterator VEC::UninitializedFillN(
     iterator          from,
     size_type         count,
@@ -24,14 +24,14 @@ typename VEC::iterator VEC::UninitializedFillN(
   return from + count;
 }
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 typename VEC::size_type VEC::Index(iterator it) const {
   return size_type(it - begin());
 }
 
 /// @brief move a single element to a new position.
 /// @param to any element in to
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 inline typename VEC::iterator VEC::UnsafeMove(iterator from,
                                               iterator to) {
   data_start_[Index(to)] = data_start_[Index(from)];
@@ -39,7 +39,7 @@ inline typename VEC::iterator VEC::UnsafeMove(iterator from,
 }
 
 /// creates new storage, rellocates all elements to new one
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 void VEC::DoGrow(size_type new_capacity) {
   if (new_capacity > max_size())
     throw std::length_error(
@@ -61,7 +61,7 @@ void VEC::DoGrow(size_type new_capacity) {
 }
 
 /// get suitable new capacity
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 typename VEC::size_type VEC::GetNewCapacity(
     size_type at_least) const {
   const size_type max_possible_size(max_size());
@@ -75,7 +75,7 @@ typename VEC::size_type VEC::GetNewCapacity(
   return std::max(at_least, 2 * current_capacity);
 }
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 typename VEC::iterator VEC::LeftShift(iterator from, size_type diff) {
   if (diff == 0)
     return from;
@@ -93,7 +93,7 @@ typename VEC::iterator VEC::LeftShift(iterator from, size_type diff) {
 }
 
 /// @brief Moves from amount elements to the right
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 typename VEC::iterator VEC::RightShift(iterator  from,
                                        size_type diff) {
   if (diff == 0)
@@ -118,4 +118,4 @@ typename VEC::iterator VEC::RightShift(iterator  from,
 
 }  // namespace ft
 
-#endif // CONTAINERS_VECTOR_IMPL_TPP
+#endif  // CONTAINERS_VECTOR_IMPL_TPP

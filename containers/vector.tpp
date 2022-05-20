@@ -13,7 +13,7 @@
 namespace ft {
 
 /// default constructor (empty)
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 VEC::vector(const Allocator& alloc)
     : data_start_(u_nullptr),
       data_end_(u_nullptr),
@@ -21,7 +21,7 @@ VEC::vector(const Allocator& alloc)
       allocator_(alloc) {}
 
 /// fill constructor (container with n val)
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 VEC::vector(size_type n, const T& val, const Allocator& alloc)
     : data_start_(u_nullptr),
       data_end_(u_nullptr),
@@ -30,11 +30,12 @@ VEC::vector(size_type n, const T& val, const Allocator& alloc)
   insert(begin(), n, val);
 }
 
-/// fill constructor, has ambiguity with integer, therefore using dispatch
-template <class T, class Allocator>
-template <class InputIterator>
-VEC::vector(InputIterator first,
-            InputIterator last,
+/// fill constructor, has ambiguity with integer, therefore using
+/// dispatch
+template <typename T, typename Allocator>
+template <typename InputIterator>
+VEC::vector(InputIterator                       first,
+            InputIterator                       last,
             const typename VEC::allocator_type& alloc)
     : data_start_(u_nullptr),
       data_end_(u_nullptr),
@@ -45,15 +46,16 @@ VEC::vector(InputIterator first,
 }
 
 /// resolve ambiguity
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 template <class Integer>
 void VEC::initialize_dispatch(Integer n, Integer val, true_type) {
   reserve(FT_VECTOR_INITIAL_SIZE);
-  data_end_ = UninitializedFillN(begin(), static_cast<size_type>(n), val);
+  data_end_ =
+      UninitializedFillN(begin(), static_cast<size_type>(n), val);
 }
 
-template <class T, class Allocator>
-template <class InputIterator>
+template <typename T, typename Allocator>
+template <typename InputIterator>
 void VEC::initialize_dispatch(InputIterator first,
                               InputIterator last,
                               false_type) {
@@ -61,7 +63,7 @@ void VEC::initialize_dispatch(InputIterator first,
 }
 
 /// copy constructor
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 VEC::vector(const vector& other)
     : data_start_(u_nullptr),
       data_end_(u_nullptr),
@@ -71,7 +73,7 @@ VEC::vector(const vector& other)
 }
 
 /// copy assignment operator
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 VEC& VEC::operator=(const vector& other) {
   if (this != &other) {
     clear();
@@ -81,7 +83,7 @@ VEC& VEC::operator=(const vector& other) {
 }
 
 /// destructor
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 VEC::~vector() {
   clear();
   allocator_.deallocate(data_start_, capacity());

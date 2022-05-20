@@ -6,8 +6,8 @@
 namespace ft {
 
 /// range
-template <class T, class Allocator>
-template <class InputIterator>
+template <typename T, typename Allocator>
+template <typename InputIterator>
 void VEC::assign(InputIterator first, InputIterator last) {
   // clear();
   // insert(begin(), first, last);
@@ -16,21 +16,21 @@ void VEC::assign(InputIterator first, InputIterator last) {
 }
 
 /// fill
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 void VEC::assign(size_type n, const value_type& val) {
   /// TODO: make it into FILL_ASSIGN impl
   clear();
   insert(begin(), n, val);
 }
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 template <typename Integer>
 void VEC::assign_dispatch(Integer n, Integer val, true_type) {
   clear();
   insert(begin(), n, val);
 }
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 template <typename InputIterator>
 void VEC::assign_dispatch(InputIterator first,
                           InputIterator last,
@@ -39,7 +39,7 @@ void VEC::assign_dispatch(InputIterator first,
   insert(begin(), first, last);
 }
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 void VEC::push_back(const value_type& val) {
   if (size() == capacity())
     reserve(GetNewCapacity(size() + 1));
@@ -47,14 +47,14 @@ void VEC::push_back(const value_type& val) {
   ++data_end_;
 }
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 void VEC::pop_back() {
   allocator_.destroy(data_end_ - 1);
   --data_end_;
 }
 
 /// single element
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 typename VEC::iterator VEC::insert(iterator          position,
                                    const value_type& val) {
 #ifdef FT_VECTOR_DEBUG
@@ -70,7 +70,7 @@ typename VEC::iterator VEC::insert(iterator          position,
 }
 
 /// fill
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 void VEC::insert(iterator          position,
                  size_type         n,
                  const value_type& val) {
@@ -80,8 +80,8 @@ void VEC::insert(iterator          position,
 }
 
 /// range
-template <class T, class Allocator>
-template <class InputIterator>
+template <typename T, typename Allocator>
+template <typename InputIterator>
 void VEC::insert(iterator      position,
                  InputIterator first,
                  InputIterator last) {
@@ -89,8 +89,8 @@ void VEC::insert(iterator      position,
   insert_dispatch(position, first, last, is_integral());
 }
 
-template <class T, class Allocator>
-template <class Integer>
+template <typename T, typename Allocator>
+template <typename Integer>
 void VEC::insert_dispatch(iterator position,
                           Integer  n,
                           Integer  val,
@@ -101,8 +101,8 @@ void VEC::insert_dispatch(iterator position,
     allocator_.construct(new_position + i, val);
 }
 
-template <class T, class Allocator>
-template <class InputIterator>
+template <typename T, typename Allocator>
+template <typename InputIterator>
 void VEC::insert_dispatch(iterator      position,
                           InputIterator first,
                           InputIterator last,
@@ -116,17 +116,17 @@ void VEC::insert_dispatch(iterator      position,
     allocator_.construct(&new_position[i], *it);
 }
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 typename VEC::iterator VEC::erase(iterator position) {
   return LeftShift(position, 1);
 }
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 typename VEC::iterator VEC::erase(iterator first, iterator last) {
   return LeftShift(first, size_type(std::distance(first, last)));
 }
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 void VEC::swap(vector& other) {
   std::swap(data_start_, other.data_start_);
   std::swap(data_end_, other.data_end_);
@@ -134,7 +134,7 @@ void VEC::swap(vector& other) {
   std::swap(allocator_, other.allocator_);
 }
 
-template <class T, class Allocator>
+template <typename T, typename Allocator>
 void VEC::clear() {
   for (iterator it = data_start_; it != data_end_; ++it)
     allocator_.destroy(it);
@@ -142,4 +142,4 @@ void VEC::clear() {
 }
 }  // namespace ft
 
-#endif // CONTAINERS_VECTOR_MODIFIER_TPP
+#endif  // CONTAINERS_VECTOR_MODIFIER_TPP

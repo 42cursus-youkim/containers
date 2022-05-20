@@ -6,7 +6,7 @@
 namespace ft {
 /// non-member function overloads
 
-template <class T, class Alloc>
+template <typename T, typename Alloc>
 void swap(vector<T, Alloc>& x, vector<T, Alloc>& y) {
   x.swap(y);
 }

@@ -7,9 +7,8 @@ namespace ft {
 
 /// operator
 
-template <class T1, class T2>
-pair<T1, T2>& pair<T1, T2>::operator=(
-    const pair<T1, T2>& other) {
+template <typename T1, typename T2>
+pair<T1, T2>& pair<T1, T2>::operator=(const pair<T1, T2>& other) {
   if (this != &other) {
     first  = other.first;
     second = other.second;
@@ -17,7 +16,7 @@ pair<T1, T2>& pair<T1, T2>::operator=(
   return *this;
 }
 
-template <class T1, class T2>
+template <typename T1, typename T2>
 pair<const T1, T2>& pair<const T1, T2>::operator=(
     const pair<const T1, T2>& other) {
   if (this != &other) {
