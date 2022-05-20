@@ -20,7 +20,7 @@ template <typename T, typename Compare>
 typename rbtree<T, Compare>::node_pointer
 rbtree<T, Compare>::min_node(node_pointer node) const {
   node_pointer temp = node;
-  while (temp->has_left_child())
+  while (temp->has_left_value())
     temp = temp->left;
   return temp;
 }
@@ -29,7 +29,7 @@ template <typename T, typename Compare>
 typename rbtree<T, Compare>::node_pointer
 rbtree<T, Compare>::max_node(node_pointer node) const {
   node_pointer temp = node;
-  while (temp->has_right_child())
+  while (temp->has_right_value())
     temp = temp->right;
   return temp;
 }
@@ -45,7 +45,7 @@ rbtree<T, Compare>::create_node(const_reference data) {
 template <typename T, typename Compare>
 typename rbtree<T, Compare>::node_pointer
 rbtree<T, Compare>::next_node(node_pointer node) const {
-  if (node->has_right_child())
+  if (node->has_right_value())
     return min_node(node->right);
   while (not node->is_left_child())
     node = node->parent;

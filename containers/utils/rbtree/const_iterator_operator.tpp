@@ -5,6 +5,8 @@
 
 namespace ft {
 
+/// imitate pointer arithmetic
+
 template <typename T, typename Node>
 typename tree_const_iterator<T, Node>::reference
 tree_const_iterator<T, Node>::operator*() const {
@@ -17,6 +19,7 @@ tree_const_iterator<T, Node>::operator->() const {
   return &node_->data;
 }
 
+/// compare iterators
 template <typename T, typename Node>
 bool tree_const_iterator<T, Node>::operator==(
     const tree_const_iterator& other) const {
@@ -39,11 +42,11 @@ tree_const_iterator<T, Node>& tree_const_iterator<T, Node>::operator=(
 template <typename T, typename Node>
 tree_const_iterator<T, Node>&
 tree_const_iterator<T, Node>::operator++() {
-  if (node_->has_right_child()) {
-    tree_min(node_->right);
+  if (node_->has_right_value()) {
+    go_to_min_from(node_->right);
     return *this;
   }
-  while (not tree_is_left_child())
+  while (not is_left_child())
     node_ = node_->parent;
   node_ = node_->parent;
   return *this;
@@ -60,11 +63,11 @@ tree_const_iterator<T, Node> tree_const_iterator<T, Node>::operator++(
 template <typename T, typename Node>
 tree_const_iterator<T, Node>&
 tree_const_iterator<T, Node>::operator--() {
-  if (node_->has_left_child()) {
-    tree_max(node_->left);
+  if (node_->has_left_value()) {
+    go_to_max_from(node_->left);
     return *this;
   }
-  while (tree_is_left_child())
+  while (is_left_child())
     node_ = node_->parent;
   node_ = node_->parent;
   return *this;

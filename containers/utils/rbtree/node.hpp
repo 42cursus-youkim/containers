@@ -21,8 +21,8 @@ class rb_node {
   explicit rb_node(value_type data);
 
   /// Property
-  bool has_left_child() const;
-  bool has_right_child() const;
+  bool has_left_value() const;
+  bool has_right_value() const;
   bool is_left_child() const;
 };
 

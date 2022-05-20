@@ -29,7 +29,7 @@ void rbtree<T, Compare>::rotate_right(node_pointer node) {
 
   /// @b step-1
   node->left = grand_child;
-  if (node->has_left_child())
+  if (node->has_left_value())
     node->left->parent = node;
 
   /// @b step-2
@@ -69,7 +69,7 @@ void rbtree<T, Compare>::rotate_left(node_pointer node) {
 
   /// @b step-1
   node->right = grand_child;
-  if (node->has_right_child())
+  if (node->has_right_value())
     node->right->parent = node;
 
   /// @b step-2
@@ -166,7 +166,7 @@ rbtree<T, Compare>::find_pos(node_pointer&   parent,
 
   while (true) {
     if (comp_(data, node->data)) {
-      if (node->has_left_child()) {
+      if (node->has_left_value()) {
         p_node = &(node->left);
         node   = node->left;
       } else {
@@ -174,7 +174,7 @@ rbtree<T, Compare>::find_pos(node_pointer&   parent,
         return parent->left;
       }
     } else if (comp_(node->data, data)) {
-      if (node->has_right_child()) {
+      if (node->has_right_value()) {
         p_node = &node->right;
         node   = node->right;
       } else {
@@ -198,7 +198,7 @@ rbtree<T, Compare>::find_pos(iterator        hint,
   if (hint == end() or comp_(data, *hint)) {
     iterator prev = hint;
     if (hint == begin() or comp_(*--prev, data)) {
-      if (not hint.base()->has_left_child()) {
+      if (not hint.base()->has_left_value()) {
         parent = hint.base();
         return parent->left;
       } else {
@@ -211,7 +211,7 @@ rbtree<T, Compare>::find_pos(iterator        hint,
     iterator next = hint;
     ++next;
     if (next == end() or comp_(data, *next)) {
-      if (not hint.base()->has_right_child()) {
+      if (not hint.base()->has_right_value()) {
         parent = hint.base();
         return hint.base()->right;
       } else {

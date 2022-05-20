@@ -33,9 +33,9 @@ class tree_const_iterator {
   // Getters/Setters
 
   node_pointer base() const;
-  void         tree_min(node_pointer node);
-  void         tree_max(node_pointer node);
-  bool         tree_is_left_child() const;
+  void         go_to_min_from(node_pointer node);
+  void         go_to_max_from(node_pointer node);
+  bool         is_left_child() const;
 
   // Operators
   reference    operator*() const;
