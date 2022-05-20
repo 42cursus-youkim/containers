@@ -5,17 +5,41 @@
 
 namespace ft {
 
+/**
+ * @brief rotate nodes to right, with left_child as pivot.
+ *
+ * @b step-1: @c grand_child becomes node's @b new-left-child
+ * @b step-2: @c right_child becomes the @b new-node
+ * @b step-3: @c node becomes the @b new-right-child
+ *
+ *  @b start   |  @b step-1  |  @b step-2  |  @b step-3  |
+ *      <10>   |     <10>    |    [5]      |    [5]      |
+ *     /   \   |     /  \    |   /         |   /  \      |
+ *   [5]   12  |   (8)   12  |  2          |  2  <10>    |
+ *  /  \       |  /  \       |       <10>  |     /  \    |
+ * 2   (8)     | 6   9       |(det.) /  \  |   (8)  12   |
+ *     / \     |         [5] |    (8)   12 |   / \       |
+ *    6  9     |  (det.) /   |   /  \      |  6  9       |
+ *             |       2     |  6   9      |             |
+ */
 template <typename T, typename Compare>
 void rbtree<T, Compare>::rotate_right(node_pointer node) {
-  node_pointer left_child = node->left;
-  node->left              = left_child->right;
+  node_pointer left_child  = node->left;         //< <10>
+  node_pointer grand_child = left_child->right;  //< (8)
+
+  /// @b step-1
+  node->left = grand_child;
   if (node->has_left_child())
     node->left->parent = node;
+
+  /// @b step-2
   left_child->parent = node->parent;
   if (node->is_left_child())
     node->parent->left = left_child;
   else
     node->parent->right = left_child;
+
+  /// @b step-3
   left_child->right = node;
   node->parent      = left_child;
 }
@@ -23,44 +47,39 @@ void rbtree<T, Compare>::rotate_right(node_pointer node) {
 /**
  * @brief rotate nodes to left, with right_child as pivot.
  *
- * @b node[5]
- * @b right_child<10>
- * @b grand_child(8)
- *
- * @b step-1: @c grand_child(8) becomes node's @b new-right-child
- * @b step-2 @c right_child<10> becomes the @b new-node
- * @b step-3 @c node[5] becomes new-node's @b new-left-child
- *
+ * @b step-1: @c grand_child becomes node's @b new-right-child
+ * @b step-2 @c right_child becomes the @b new-node
+ * @b step-3 @c node becomes new-node's @b new-left-child
  *
  *  @b start   |  @b step-1  |  @b step-2  |  @b step-3  |
- *    [5]      |   [5] <10>  |     <10>    |      <10>   |
- *   /  \      |  /  \    \  |        \    |     /   \   |
- *  2  <10>    | 2   (8)  12 |        12   |   [5]   12  |
+ *    [5]      |   [5]       |     <10>    |      <10>   |
+ *   /  \      |  /  \       |        \    |     /   \   |
+ *  2  <10>    | 2   (8)     |        12   |   [5]   12  |
  *     /  \    |    /  \     |   [5]       |  /  \       |
- *   (8)  12   |   6   9     |  /  \       | 2   (8)     |
- *   / \       |             | 2   (8)     |     / \     |
- *  6  9       |             |    /  \     |    6  9     |
- *             |             |   6   9     |             |
+ *   (8)  12   |   6   9     |  /  \ (det.)| 2   (8)     |
+ *   / \       |        <10> | 2   (8)     |     / \     |
+ *  6  9       |   (det.) \  |    /  \     |    6  9     |
+ *             |          12 |   6   9     |             |
  */
-// FIXME: what happens if there's no grandchild?
+// FIXME: wouldn't it crash if there were no grandchild?
 template <typename T, typename Compare>
 void rbtree<T, Compare>::rotate_left(node_pointer node) {
-  node_pointer right_child = node->right; //< <10>
-  node_pointer grand_child = right_child->left; //< (8)
+  node_pointer right_child = node->right;        //< <10>
+  node_pointer grand_child = right_child->left;  //< (8)
 
-  /// @b step-1: @c grand_child becomes node's @b new-right-child
+  /// @b step-1
   node->right = grand_child;
   if (node->has_right_child())
     node->right->parent = node;
 
-  /// @b step-2 @c right_child becomes the @b new-node
+  /// @b step-2
   right_child->parent = node->parent;
   if (node->is_left_child())
     node->parent->left = right_child;
   else
     node->parent->right = right_child;
 
-  /// @b step-3 @c node becomes new-node's @b new-left-child
+  /// @b step-3
   right_child->left = node;
   node->parent      = right_child;
 }
