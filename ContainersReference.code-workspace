@@ -1,10 +1,6 @@
 {
   "folders": [
     {
-      "name": "ft_containers3",
-      "path": "../ft_containers3"
-    },
-    {
       "name": "containers",
       "path": "."
     }

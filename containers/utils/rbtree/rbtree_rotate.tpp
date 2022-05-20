@@ -280,14 +280,16 @@ void rbtree<T, Compare>::delete_node(const_reference value) {
   --size_;
 }
 
+/// @brief recursively remove every node in the tree
 template <typename T, typename Compare>
 void rbtree<T, Compare>::delete_tree(node_pointer node) {
-  if (node != u_nullptr) {
-    delete_tree(node->left);
-    delete_tree(node->right);
-    alloc_.destroy(node);
-    alloc_.deallocate(node, 1);
-  }
+  if (node == u_nullptr)
+    return;
+
+  delete_tree(node->left);
+  delete_tree(node->right);
+  alloc_.destroy(node);
+  alloc_.deallocate(node, 1);
 }
 
 template <typename T, typename Compare>
@@ -297,32 +299,33 @@ rbtree<T, Compare>::find_pos(node_pointer&   parent,
   node_pointer  node   = root();
   node_pointer* p_node = rootPtr();
 
-  if (node != u_nullptr) {
-    while (true) {
-      if (comp_(data, node->data)) {
-        if (node->has_left_child()) {
-          p_node = &(node->left);
-          node   = node->left;
-        } else {
-          parent = node;
-          return parent->left;
-        }
-      } else if (comp_(node->data, data)) {
-        if (node->has_right_child()) {
-          p_node = &node->right;
-          node   = node->right;
-        } else {
-          parent = node;
-          return parent->right;
-        }
+  if (node == u_nullptr) {
+    parent = end_;
+    return end_->left;
+  }
+
+  while (true) {
+    if (comp_(data, node->data)) {
+      if (node->has_left_child()) {
+        p_node = &(node->left);
+        node   = node->left;
       } else {
         parent = node;
-        return *p_node;
+        return parent->left;
       }
+    } else if (comp_(node->data, data)) {
+      if (node->has_right_child()) {
+        p_node = &node->right;
+        node   = node->right;
+      } else {
+        parent = node;
+        return parent->right;
+      }
+    } else {
+      parent = node;
+      return *p_node;
     }
   }
-  parent = end_;
-  return end_->left;
 }
 
 // FIXME: leaks!
@@ -357,10 +360,11 @@ rbtree<T, Compare>::find_pos(iterator        hint,
       }
     }
     return find_pos(parent, data);
+  } else {
+    parent = hint.base();
+    dummy  = hint.base();
+    return dummy;
   }
-  parent = hint.base();
-  dummy  = hint.base();
-  return dummy;
 }
 
 }  // namespace ft
