@@ -15,17 +15,21 @@ class set_const_iterator {
   typedef const value_type*                    pointer;
   typedef const value_type&                    reference;
   typedef typename Iterator::iterator_category iterator_category;
-  typedef ft::set_iterator<typename Iterator::non_const_iterator>
-      non_const_iterator;
+  typedef ft::set_iterator<typename Iterator::tree_iterator>
+      tree_iterator;
 
  private:
   Iterator _it;
 
  public:
+  /// Constructors & Destructor
+
   set_const_iterator();
   set_const_iterator(const Iterator other);
-  set_const_iterator(non_const_iterator other);
+  set_const_iterator(tree_iterator other);
   ~set_const_iterator();
+
+  /// Copy Assignment Operator
 
   set_const_iterator& operator=(const set_const_iterator& other);
 

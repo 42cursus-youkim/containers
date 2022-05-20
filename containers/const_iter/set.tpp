@@ -14,8 +14,7 @@ set_const_iterator<Iterator>::set_const_iterator(const Iterator other)
     : _it(other) {}
 
 template <typename Iterator>
-set_const_iterator<Iterator>::set_const_iterator(
-    non_const_iterator other)
+set_const_iterator<Iterator>::set_const_iterator(tree_iterator other)
     : _it(other.base()) {}
 
 template <typename Iterator>

@@ -26,7 +26,7 @@ class tree_iterator {
  public:
   /// Constructors & Destructor
   tree_iterator();
-  tree_iterator(const node_pointer other);
+  tree_iterator(const node_pointer base);
   tree_iterator(const tree_iterator& other);
   tree_iterator(const const_iterator& other);
 

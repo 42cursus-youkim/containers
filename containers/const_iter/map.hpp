@@ -16,8 +16,8 @@ class map_const_iterator {
   typedef const value_type*                    pointer;
   typedef const value_type&                    reference;
   typedef typename Iterator::iterator_category iterator_category;
-  typedef ft::map_iterator<typename Iterator::non_const_iterator>
-      non_const_iterator;
+  typedef ft::map_iterator<typename Iterator::tree_iterator>
+      tree_iterator;
 
  private:
   Iterator _it;
@@ -26,7 +26,7 @@ class map_const_iterator {
   /// Constructors & Destructor
   map_const_iterator();
   map_const_iterator(const Iterator other);
-  map_const_iterator(non_const_iterator other);
+  map_const_iterator(tree_iterator other);
   ~map_const_iterator();
 
   /// Copy Assignment Operator

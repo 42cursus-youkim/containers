@@ -9,8 +9,8 @@ template <typename T, typename Node>
 tree_iterator<T, Node>::tree_iterator() {}
 
 template <typename T, typename Node>
-tree_iterator<T, Node>::tree_iterator(const node_pointer other)
-    : node_(other) {}
+tree_iterator<T, Node>::tree_iterator(const node_pointer base)
+    : node_(base) {}
 
 template <typename T, typename Node>
 tree_iterator<T, Node>::tree_iterator(const tree_iterator& other)

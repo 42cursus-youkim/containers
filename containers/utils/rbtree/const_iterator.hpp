@@ -5,7 +5,7 @@
 
 namespace ft {
 
-template <class T, class NodePtr>
+template <typename T, typename NodePtr>
 class tree_const_iterator {
   // * typedef
  public:
@@ -16,19 +16,17 @@ class tree_const_iterator {
   typedef long                           difference_type;
   typedef unsigned long                  size_type;
   typedef ft::bidirectional_iterator_tag iterator_category;
-  typedef ft::tree_iterator<T, NodePtr>  non_const_iterator;
+  typedef ft::tree_iterator<T, NodePtr>  tree_iterator;
 
  private:
-  // * private member
   node_pointer node_;
 
  public:
   /// Constructors & Destructor
-
   tree_const_iterator();
-  tree_const_iterator(const node_pointer other);
+  tree_const_iterator(const node_pointer base);
   tree_const_iterator(const tree_const_iterator& other);
-  tree_const_iterator(non_const_iterator other);
+  tree_const_iterator(const tree_iterator &other);
 
   ~tree_const_iterator();
 
@@ -37,18 +35,17 @@ class tree_const_iterator {
 
   /// Getters/Setters
 
-  node_pointer base() const;
-  node_pointer min_child_from(node_pointer node) const;
-  node_pointer max_child_from(node_pointer node) const;
-  bool         is_left_child() const;
+  node_pointer         base() const;
+  node_pointer         min_child_from(node_pointer node) const;
+  node_pointer         max_child_from(node_pointer node) const;
+  bool                 is_left_child() const;
 
   // Operators
-  reference    operator*() const;
-  pointer      operator->() const;
+  reference            operator*() const;
+  pointer              operator->() const;
 
-  bool         operator==(const tree_const_iterator& other) const;
-  bool         operator!=(const tree_const_iterator& other) const;
-
+  bool operator==(const tree_const_iterator& other) const;
+  bool operator!=(const tree_const_iterator& other) const;
 
   tree_const_iterator& operator++();
   tree_const_iterator  operator++(int);

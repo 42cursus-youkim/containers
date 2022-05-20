@@ -14,8 +14,7 @@ map_const_iterator<Iterator>::map_const_iterator(const Iterator other)
     : _it(other) {}
 
 template <typename Iterator>
-map_const_iterator<Iterator>::map_const_iterator(
-    non_const_iterator other)
+map_const_iterator<Iterator>::map_const_iterator(tree_iterator other)
     : _it(other.base()) {}
 
 template <typename Iterator>
