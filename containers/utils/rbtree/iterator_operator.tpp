@@ -54,8 +54,8 @@ tree_iterator<T, Node>& tree_iterator<T, Node>::operator=(
  */
 template <typename T, typename Node>
 tree_iterator<T, Node>& tree_iterator<T, Node>::operator++() {
-  if (node_->has_right_value()) {
-    go_to_min_from(node_->right);
+  if (node_->has_right_child()) {
+    node_ = min_child_from(node_->right);
     return *this;
   }
   while (not is_left_child())
@@ -75,8 +75,8 @@ tree_iterator<T, Node> tree_iterator<T, Node>::operator++(int) {
 /// move to next biggest element then return
 template <typename T, typename Node>
 tree_iterator<T, Node>& tree_iterator<T, Node>::operator--() {
-  if (node_->has_left_value()) {
-    go_to_max_from(node_->left);
+  if (node_->has_left_child()) {
+    node_ = max_child_from(node_->left);
     return *this;
   }
   while (is_left_child())

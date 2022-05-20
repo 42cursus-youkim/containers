@@ -5,6 +5,8 @@
 #include "node.hpp"
 
 namespace ft {
+
+/// leaf node (or NIL)
 template <typename T, typename Allocator>
 rb_node<T, Allocator>::rb_node()
     : is_black(true),
@@ -12,6 +14,7 @@ rb_node<T, Allocator>::rb_node()
       right(u_nullptr),
       parent(u_nullptr) {}
 
+/// node with value
 template <typename T, typename Allocator>
 rb_node<T, Allocator>::rb_node(value_type data)
     : data(data),

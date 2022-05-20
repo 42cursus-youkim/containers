@@ -40,16 +40,17 @@ class rbtree {
 
   node_pointer  min_node(node_pointer node) const;
   node_pointer  max_node(node_pointer node) const;
-
-  node_pointer  create_node(const_reference data);
-
   node_pointer  next_node(node_pointer node) const;
+
 
   /// rotate
   void          rotate_right(node_pointer node);
   void          rotate_left(node_pointer node);
 
   void          rebuild_insert(node_pointer new_node);
+
+  // allocate
+  node_pointer  create_node(const_reference data);
 
   // remove
   void          deallocate_node(node_pointer node);

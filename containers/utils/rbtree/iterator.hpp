@@ -35,8 +35,8 @@ class tree_iterator {
   // getters
   node_pointer   base() const;
 
-  void           go_to_min_from(node_pointer node);
-  void           go_to_max_from(node_pointer node);
+  node_pointer   min_child_from(node_pointer node) const;
+  node_pointer   max_child_from(node_pointer node) const;
   bool           is_left_child() const;
 
   /// operator

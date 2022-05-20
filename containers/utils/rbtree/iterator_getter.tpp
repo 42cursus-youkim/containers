@@ -13,18 +13,20 @@ tree_iterator<T, Node>::base() const {
 
 /// move self to the minimum node from given node
 template <typename T, typename Node>
-void tree_iterator<T, Node>::go_to_min_from(node_pointer node) {
-  while (node->has_left_value())
+typename tree_iterator<T, Node>::node_pointer
+tree_iterator<T, Node>::min_child_from(node_pointer node) const {
+  while (node->has_left_child())
     node = node->left;
-  node_ = node;
+  return node;
 }
 
 /// move self to the maximum node from given node
 template <typename T, typename Node>
-void tree_iterator<T, Node>::go_to_max_from(node_pointer node) {
-  while (node->has_right_value())
+typename tree_iterator<T, Node>::node_pointer
+tree_iterator<T, Node>::max_child_from(node_pointer node) const {
+  while (node->has_right_child())
     node = node->right;
-  node_ = node;
+  return node;
 }
 
 /// check if self is left child of its parent

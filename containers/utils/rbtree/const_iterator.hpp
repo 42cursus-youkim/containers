@@ -23,18 +23,23 @@ class tree_const_iterator {
   node_pointer node_;
 
  public:
-  // * constructor
+  /// Constructors & Destructor
+
   tree_const_iterator();
   tree_const_iterator(const node_pointer other);
   tree_const_iterator(const tree_const_iterator& other);
   tree_const_iterator(non_const_iterator other);
+
   ~tree_const_iterator();
 
-  // Getters/Setters
+  /// Copy Assignment Operator
+  tree_const_iterator& operator=(const tree_const_iterator& other);
+
+  /// Getters/Setters
 
   node_pointer base() const;
-  void         go_to_min_from(node_pointer node);
-  void         go_to_max_from(node_pointer node);
+  node_pointer min_child_from(node_pointer node) const;
+  node_pointer max_child_from(node_pointer node) const;
   bool         is_left_child() const;
 
   // Operators
@@ -44,7 +49,6 @@ class tree_const_iterator {
   bool         operator==(const tree_const_iterator& other) const;
   bool         operator!=(const tree_const_iterator& other) const;
 
-  tree_const_iterator& operator=(const tree_const_iterator& other);
 
   tree_const_iterator& operator++();
   tree_const_iterator  operator++(int);

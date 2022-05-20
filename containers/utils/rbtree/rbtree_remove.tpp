@@ -33,7 +33,7 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
       (node->left == u_nullptr or node->right == u_nullptr)
           ? node
           : next_node(node);
-  node_pointer succesor = to_remove->has_left_value()
+  node_pointer succesor = to_remove->has_left_child()
                               ? to_remove->left
                               : to_remove->right;
   node_pointer sibling  = u_nullptr;
@@ -62,7 +62,7 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
     to_remove->left         = node->left;
     to_remove->left->parent = to_remove;
     to_remove->right        = node->right;
-    if (to_remove->has_right_value())
+    if (to_remove->has_right_child())
       to_remove->right->parent = to_remove;
     to_remove->is_black = node->is_black;
     if (root == node)
