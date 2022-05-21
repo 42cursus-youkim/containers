@@ -8,7 +8,8 @@ namespace ft {
 /// relational operators
 
 template <typename T, typename Allocator>
-bool operator==(const VEC& left, const VEC& right) {
+bool operator==(const vector<T, Allocator>& left,
+                const vector<T, Allocator>& right) {
   if (left.size() != right.size())
     return false;
   typename vector<T>::const_iterator first1 = left.begin();
@@ -21,28 +22,33 @@ bool operator==(const VEC& left, const VEC& right) {
 }
 
 template <typename T, typename Allocator>
-bool operator!=(const VEC& left, const VEC& right) {
+bool operator!=(const vector<T, Allocator>& left,
+                const vector<T, Allocator>& right) {
   return not(left == right);
 }
 
 template <typename T, typename Allocator>
-bool operator<(const VEC& left, const VEC& right) {
+bool operator<(const vector<T, Allocator>& left,
+               const vector<T, Allocator>& right) {
   return lexicographical_compare(left.begin(), left.end(),
                                  right.begin(), right.end());
 }
 
 template <typename T, typename Allocator>
-bool operator<=(const VEC& left, const VEC& right) {
+bool operator<=(const vector<T, Allocator>& left,
+                const vector<T, Allocator>& right) {
   return left == right or left < right;
 }
 
 template <typename T, typename Allocator>
-bool operator>(const VEC& left, const VEC& right) {
+bool operator>(const vector<T, Allocator>& left,
+               const vector<T, Allocator>& right) {
   return right < left;
 }
 
 template <typename T, typename Allocator>
-bool operator>=(const VEC& left, const VEC& right) {
+bool operator>=(const vector<T, Allocator>& left,
+                const vector<T, Allocator>& right) {
   return left == right or left > right;
 }
 }  // namespace ft

@@ -5,16 +5,13 @@
 #include <utils/general/nullptr.hpp>
 #include <utils/tmp/enable_if.hpp>
 #include <utils/tmp/is_integral.hpp>
-#include "utils/util/util.hpp"
 #include "vector.hpp"
-
-#define VEC vector<T, Allocator>
 
 namespace ft {
 
 /// default constructor (empty)
 template <typename T, typename Allocator>
-VEC::vector(const Allocator& alloc)
+vector<T, Allocator>::vector(const Allocator& alloc)
     : data_start_(u_nullptr),
       data_end_(u_nullptr),
       capacity_ptr_(u_nullptr),
@@ -22,7 +19,9 @@ VEC::vector(const Allocator& alloc)
 
 /// fill constructor (container with n val)
 template <typename T, typename Allocator>
-VEC::vector(size_type n, const T& val, const Allocator& alloc)
+vector<T, Allocator>::vector(size_type        n,
+                             const T&         val,
+                             const Allocator& alloc)
     : data_start_(u_nullptr),
       data_end_(u_nullptr),
       capacity_ptr_(u_nullptr),
@@ -34,9 +33,10 @@ VEC::vector(size_type n, const T& val, const Allocator& alloc)
 /// dispatch
 template <typename T, typename Allocator>
 template <typename InputIterator>
-VEC::vector(InputIterator                       first,
-            InputIterator                       last,
-            const typename VEC::allocator_type& alloc)
+vector<T, Allocator>::vector(
+    InputIterator                                        first,
+    InputIterator                                        last,
+    const typename vector<T, Allocator>::allocator_type& alloc)
     : data_start_(u_nullptr),
       data_end_(u_nullptr),
       capacity_ptr_(u_nullptr),
@@ -48,7 +48,9 @@ VEC::vector(InputIterator                       first,
 /// resolve ambiguity
 template <typename T, typename Allocator>
 template <class Integer>
-void VEC::initialize_dispatch(Integer n, Integer val, true_type) {
+void vector<T, Allocator>::initialize_dispatch(Integer n,
+                                               Integer val,
+                                               true_type) {
   reserve(FT_VECTOR_INITIAL_SIZE);
   data_end_ =
       UninitializedFillN(begin(), static_cast<size_type>(n), val);
@@ -56,15 +58,15 @@ void VEC::initialize_dispatch(Integer n, Integer val, true_type) {
 
 template <typename T, typename Allocator>
 template <typename InputIterator>
-void VEC::initialize_dispatch(InputIterator first,
-                              InputIterator last,
-                              false_type) {
+void vector<T, Allocator>::initialize_dispatch(InputIterator first,
+                                               InputIterator last,
+                                               false_type) {
   insert(end(), first, last);
 }
 
 /// copy constructor
 template <typename T, typename Allocator>
-VEC::vector(const vector& other)
+vector<T, Allocator>::vector(const vector& other)
     : data_start_(u_nullptr),
       data_end_(u_nullptr),
       capacity_ptr_(u_nullptr),
@@ -74,7 +76,8 @@ VEC::vector(const vector& other)
 
 /// copy assignment operator
 template <typename T, typename Allocator>
-VEC& VEC::operator=(const vector& other) {
+vector<T, Allocator>& vector<T, Allocator>::operator=(
+    const vector& other) {
   if (this != &other) {
     clear();
     insert(end(), other.begin(), other.end());
@@ -84,7 +87,7 @@ VEC& VEC::operator=(const vector& other) {
 
 /// destructor
 template <typename T, typename Allocator>
-VEC::~vector() {
+vector<T, Allocator>::~vector() {
   clear();
   allocator_.deallocate(data_start_, capacity());
 }

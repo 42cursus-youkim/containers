@@ -1,11 +1,23 @@
+#include <ctime>
+#include <iomanip>
 #include <iostream>
 #include <memory>
 #include <utils/pair/pair.hpp>
 #include <utils/tmp/integral_constant.hpp>
 #include <utils/tmp/is_integral.hpp>
 #include <vector.hpp>
+#include "../util/util.hpp"
 #include "test/pair.hpp"
-#include "utils/util/util.hpp"
+
+template <typename T>
+void time_func(bool (*func)(T), T arg) {
+  const std::time_t start = std::time();
+  func(arg);
+  const std::time_t end        = std::time();
+  double            time_taken = double(end - start);
+  cout << __func__ << " took " << std::fixed() << std::setprecision(5)
+       << time_taken << "\n";
+}
 
 // --- Class foo
 template <typename T>

@@ -1,6 +1,7 @@
 #ifndef RBTREE_RBTREE_ITER_TPP
 #define RBTREE_RBTREE_ITER_TPP
 
+#include <algorithm>
 #include "rbtree.hpp"
 
 namespace ft {

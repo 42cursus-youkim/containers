@@ -1,6 +1,7 @@
 #ifndef CONTAINERS_VECTOR_IMPL_TPP
 #define CONTAINERS_VECTOR_IMPL_TPP
 
+#include <algorithm>
 #include "vector.hpp"
 
 namespace ft {
@@ -9,10 +10,10 @@ namespace ft {
 
 /// returns
 template <typename T, typename Allocator>
-typename VEC::iterator VEC::UninitializedFillN(
-    iterator          from,
-    size_type         count,
-    const value_type& val) {
+typename vector<T, Allocator>::iterator
+vector<T, Allocator>::UninitializedFillN(iterator          from,
+                                         size_type         count,
+                                         const value_type& val) {
   size_type i = 0;
   try {
     for (; i < count; ++i)
@@ -25,22 +26,23 @@ typename VEC::iterator VEC::UninitializedFillN(
 }
 
 template <typename T, typename Allocator>
-typename VEC::size_type VEC::Index(iterator it) const {
+typename vector<T, Allocator>::size_type vector<T, Allocator>::Index(
+    iterator it) const {
   return size_type(it - begin());
 }
 
 /// @brief move a single element to a new position.
 /// @param to any element in to
 template <typename T, typename Allocator>
-inline typename VEC::iterator VEC::UnsafeMove(iterator from,
-                                              iterator to) {
+inline typename vector<T, Allocator>::iterator
+vector<T, Allocator>::UnsafeMove(iterator from, iterator to) {
   data_start_[Index(to)] = data_start_[Index(from)];
   return to;
 }
 
 /// creates new storage, rellocates all elements to new one
 template <typename T, typename Allocator>
-void VEC::DoGrow(size_type new_capacity) {
+void vector<T, Allocator>::DoGrow(size_type new_capacity) {
   if (new_capacity > max_size())
     throw std::length_error(
         "ft::vector::reserve: maximum capacity exceeded");
@@ -62,8 +64,8 @@ void VEC::DoGrow(size_type new_capacity) {
 
 /// get suitable new capacity
 template <typename T, typename Allocator>
-typename VEC::size_type VEC::GetNewCapacity(
-    size_type at_least) const {
+typename vector<T, Allocator>::size_type
+vector<T, Allocator>::GetNewCapacity(size_type at_least) const {
   const size_type max_possible_size(max_size());
   const size_type current_capacity(capacity());
 
@@ -76,7 +78,8 @@ typename VEC::size_type VEC::GetNewCapacity(
 }
 
 template <typename T, typename Allocator>
-typename VEC::iterator VEC::LeftShift(iterator from, size_type diff) {
+typename vector<T, Allocator>::iterator
+vector<T, Allocator>::LeftShift(iterator from, size_type diff) {
   if (diff == 0)
     return from;
 
@@ -94,8 +97,8 @@ typename VEC::iterator VEC::LeftShift(iterator from, size_type diff) {
 
 /// @brief Moves from amount elements to the right
 template <typename T, typename Allocator>
-typename VEC::iterator VEC::RightShift(iterator  from,
-                                       size_type diff) {
+typename vector<T, Allocator>::iterator
+vector<T, Allocator>::RightShift(iterator from, size_type diff) {
   if (diff == 0)
     return from;
 

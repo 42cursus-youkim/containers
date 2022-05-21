@@ -8,7 +8,8 @@ namespace ft {
 /// range
 template <typename T, typename Allocator>
 template <typename InputIterator>
-void VEC::assign(InputIterator first, InputIterator last) {
+void vector<T, Allocator>::assign(InputIterator first,
+                                  InputIterator last) {
   // clear();
   // insert(begin(), first, last);
   typedef typename is_integral<InputIterator>::type is_integral;
@@ -17,7 +18,8 @@ void VEC::assign(InputIterator first, InputIterator last) {
 
 /// fill
 template <typename T, typename Allocator>
-void VEC::assign(size_type n, const value_type& val) {
+void vector<T, Allocator>::assign(size_type         n,
+                                  const value_type& val) {
   /// TODO: make it into FILL_ASSIGN impl
   clear();
   insert(begin(), n, val);
@@ -25,22 +27,24 @@ void VEC::assign(size_type n, const value_type& val) {
 
 template <typename T, typename Allocator>
 template <typename Integer>
-void VEC::assign_dispatch(Integer n, Integer val, true_type) {
+void vector<T, Allocator>::assign_dispatch(Integer n,
+                                           Integer val,
+                                           true_type) {
   clear();
   insert(begin(), n, val);
 }
 
 template <typename T, typename Allocator>
 template <typename InputIterator>
-void VEC::assign_dispatch(InputIterator first,
-                          InputIterator last,
-                          false_type) {
+void vector<T, Allocator>::assign_dispatch(InputIterator first,
+                                           InputIterator last,
+                                           false_type) {
   clear();
   insert(begin(), first, last);
 }
 
 template <typename T, typename Allocator>
-void VEC::push_back(const value_type& val) {
+void vector<T, Allocator>::push_back(const value_type& val) {
   if (size() == capacity())
     reserve(GetNewCapacity(size() + 1));
   allocator_.construct(data_end_, val);
@@ -48,15 +52,16 @@ void VEC::push_back(const value_type& val) {
 }
 
 template <typename T, typename Allocator>
-void VEC::pop_back() {
+void vector<T, Allocator>::pop_back() {
   allocator_.destroy(data_end_ - 1);
   --data_end_;
 }
 
 /// single element
 template <typename T, typename Allocator>
-typename VEC::iterator VEC::insert(iterator          position,
-                                   const value_type& val) {
+typename vector<T, Allocator>::iterator vector<T, Allocator>::insert(
+    iterator          position,
+    const value_type& val) {
 #ifdef FT_VECTOR_DEBUG
   FUN << "pos: " << position << " value: " << val << END "\n";
 #endif
@@ -71,9 +76,9 @@ typename VEC::iterator VEC::insert(iterator          position,
 
 /// fill
 template <typename T, typename Allocator>
-void VEC::insert(iterator          position,
-                 size_type         n,
-                 const value_type& val) {
+void vector<T, Allocator>::insert(iterator          position,
+                                  size_type         n,
+                                  const value_type& val) {
   iterator new_position = RightShift(position, n);
   for (size_type i = 0; i < n; ++i)
     allocator_.construct(new_position + i, val);
@@ -82,19 +87,19 @@ void VEC::insert(iterator          position,
 /// range
 template <typename T, typename Allocator>
 template <typename InputIterator>
-void VEC::insert(iterator      position,
-                 InputIterator first,
-                 InputIterator last) {
+void vector<T, Allocator>::insert(iterator      position,
+                                  InputIterator first,
+                                  InputIterator last) {
   typedef typename is_integral<InputIterator>::type is_integral;
   insert_dispatch(position, first, last, is_integral());
 }
 
 template <typename T, typename Allocator>
 template <typename Integer>
-void VEC::insert_dispatch(iterator position,
-                          Integer  n,
-                          Integer  val,
-                          true_type) {
+void vector<T, Allocator>::insert_dispatch(iterator position,
+                                           Integer  n,
+                                           Integer  val,
+                                           true_type) {
   iterator new_position =
       RightShift(position, static_cast<size_type>(n));
   for (size_type i = 0; i < static_cast<size_type>(n); ++i)
@@ -103,10 +108,10 @@ void VEC::insert_dispatch(iterator position,
 
 template <typename T, typename Allocator>
 template <typename InputIterator>
-void VEC::insert_dispatch(iterator      position,
-                          InputIterator first,
-                          InputIterator last,
-                          false_type) {
+void vector<T, Allocator>::insert_dispatch(iterator      position,
+                                           InputIterator first,
+                                           InputIterator last,
+                                           false_type) {
   const difference_type count = std::distance(first, last);
   iterator              new_position =
       RightShift(position, static_cast<size_type>(count));
@@ -117,17 +122,20 @@ void VEC::insert_dispatch(iterator      position,
 }
 
 template <typename T, typename Allocator>
-typename VEC::iterator VEC::erase(iterator position) {
+typename vector<T, Allocator>::iterator vector<T, Allocator>::erase(
+    iterator position) {
   return LeftShift(position, 1);
 }
 
 template <typename T, typename Allocator>
-typename VEC::iterator VEC::erase(iterator first, iterator last) {
+typename vector<T, Allocator>::iterator vector<T, Allocator>::erase(
+    iterator first,
+    iterator last) {
   return LeftShift(first, size_type(std::distance(first, last)));
 }
 
 template <typename T, typename Allocator>
-void VEC::swap(vector& other) {
+void vector<T, Allocator>::swap(vector& other) {
   std::swap(data_start_, other.data_start_);
   std::swap(data_end_, other.data_end_);
   std::swap(capacity_ptr_, other.capacity_ptr_);
@@ -135,7 +143,7 @@ void VEC::swap(vector& other) {
 }
 
 template <typename T, typename Allocator>
-void VEC::clear() {
+void vector<T, Allocator>::clear() {
   for (iterator it = data_start_; it != data_end_; ++it)
     allocator_.destroy(it);
   data_end_ = data_start_;
