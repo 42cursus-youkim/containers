@@ -95,10 +95,7 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
             root = sibling;
           sibling = sibling->left->right;
         }
-        if ((sibling->left == u_nullptr or
-             sibling->left->is_black) and
-            (sibling->right == u_nullptr or
-             sibling->right->is_black)) {
+        if (sibling->has_both_child(BLACK)) {
           sibling->is_black = false;
           succesor          = sibling->parent;
           if (succesor == root or succesor->is_red()) {
@@ -109,8 +106,7 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
                         ? succesor->parent->right
                         : succesor->parent->left;
         } else {
-          if (sibling->right == u_nullptr or
-              sibling->right->is_black) {
+          if (sibling->has_right_child(BLACK)) {
             sibling->left->is_black = true;
             sibling->is_black       = false;
             rotate_right(sibling);
@@ -131,13 +127,10 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
             root = sibling;
           sibling = sibling->right->left;
         }
-        if ((sibling->left == u_nullptr or
-             sibling->left->is_black) and
-            (sibling->right == u_nullptr or
-             sibling->right->is_black)) {
+        if (sibling->has_both_child(BLACK)) {
           sibling->is_black = false;
           succesor          = sibling->parent;
-          if (not succesor->is_black or succesor == root) {
+          if (succesor->is_red() or succesor == root) {
             succesor->is_black = true;
             break;
           }
@@ -145,7 +138,7 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
                         ? succesor->parent->right
                         : succesor->parent->left;
         } else {
-          if (sibling->left == u_nullptr or sibling->left->is_black) {
+          if (sibling->has_left_child(BLACK)) {
             sibling->right->is_black = true;
             sibling->is_black        = false;
             rotate_left(sibling);

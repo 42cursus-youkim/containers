@@ -5,6 +5,8 @@
 
 namespace ft {
 
+enum node_type { NON_NIL, BLACK, RED };
+
 template <typename T, typename Allocator = std::allocator<T> >
 struct rb_node {
   typedef T        value_type;
@@ -19,9 +21,9 @@ struct rb_node {
   explicit rb_node(value_type data);
 
   /// Property
-  bool has_both_child() const;
-  bool has_left_child() const;
-  bool has_right_child() const;
+  bool has_both_child(node_type type = NON_NIL) const;
+  bool has_left_child(node_type type = NON_NIL) const;
+  bool has_right_child(node_type type = NON_NIL) const;
   bool is_left_child() const;
   bool is_red() const;
 };
