@@ -22,6 +22,7 @@ struct rb_node {
   bool has_left_child() const;
   bool has_right_child() const;
   bool is_left_child() const;
+  bool is_red() const;
 };
 
 }  // namespace ft

@@ -88,10 +88,10 @@ template <typename T, typename Compare>
 void rbtree<T, Compare>::rebuild_insert(node_pointer new_node) {
   new_node->is_black = (new_node == root());
 
-  while (new_node != root() and not new_node->parent->is_black) {
+  while (new_node != root() and new_node->parent->is_red()) {
     if ((new_node->parent)->is_left_child()) {
       node_pointer uncle = new_node->parent->parent->right;
-      if (uncle != u_nullptr and not uncle->is_black) {
+      if (uncle != u_nullptr and uncle->is_red()) {
         new_node           = new_node->parent;
         new_node->is_black = true;
         new_node           = new_node->parent;
@@ -111,7 +111,7 @@ void rbtree<T, Compare>::rebuild_insert(node_pointer new_node) {
       }
     } else {
       node_pointer uncle = new_node->parent->parent->left;
-      if (uncle != u_nullptr and not uncle->is_black) {
+      if (uncle != u_nullptr and uncle->is_red()) {
         new_node           = new_node->parent;
         new_node->is_black = true;
         new_node           = new_node->parent;
@@ -141,7 +141,7 @@ void rbtree<T, Compare>::delete_node(const_reference value) {
   --size_;
 }
 
-/// @brief recursively remove every node in the tree
+/// recursively remove every node in the tree
 template <typename T, typename Compare>
 void rbtree<T, Compare>::delete_tree(node_pointer node) {
   if (node == u_nullptr)
@@ -157,7 +157,7 @@ typename rbtree<T, Compare>::node_pointer&
 rbtree<T, Compare>::find_pos(node_pointer&   parent,
                              const_reference data) {
   node_pointer  node   = root();
-  node_pointer* p_node = rootPtr();
+  node_pointer* node_ptr = rootPtr();
 
   if (node == u_nullptr) {
     parent = end_;
@@ -167,7 +167,7 @@ rbtree<T, Compare>::find_pos(node_pointer&   parent,
   while (true) {
     if (comp_(data, node->data)) {
       if (node->has_left_child()) {
-        p_node = &(node->left);
+        node_ptr = &(node->left);
         node   = node->left;
       } else {
         parent = node;
@@ -175,7 +175,7 @@ rbtree<T, Compare>::find_pos(node_pointer&   parent,
       }
     } else if (comp_(node->data, data)) {
       if (node->has_right_child()) {
-        p_node = &node->right;
+        node_ptr = &node->right;
         node   = node->right;
       } else {
         parent = node;
@@ -183,7 +183,7 @@ rbtree<T, Compare>::find_pos(node_pointer&   parent,
       }
     } else {
       parent = node;
-      return *p_node;
+      return *node_ptr;
     }
   }
 }

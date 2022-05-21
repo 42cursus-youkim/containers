@@ -34,7 +34,7 @@ class rbtree {
   node_pointer   end_;
   size_type      size_;
   allocator_type alloc_;
-  compare_type   comp_;
+  compare_type   comp_;  //< whether a < b (less)
 
  private:
   node_pointer  root() const;

@@ -77,7 +77,7 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
     else {
       while (true) {
         if (not sibling->is_left_child()) {
-          if (not sibling->is_black) {
+          if (sibling->is_red()) {
             sibling->is_black         = true;
             sibling->parent->is_black = false;
             rotate_left(sibling->parent);
@@ -91,7 +91,7 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
                sibling->right->is_black)) {
             sibling->is_black = false;
             succesor          = sibling->parent;
-            if (succesor == root or not succesor->is_black) {
+            if (succesor == root or  succesor->is_red()) {
               succesor->is_black = true;
               break;
             }
