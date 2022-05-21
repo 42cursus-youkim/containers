@@ -7,15 +7,14 @@ namespace ft {
 
 /// Constructors & Destructor
 template <typename T, typename Container>
-stack<T, Container>::stack(const container_type& ctnr)
-    : container_(ctnr) {}
+stack<T, Container>::stack(const container_type& ctnr) : c(ctnr) {}
 
 template <typename T, typename Container>
 stack<T, Container>::~stack() {}
 
 template <typename T, typename Container>
 bool stack<T, Container>::empty() const {
-  return container_.empty();
+  return c.empty();
 }
 
 }  // namespace ft

@@ -9,39 +9,39 @@ namespace ft {
 template <typename T, typename Container>
 bool operator==(const stack<T, Container>& left,
                 const stack<T, Container>& right) {
-  return left.container_ == right.container_;
+  return left.c == right.c;
 }
 
 template <typename T, typename Container>
 bool operator!=(const stack<T, Container>& left,
                 const stack<T, Container>& right) {
-  return left.container_ != right.container_;
+  return left.c != right.c;
 }
 
 template <typename T, typename Container>
 bool operator<(const stack<T, Container>& left,
                const stack<T, Container>& right) {
-  return left.container_ < right.container_;
+  return left.c < right.c;
 }
 
 template <typename T, typename Container>
 bool operator<=(const stack<T, Container>& left,
                 const stack<T, Container>& right) {
-  return left.container_ <= right.container_;
+  return left.c <= right.c;
 }
 
 template <typename T, typename Container>
 bool operator>(const stack<T, Container>& left,
                const stack<T, Container>& right) {
-  return left.container_ > right.container_;
+  return left.c > right.c;
 }
 
 template <typename T, typename Container>
 bool operator>=(const stack<T, Container>& left,
                 const stack<T, Container>& right) {
-  return left.container_ >= right.container_;
+  return left.c >= right.c;
 }
 
 }  // namespace ft
 
-#endif // CONTAINERS_STACK_RELATIONAL_TPP
+#endif  // CONTAINERS_STACK_RELATIONAL_TPP

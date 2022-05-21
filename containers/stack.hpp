@@ -13,7 +13,7 @@ class stack {
   typedef size_t    size_type;
 
  protected:
-  container_type container_;
+  container_type c;
 
  public:
   /// Constructors & Destructor

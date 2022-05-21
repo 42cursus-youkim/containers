@@ -7,12 +7,12 @@ namespace ft {
 
 template <typename T, typename Container>
 void stack<T, Container>::push(const value_type& val) {
-  container_.push_back(val);
+  c.push_back(val);
 }
 
 template <typename T, typename Container>
 void stack<T, Container>::pop() {
-  container_.pop_back();
+  c.pop_back();
 }
 
 }  // namespace ft
