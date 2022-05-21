@@ -19,7 +19,6 @@ template <typename T,
           typename Allocator = std::allocator<T> >
 class set {
  public:
-  // * typedef
   typedef T                                        key_type;
   typedef T                                        value_type;
   typedef Compare                                  key_compare;

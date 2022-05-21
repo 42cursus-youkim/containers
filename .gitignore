@@ -1,5 +1,7 @@
 # Tester
-*containers_test
+containers_test
+accuracy_tester
+efficiency_test
 
 # Prerequisites
 *.d

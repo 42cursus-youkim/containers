@@ -10,8 +10,6 @@ class set_iterator {
  public:
   typedef typename Iterator::value_type        value_type;
   typedef typename Iterator::node_pointer      node_pointer;
-  //  typedef typename Iterator::pointer pointer;
-  //  typedef typename Iterator::reference reference;
   typedef const value_type*                    pointer;
   typedef const value_type&                    reference;
   typedef typename Iterator::difference_type   difference_type;

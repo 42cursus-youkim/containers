@@ -20,7 +20,6 @@ template <typename Key,
               std::allocator<ft::pair<const Key, T> > >
 class map {
  public:
-  // * typedef
   typedef Key                                      key_type;
   typedef T                                        mapped_type;
   typedef ft::pair<const key_type, mapped_type>    value_type;
@@ -34,9 +33,10 @@ class map {
   typedef typename allocator_type::difference_type difference_type;
   typedef typename allocator_type::size_type       size_type;
 
- private:
   // value_compare
   class value_compare;
+
+ private:
   typedef ft::rbtree<value_type, value_compare> tree_type;
 
  public:

@@ -7,7 +7,6 @@ namespace ft {
 
 template <typename T, typename NodePtr>
 class tree_const_iterator {
-  // * typedef
  public:
   typedef T                              value_type;
   typedef const T*                       pointer;
