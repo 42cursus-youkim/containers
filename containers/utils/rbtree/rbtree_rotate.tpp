@@ -188,7 +188,6 @@ rbtree<T, Compare>::find_pos(node_pointer&   parent,
   }
 }
 
-// FIXME: leaks!
 template <typename T, typename Compare>
 typename rbtree<T, Compare>::node_pointer&
 rbtree<T, Compare>::find_pos(iterator        hint,

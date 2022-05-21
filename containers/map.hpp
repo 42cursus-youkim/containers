@@ -34,10 +34,12 @@ class map {
   typedef typename allocator_type::difference_type difference_type;
   typedef typename allocator_type::size_type       size_type;
 
+ private:
   // value_compare
   class value_compare;
+  typedef ft::rbtree<value_type, value_compare> tree_type;
 
-  typedef ft::rbtree<value_type, value_compare>          tree_type;
+ public:
   typedef ft::map_iterator<typename tree_type::iterator> iterator;
   typedef ft::map_const_iterator<typename tree_type::const_iterator>
                                                const_iterator;
@@ -118,7 +120,6 @@ class map {
   pair<iterator, iterator> equal_range(const key_type& key);
   pair<const_iterator, const_iterator> equal_range(
       const key_type& key) const;
-  ;
 };
 
 }  // namespace ft

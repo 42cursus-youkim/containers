@@ -4,7 +4,6 @@
 #include "rbtree.hpp"
 
 namespace ft {
-/// insert
 template <typename T, typename Compare>
 pair<typename rbtree<T, Compare>::iterator, bool>
 rbtree<T, Compare>::insert(const_reference data) {

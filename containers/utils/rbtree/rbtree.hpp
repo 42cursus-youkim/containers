@@ -11,15 +11,17 @@ namespace ft {
 template <typename T, typename Compare>
 class rbtree {
  public:
-  typedef T                                           value_type;
-  typedef T&                                          reference;
-  typedef const T&                                    const_reference;
-  typedef Compare                                     compare_type;
-  typedef ft::rb_node<T>                              node_type;
-  typedef node_type*                                  node_pointer;
+  typedef T                         value_type;
+  typedef T&                        reference;
+  typedef const T&                  const_reference;
+  typedef Compare                   compare_type;
+  typedef ft::rb_node<T>            node_type;
+  typedef node_type*                node_pointer;
 
-  typedef std::allocator<node_type>                   allocator_type;
-  typedef typename allocator_type::size_type          size_type;
+  typedef std::allocator<node_type> allocator_type;
+  typedef typename allocator_type::template rebind<node_type>::other
+                                             node_allocator_type;
+  typedef typename allocator_type::size_type size_type;
   typedef typename allocator_type::difference_type    difference_type;
 
   typedef ft::tree_iterator<value_type, node_pointer> iterator;
@@ -41,7 +43,6 @@ class rbtree {
   node_pointer  min_node(node_pointer node) const;
   node_pointer  max_node(node_pointer node) const;
   node_pointer  next_node(node_pointer node) const;
-
 
   /// rotate
   void          rotate_right(node_pointer node);

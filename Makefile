@@ -1,7 +1,6 @@
 TARGET := test.out
 
 include make/os.mk
-include make/parallel.mk
 include make/require.mk
 
 CXXFLAGS = \
