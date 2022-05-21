@@ -19,6 +19,7 @@ struct rb_node {
   explicit rb_node(value_type data);
 
   /// Property
+  bool has_both_child() const;
   bool has_left_child() const;
   bool has_right_child() const;
   bool is_left_child() const;

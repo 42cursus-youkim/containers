@@ -6,6 +6,11 @@
 namespace ft {
 
 template <typename T, typename Allocator>
+bool rb_node<T, Allocator>::has_both_child() const {
+  return has_left_child() and has_right_child();
+}
+
+template <typename T, typename Allocator>
 bool rb_node<T, Allocator>::has_left_child() const {
   return left != u_nullptr;
 }
