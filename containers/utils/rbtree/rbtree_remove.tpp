@@ -49,9 +49,8 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
                                      node_pointer node) {
   node_pointer to_pop =
       node->has_both_child() ? next_node(node) : node;
-  node_pointer succesor = to_pop->has_left_child()
-                              ? to_pop->left
-                              : to_pop->right;
+  node_pointer succesor =
+      to_pop->has_left_child() ? to_pop->left : to_pop->right;
 
   if (succesor != u_nullptr)
     succesor->parent = to_pop->parent;
@@ -99,7 +98,14 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
     return;
   }
 
-  // handle double-black node
+  fix_double_black_node(root, sibling, succesor);
+}
+
+template <typename T, typename Compare>
+void rbtree<T, Compare>::fix_double_black_node(
+    node_pointer root,
+    node_pointer sibling,
+    node_pointer succesor) {
   while (true) {
     if (sibling->is_right_child()) {
       if (sibling->is_red()) {

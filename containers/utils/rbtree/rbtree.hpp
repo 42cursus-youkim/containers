@@ -59,6 +59,9 @@ class rbtree {
   iterator      remove_node_pointer(node_pointer node);
 
   void          remove_node(node_pointer root, node_pointer node);
+  void          fix_double_black_node(node_pointer root,
+                                      node_pointer sibling,
+                                      node_pointer succesor);
 
   void          delete_node(const_reference value);
   void          delete_tree(node_pointer node);
@@ -119,6 +122,8 @@ class rbtree {
   void                 erase(iterator pos);
   void                 clear();
 };
+
+
 
 }  // namespace ft
 
