@@ -1,7 +1,7 @@
 #include "base.hpp"
 #include "mutantstack.hpp"
 
-// #include <stdlib.h>
+#include <stdlib.h>
 
 #define MAX_RAM 4294967296
 #define BUFFER_SIZE 4096
@@ -10,7 +10,8 @@ struct Buffer {
   char buff[BUFFER_SIZE];
 };
 
-#define COUNT (MAX_RAM / (int)sizeof(Buffer))
+// #define COUNT (MAX_RAM / (int)sizeof(Buffer))
+#define COUNT 1000
 
 int main(int argc, char** argv) {
   const unsigned int seed =
@@ -24,19 +25,23 @@ int main(int argc, char** argv) {
   ft::stack<Buffer, std::deque<Buffer> > stack_deq_buffer;
   ft::map<int, int>                      map_int;
 
+  std::cout << "count: " << COUNT << std::endl;
+
   for (int i = 0; i < COUNT; i++) {
     vector_buffer.push_back(Buffer());
   }
 
   for (int i = 0; i < COUNT; i++) {
-    const unsigned int idx = rand() % COUNT;
+    const unsigned int idx =
+        static_cast<unsigned int>(rand() % COUNT);
     vector_buffer[idx].idx = 5;
   }
   ft::vector<Buffer>().swap(vector_buffer);
 
   try {
     for (int i = 0; i < COUNT; i++) {
-      const unsigned int idx = rand() % COUNT;
+      const unsigned int idx =
+          static_cast<unsigned int>(rand() % COUNT);
       vector_buffer.at(idx);
       std::cerr << "Error: THIS VECTOR SHOULD BE EMPTY!!"
                 << std::endl;
