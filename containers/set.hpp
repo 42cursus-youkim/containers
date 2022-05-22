@@ -108,6 +108,12 @@ class set {
   allocator_type get_allocator() const;
 };
 
+/// non-member function overloads
+
+/// swap
+template <typename T, typename Compare, typename Alloc>
+void swap(set<T, Compare, Alloc>& x, set<T, Compare, Alloc>& y);
+
 }  // namespace ft
 
 #include "set.tpp"
@@ -116,6 +122,7 @@ class set {
 #include "set_find.tpp"
 #include "set_iter.tpp"
 #include "set_modifier.tpp"
+#include "set_nonmember.tpp"
 #include "set_property.tpp"
 #include "set_relational.tpp"
 

@@ -1,7 +1,5 @@
 #include <stdlib.h>
-// #include <map>
-#include "map.hpp"
-// #include "test.hpp"
+#include "test.hpp"
 
 int main(int argc, char** argv) {
   const unsigned int seed =
