@@ -30,8 +30,8 @@ bool operator!=(const vector<T, Allocator>& left,
 template <typename T, typename Allocator>
 bool operator<(const vector<T, Allocator>& left,
                const vector<T, Allocator>& right) {
-  return lexicographical_compare(left.begin(), left.end(),
-                                 right.begin(), right.end());
+  return ft::lexicographical_compare(left.begin(), left.end(),
+                                     right.begin(), right.end());
 }
 
 template <typename T, typename Allocator>
