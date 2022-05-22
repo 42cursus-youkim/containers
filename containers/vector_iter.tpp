@@ -9,21 +9,21 @@ namespace ft {
 template <typename T, typename Allocator>
 typename vector<T, Allocator>::iterator
 vector<T, Allocator>::begin() {
-  return data_start_;
+  return iterator(data_start_);
 }
 template <typename T, typename Allocator>
 typename vector<T, Allocator>::const_iterator
 vector<T, Allocator>::begin() const {
-  return data_start_;
+  return const_iterator(data_start_);
 }
 template <typename T, typename Allocator>
 typename vector<T, Allocator>::iterator vector<T, Allocator>::end() {
-  return data_end_;
+  return iterator(data_end_);
 }
 template <typename T, typename Allocator>
 typename vector<T, Allocator>::const_iterator
 vector<T, Allocator>::end() const {
-  return data_end_;
+  return const_iterator(data_end_);
 }
 
 /// reverse iterators

@@ -53,7 +53,9 @@ void vector<T, Allocator>::initialize_dispatch(Integer n,
                                                true_type) {
   reserve(FT_VECTOR_INITIAL_SIZE);
   data_end_ =
-      UninitializedFillN(begin(), static_cast<size_type>(n), val);
+      data_start_ +
+      (UninitializedFillN(begin(), static_cast<size_type>(n), val) -
+       begin());
 }
 
 template <typename T, typename Allocator>

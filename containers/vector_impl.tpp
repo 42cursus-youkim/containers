@@ -16,13 +16,14 @@ vector<T, Allocator>::UninitializedFillN(iterator          from,
                                          const value_type& val) {
   size_type i = 0;
   try {
-    for (; i < count; ++i)
-      allocator_.construct(from + i, val);
+    for (; i < count; ++i, ++from)
+      allocator_.construct(&*from, val);
+    return from;
   } catch (...) {
-    for (; i >= 0; --i)
-      allocator_.destroy(from + i);
+    for (; i >= 0; --i, --from)
+      allocator_.destroy(&*from);
+    throw;
   }
-  return from + count;
 }
 
 template <typename T, typename Allocator>
@@ -116,7 +117,7 @@ vector<T, Allocator>::RightShift(iterator from, size_type diff) {
   }
 
   data_end_ = data_start_ + new_size;
-  return data_start_ + from_index;
+  return iterator(data_start_ + from_index);
 }
 
 }  // namespace ft

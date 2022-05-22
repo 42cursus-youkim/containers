@@ -6,6 +6,7 @@
 #include <utils/iter/reverse_iterator.hpp>
 #include <utils/iter/traits.hpp>
 #include <utils/tmp/enable_if.hpp>
+#include "vector_iterator.hpp"
 
 // #define FT_VECTOR_DEBUG
 #define FT_VECTOR_INITIAL_SIZE 8
@@ -27,8 +28,8 @@ class vector {
   typedef typename allocator_type::const_pointer   const_pointer;
 
   /// iterators
-  typedef pointer                                  iterator;
-  typedef const_pointer                            const_iterator;
+  typedef normal_iterator<pointer, vector>         iterator;
+  typedef normal_iterator<const_pointer, vector>   const_iterator;
   typedef ft::reverse_iterator<iterator>           reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 

@@ -10,4 +10,3 @@ CXXFLAGS = \
 CXXFLAGS += -g3 #-fsanitize=address -fno-omit-frame-pointer
 
 include make/test.mk
-

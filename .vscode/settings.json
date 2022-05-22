@@ -106,7 +106,8 @@
     "__tuple": "cpp",
     "complex": "cpp",
     "ios": "cpp",
-    "locale": "cpp"
+    "locale": "cpp",
+    "__functional_base_03": "cpp"
   },
   "rpc.enabled": true,
   "explorer.fileNesting.patterns": {

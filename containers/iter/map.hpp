@@ -41,7 +41,6 @@ class map_iterator {
 
   bool          operator==(const map_iterator& other) const;
   bool          operator!=(const map_iterator& other) const;
-
 };
 
 }  // namespace ft

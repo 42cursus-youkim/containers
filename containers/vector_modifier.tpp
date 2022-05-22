@@ -62,14 +62,8 @@ template <typename T, typename Allocator>
 typename vector<T, Allocator>::iterator vector<T, Allocator>::insert(
     iterator          position,
     const value_type& val) {
-#ifdef FT_VECTOR_DEBUG
-  FUN << "pos: " << position << " value: " << val << END "\n";
-#endif
   iterator new_position = RightShift(position, 1);
 
-#ifdef FT_VECTOR_DEBUG
-  FUN << "new position: " << Index(new_position) << END "\n";
-#endif
   allocator_.construct(new_position, val);
   return new_position;
 }
@@ -80,8 +74,9 @@ void vector<T, Allocator>::insert(iterator          position,
                                   size_type         n,
                                   const value_type& val) {
   iterator new_position = RightShift(position, n);
-  for (size_type i = 0; i < n; ++i)
-    allocator_.construct(new_position + i, val);
+
+  for (size_type i = 0; i < n; ++i, ++new_position)
+    allocator_.construct(&*new_position, val);
 }
 
 /// range
@@ -102,8 +97,9 @@ void vector<T, Allocator>::insert_dispatch(iterator position,
                                            true_type) {
   iterator new_position =
       RightShift(position, static_cast<size_type>(n));
-  for (size_type i = 0; i < static_cast<size_type>(n); ++i)
-    allocator_.construct(new_position + i, val);
+  for (size_type i = 0; i < static_cast<size_type>(n);
+       ++i, ++new_position)
+    allocator_.construct(&*new_position, val);
 }
 
 template <typename T, typename Allocator>
@@ -112,7 +108,7 @@ void vector<T, Allocator>::insert_dispatch(iterator      position,
                                            InputIterator first,
                                            InputIterator last,
                                            false_type) {
-  const difference_type count = std::distance(first, last);
+  const difference_type count = last - first;
   iterator              new_position =
       RightShift(position, static_cast<size_type>(count));
 
@@ -144,8 +140,8 @@ void vector<T, Allocator>::swap(vector& other) {
 
 template <typename T, typename Allocator>
 void vector<T, Allocator>::clear() {
-  for (iterator it = data_start_; it != data_end_; ++it)
-    allocator_.destroy(it);
+  for (iterator it = begin(); it != end(); ++it)
+    allocator_.destroy(data_start_ + (it - begin()));
   data_end_ = data_start_;
 }
 }  // namespace ft
