@@ -122,6 +122,12 @@ class map {
       const key_type& key) const;
 };
 
+/// non-member function overloads
+
+/// swap
+template <typename T, typename Compare, typename Alloc>
+void swap(map<T, Compare, Alloc>& x, map<T, Compare, Alloc>& y);
+
 }  // namespace ft
 
 #include "map.tpp"
@@ -130,6 +136,7 @@ class map {
 #include "map_find.tpp"
 #include "map_iter.tpp"
 #include "map_modifier.tpp"
+#include "map_nonmember.tpp"
 #include "map_property.tpp"
 #include "map_relational.tpp"
 
