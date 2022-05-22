@@ -55,6 +55,16 @@ bool map_iterator<Iterator>::operator!=(
   return this->it_ != other.it_;
 }
 
+template <typename T>
+bool operator==(map_iterator<T> left, map_const_iterator<T> right) {
+  return left == right;
+}
+
+template <typename T>
+bool operator!=(map_iterator<T> left, map_const_iterator<T> right) {
+  return left != right;
+}
+
 }  // namespace ft
 
 #endif  // ITER_MAP_OPERATOR_TPP

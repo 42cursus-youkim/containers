@@ -3,6 +3,9 @@
 
 namespace ft {
 template <typename Iterator>
+class map_const_iterator;
+
+template <typename Iterator>
 class map_iterator {
  public:
   typedef typename Iterator::value_type        value_type;
@@ -38,6 +41,7 @@ class map_iterator {
 
   bool          operator==(const map_iterator& other) const;
   bool          operator!=(const map_iterator& other) const;
+
 };
 
 }  // namespace ft
