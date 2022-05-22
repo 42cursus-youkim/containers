@@ -8,6 +8,13 @@
       "cwd": "${workspaceFolder}"
     },
     {
+      "name": "jolim tester",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/accuracy_tester/a.out",
+      "cwd": "${workspaceFolder}"
+    },
+    {
       "name": "my tester",
       "type": "lldb",
       "request": "launch",

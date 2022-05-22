@@ -1,19 +1,32 @@
-#include <stdlib.h>
-#include "test.hpp"
+// #include <stdlib.h>
+// #include "test.hpp"
 
-int main(int argc, char** argv) {
-  const unsigned int seed =
-      (argc != 2) ? 0 : (unsigned int)atoi(argv[1]);
-  // mandatory(seed);
-  (void)seed;
+#include <iostream>
+#include <string>
+// #include <vector>
+#include "vector.hpp"
+#define NS ft
 
-  typedef ft::map<int, int> MAP;
-  MAP                        m;
-  MAP::iterator              it  = m.begin();
-  MAP::const_iterator        cit = m.begin();
+using std::string;
 
-  if (cit == it)
-    return 0;
+int main() {
+  typedef NS::vector<string> vecStr;
+  vecStr                     vec(1, "4");
 
+  vec.push_back("abababab");
+  vec.push_back("123123123123123123123");
+  vec.push_back("1234123412341234123412341234123412341234124");
+
+  std::cout << vec.begin()->c_str() << '\n';
+  std::cout << (++(vec.begin()))->c_str() << '\n';
+
+  vecStr::const_iterator         cit  = --vec.end();
+  vecStr::const_reverse_iterator crit = vec.rbegin();
+
+  std::cout << (cit->capacity() == (crit++)->capacity()) << '\n';
+  std::cout << ((*(--cit)).capacity() == (*crit).capacity()) << '\n';
+  std::cout << (cit->get_allocator() == (*crit).get_allocator())
+            << '\n';
+  std::cout << *cit << *crit << '\n';
   return (0);
 }
