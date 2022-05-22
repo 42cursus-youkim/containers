@@ -43,6 +43,7 @@ class rbtree {
   node_pointer  min_node(node_pointer node) const;
   node_pointer  max_node(node_pointer node) const;
   node_pointer  next_node(node_pointer node) const;
+  node_pointer  sibling_node_of(node_pointer node) const;
 
   /// rotate
   void          rotate_right(node_pointer node);

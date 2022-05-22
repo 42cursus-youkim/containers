@@ -29,6 +29,20 @@ rbtree<T, Compare>::remove_node_pointer(node_pointer node) {
  * @brief six cases
  *
  * https://medium.com/analytics-vidhya/deletion-in-red-black-rb-tree-92301e1474ea
+ * https://assortrock.com/88
+ *
+ * case
+ * <1> it's a red leaf -> just delete it
+ * <2> it's root ->
+ * <3>
+ *
+ *      10
+ *     /  \
+ * @b 5 @b 30 <- <3>
+ *   / \  / \
+ *  2  9 25 40
+ *          /
+ *      @b 38 <- <1>
  */
 template <typename T, typename Compare>
 void rbtree<T, Compare>::remove_node(node_pointer root,
@@ -98,13 +112,11 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
         if (sibling->has_both_child(BLACK)) {
           sibling->is_black = false;
           succesor          = sibling->parent;
-          if (succesor == root or succesor->is_red()) {
+          if (succesor->is_red() or succesor == root) {
             succesor->is_black = true;
             break;
           }
-          sibling = succesor->is_left_child()
-                        ? succesor->parent->right
-                        : succesor->parent->left;
+          sibling = sibling_node_of(succesor);
         } else {
           if (sibling->has_right_child(BLACK)) {
             sibling->left->is_black = true;
@@ -134,9 +146,7 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
             succesor->is_black = true;
             break;
           }
-          sibling = succesor->is_left_child()
-                        ? succesor->parent->right
-                        : succesor->parent->left;
+          sibling = sibling_node_of(succesor);
         } else {
           if (sibling->has_left_child(BLACK)) {
             sibling->right->is_black = true;

@@ -52,6 +52,13 @@ rbtree<T, Compare>::next_node(node_pointer node) const {
   return node->parent;
 }
 
+template <typename T, typename Compare>
+typename rbtree<T, Compare>::node_pointer
+rbtree<T, Compare>::sibling_node_of(node_pointer node) const {
+  return node->is_left_child() ? node->parent->right
+                               : node->parent->left;
+}
+
 }  // namespace ft
 
 #endif  // RBTREE_RBTREE_IMPL_TPP
