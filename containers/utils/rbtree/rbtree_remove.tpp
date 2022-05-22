@@ -47,48 +47,46 @@ rbtree<T, Compare>::remove_node_pointer(node_pointer node) {
 template <typename T, typename Compare>
 void rbtree<T, Compare>::remove_node(node_pointer root,
                                      node_pointer node) {
-  node_pointer to_remove =
+  node_pointer to_pop =
       node->has_both_child() ? next_node(node) : node;
-  node_pointer succesor = to_remove->has_left_child()
-                              ? to_remove->left
-                              : to_remove->right;
+  node_pointer succesor = to_pop->has_left_child()
+                              ? to_pop->left
+                              : to_pop->right;
 
   if (succesor != u_nullptr)
-    succesor->parent = to_remove->parent;
+    succesor->parent = to_pop->parent;
 
-  node_pointer sibling;
-  if (to_remove->is_left_child()) {
-    to_remove->parent->left = succesor;
-    if (to_remove == root) {
-      sibling = u_nullptr;
-      root    = succesor;
-    } else
-      sibling = to_remove->parent->right;
+  node_pointer sibling =
+      to_pop != root ? sibling_node_of(to_pop) : u_nullptr;
+
+  if (to_pop->is_left_child()) {
+    if (to_pop == root)
+      root = succesor;
+    to_pop->parent->left = succesor;
   } else {
-    to_remove->parent->right = succesor;
-    sibling                  = to_remove->parent->left;
+    to_pop->parent->right = succesor;
   }
 
-  bool removed_red = to_remove->is_red();
+  bool removed_red = to_pop->is_red();
 
-  if (to_remove != node) {
-    to_remove->parent = node->parent;
+  if (to_pop != node) {
+    to_pop->parent = node->parent;
     if (node->is_left_child())
-      to_remove->parent->left = to_remove;
+      to_pop->parent->left = to_pop;
     else
-      to_remove->parent->right = to_remove;
+      to_pop->parent->right = to_pop;
 
-    to_remove->left         = node->left;
-    to_remove->left->parent = to_remove;
+    to_pop->left         = node->left;
+    to_pop->left->parent = to_pop;
 
-    to_remove->right = node->right;
-    if (to_remove->has_right_child())
-      to_remove->right->parent = to_remove;
+    to_pop->right = node->right;
+    if (to_pop->has_right_child())
+      to_pop->right->parent = to_pop;
 
-    to_remove->is_black = node->is_black;
+    to_pop->is_black = node->is_black;
 
     if (root == node)
-      root = to_remove;
+      root = to_pop;
   }
 
   deallocate_node(node);
@@ -96,70 +94,72 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
   if (removed_red or root == u_nullptr)
     return;
 
-  if (succesor != u_nullptr)
+  if (succesor != u_nullptr) {
     succesor->is_black = true;
-  else {
-    while (true) {
-      if (not sibling->is_left_child()) {
-        if (sibling->is_red()) {
-          sibling->is_black         = true;
-          sibling->parent->is_black = false;
-          rotate_left(sibling->parent);
-          if (root == sibling->left)
-            root = sibling;
-          sibling = sibling->left->right;
-        }
-        if (sibling->has_both_child(BLACK)) {
-          sibling->is_black = false;
-          succesor          = sibling->parent;
-          if (succesor->is_red() or succesor == root) {
-            succesor->is_black = true;
-            break;
-          }
-          sibling = sibling_node_of(succesor);
-        } else {
-          if (sibling->has_right_child(BLACK)) {
-            sibling->left->is_black = true;
-            sibling->is_black       = false;
-            rotate_right(sibling);
-            sibling = sibling->parent;
-          }
-          sibling->is_black         = sibling->parent->is_black;
-          sibling->parent->is_black = true;
-          sibling->right->is_black  = true;
-          rotate_left(sibling->parent);
+    return;
+  }
+
+  // handle double-black node
+  while (true) {
+    if (sibling->is_right_child()) {
+      if (sibling->is_red()) {
+        sibling->is_black         = true;
+        sibling->parent->is_black = false;
+        rotate_left(sibling->parent);
+        if (root == sibling->left)
+          root = sibling;
+        sibling = sibling->left->right;
+      }
+      if (sibling->has_both_child(BLACK)) {
+        sibling->is_black = false;
+        succesor          = sibling->parent;
+        if (succesor->is_red() or succesor == root) {
+          succesor->is_black = true;
           break;
         }
+        sibling = sibling_node_of(succesor);
       } else {
-        if (sibling->is_red()) {
-          sibling->is_black         = true;
-          sibling->parent->is_black = false;
-          rotate_right(sibling->parent);
-          if (root == sibling->right)
-            root = sibling;
-          sibling = sibling->right->left;
+        if (sibling->has_right_child(BLACK)) {
+          sibling->left->is_black = true;
+          sibling->is_black       = false;
+          rotate_right(sibling);
+          sibling = sibling->parent;
         }
-        if (sibling->has_both_child(BLACK)) {
-          sibling->is_black = false;
-          succesor          = sibling->parent;
-          if (succesor->is_red() or succesor == root) {
-            succesor->is_black = true;
-            break;
-          }
-          sibling = sibling_node_of(succesor);
-        } else {
-          if (sibling->has_left_child(BLACK)) {
-            sibling->right->is_black = true;
-            sibling->is_black        = false;
-            rotate_left(sibling);
-            sibling = sibling->parent;
-          }
-          sibling->is_black         = sibling->parent->is_black;
-          sibling->parent->is_black = true;
-          sibling->left->is_black   = true;
-          rotate_right(sibling->parent);
+        sibling->is_black         = sibling->parent->is_black;
+        sibling->parent->is_black = true;
+        sibling->right->is_black  = true;
+        rotate_left(sibling->parent);
+        break;
+      }
+    } else {
+      if (sibling->is_red()) {
+        sibling->is_black         = true;
+        sibling->parent->is_black = false;
+        rotate_right(sibling->parent);
+        if (root == sibling->right)
+          root = sibling;
+        sibling = sibling->right->left;
+      }
+      if (sibling->has_both_child(BLACK)) {
+        sibling->is_black = false;
+        succesor          = sibling->parent;
+        if (succesor->is_red() or succesor == root) {
+          succesor->is_black = true;
           break;
         }
+        sibling = sibling_node_of(succesor);
+      } else {
+        if (sibling->has_left_child(BLACK)) {
+          sibling->right->is_black = true;
+          sibling->is_black        = false;
+          rotate_left(sibling);
+          sibling = sibling->parent;
+        }
+        sibling->is_black         = sibling->parent->is_black;
+        sibling->parent->is_black = true;
+        sibling->left->is_black   = true;
+        rotate_right(sibling->parent);
+        break;
       }
     }
   }

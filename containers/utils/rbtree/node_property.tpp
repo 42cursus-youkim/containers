@@ -40,6 +40,11 @@ bool rb_node<T, Allocator>::is_left_child() const {
 }
 
 template <typename T, typename Allocator>
+bool rb_node<T, Allocator>::is_right_child() const {
+  return this == this->parent->right;
+}
+
+template <typename T, typename Allocator>
 bool rb_node<T, Allocator>::is_red() const {
   return not this->is_black;
 }

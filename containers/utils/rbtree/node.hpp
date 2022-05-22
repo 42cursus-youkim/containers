@@ -25,6 +25,7 @@ struct rb_node {
   bool has_left_child(node_type type = NON_NIL) const;
   bool has_right_child(node_type type = NON_NIL) const;
   bool is_left_child() const;
+  bool is_right_child() const;
   bool is_red() const;
 };
 
