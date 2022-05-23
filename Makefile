@@ -1,4 +1,4 @@
-TARGET := test.out
+TARGET = test.out
 
 include make/os.mk
 include make/require.mk
