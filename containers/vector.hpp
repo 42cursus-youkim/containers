@@ -145,21 +145,20 @@ class vector {
                        Integer  val,
                        true_type);
   template <typename InputIterator>
-  void            insert_dispatch(iterator      position,
-                                  InputIterator first,
-                                  InputIterator last,
-                                  false_type);
+  void      insert_dispatch(iterator      position,
+                            InputIterator first,
+                            InputIterator last,
+                            false_type);
 
   /// implementation details
-  iterator        UninitializedFillN(iterator          from,
-                                     size_type         count,
-                                     const value_type& val);
-  size_type       Index(iterator it) const;
-  size_type       GetNewCapacity(size_type at_least) const;
-  inline iterator UnsafeMove(iterator from, iterator to);
-  void            DoGrow(size_type new_capacity);
-  iterator        LeftShift(iterator from, size_type diff);
-  iterator        RightShift(iterator from, size_type diff);
+  iterator  UninitializedFillN(iterator          from,
+                               size_type         count,
+                               const value_type& val);
+  size_type Index(iterator it) const;
+  size_type GetNewCapacity(size_type at_least) const;
+  void      DoGrow(size_type new_capacity);
+  iterator  LeftShift(iterator from, size_type diff);
+  iterator  RightShift(iterator from, size_type diff);
 };
 
 /// non-member function overloads

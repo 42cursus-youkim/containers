@@ -14,14 +14,8 @@ typename vector<T, Allocator>::iterator
 vector<T, Allocator>::UninitializedFillN(iterator          from,
                                          size_type         count,
                                          const value_type& val) {
-  size_type i = 0;
-  try {
-    for (; i < count; ++i)
-      allocator_.construct(from + i, val);
-  } catch (...) {
-    for (; i >= 0; --i)
-      allocator_.destroy(from + i);
-  }
+  for (size_type i = 0; i < count; ++i)
+    allocator_.construct(from + i, val);
   return from + count;
 }
 
@@ -29,15 +23,6 @@ template <typename T, typename Allocator>
 typename vector<T, Allocator>::size_type vector<T, Allocator>::Index(
     iterator it) const {
   return size_type(it - begin());
-}
-
-/// @brief move a single element to a new position.
-/// @param to any element in to
-template <typename T, typename Allocator>
-inline typename vector<T, Allocator>::iterator
-vector<T, Allocator>::UnsafeMove(iterator from, iterator to) {
-  data_start_[Index(to)] = data_start_[Index(from)];
-  return to;
 }
 
 /// creates new storage, rellocates all elements to new one
@@ -84,8 +69,6 @@ vector<T, Allocator>::LeftShift(iterator from, size_type diff) {
     return from;
 
   for (iterator it = from; it + diff < end(); ++it) {
-    // TODO: call allocator_.destory()?
-    // allocator_.destroy(&data_start_[to_i]);
     *it = it[diff];
   }
   for (iterator it = end() - 1; it + diff > end(); --it)

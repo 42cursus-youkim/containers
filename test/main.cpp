@@ -14,9 +14,9 @@ int main() {
   {
     vecStr vec(1, "4");
 
-    vec.push_back("abababab");
-    vec.push_back("bye");
-    vec.push_back("elllo");
+    // vec.push_back("abababab");
+    // vec.push_back("bye");
+    // vec.push_back("elllo");
   }
   // std::cout << vec.begin()->c_str() << '\n';
   // vecStr::const_iterator cit = vec.end();
