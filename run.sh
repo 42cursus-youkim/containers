@@ -1,14 +1,20 @@
 #!/bin/bash
 
-echo STD mode
+section () {
+  echo
+  echo $@
+  echo
+}
+
+section STD mode
 make CXXFLAGS='-D DO_STD=1' TARGET=test_std.out re
-echo FT mode
+section FT mode
 make TARGET=test_ft.out re
 
-echo 'time for STD'
+section 'time for STD'
 time ./test_std.out > std.log
-echo 'time for FT'
+section 'time for FT'
 time ./test_ft.out > ft.log
 
-echo output diff
+section output diff
 diff std.log ft.log
