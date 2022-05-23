@@ -29,3 +29,6 @@ leak: all
 test-vec:
 	cd containers_test/ \
 	&& ./do.sh vector
+
+asan:
+	./$(TARGET)
