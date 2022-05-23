@@ -4,7 +4,7 @@
 #include "base.hpp"
 
 template <typename T>
-class MutantStack : public ft::stack<T> {
+class MutantStack : public NS::stack<T> {
  public:
   MutantStack() {}
   MutantStack(const MutantStack<T>& src) { *this = src; }
@@ -14,10 +14,10 @@ class MutantStack : public ft::stack<T> {
   }
   ~MutantStack() {}
 
-  typedef typename ft::stack<T>::container_type::iterator iterator;
+  typedef typename NS::stack<T>::container_type::iterator iterator;
 
   iterator begin() { return this->c.begin(); }
   iterator end() { return this->c.end(); }
 };
 
-#endif // __MUTANTSTACK_H__
+#endif  // __MUTANTSTACK_H__

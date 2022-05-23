@@ -5,12 +5,12 @@
 void mandatory(unsigned int seed) {
   srand(seed);
 
-  ft::vector<std::string>                vector_str;
-  ft::vector<int>                        vector_int;
-  ft::stack<int>                         stack_int;
-  ft::vector<Buffer>                     vector_buffer;
-  ft::stack<Buffer, std::deque<Buffer> > stack_deq_buffer;
-  ft::map<int, int>                      map_int;
+  NS::vector<std::string>                vector_str;
+  NS::vector<int>                        vector_int;
+  NS::stack<int>                         stack_int;
+  NS::vector<Buffer>                     vector_buffer;
+  NS::stack<Buffer, std::deque<Buffer> > stack_deq_buffer;
+  NS::map<int, int>                      map_int;
 
   std::cout << "count: " << COUNT << std::endl;
 
@@ -23,7 +23,7 @@ void mandatory(unsigned int seed) {
         static_cast<unsigned int>(rand() % COUNT);
     vector_buffer[idx].idx = 5;
   }
-  ft::vector<Buffer>().swap(vector_buffer);
+  NS::vector<Buffer>().swap(vector_buffer);
 
   try {
     for (int i = 0; i < COUNT; i++) {
@@ -38,7 +38,7 @@ void mandatory(unsigned int seed) {
   }
 
   for (int i = 0; i < COUNT; ++i) {
-    map_int.insert(ft::make_pair(rand(), rand()));
+    map_int.insert(NS::make_pair(rand(), rand()));
   }
 
   int sum = 0;
@@ -49,7 +49,7 @@ void mandatory(unsigned int seed) {
   std::cout << "should be constant with the same seed: " << sum
             << std::endl;
 
-  { ft::map<int, int> copy = map_int; }
+  { NS::map<int, int> copy = map_int; }
   MutantStack<char> iterable_stack;
   for (char letter = 'a'; letter <= 'z'; letter++)
     iterable_stack.push(letter);

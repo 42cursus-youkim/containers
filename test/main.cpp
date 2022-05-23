@@ -6,6 +6,12 @@
 using std::string;
 
 int main() {
+#ifdef DO_STD
+  std::cout << "This program is on DO_STD" << std::endl;
+#else
+  std::cout << "This program is on FT" << std::endl;
+#endif
+
   typedef NS::vector<string> vecStr;
   vecStr                     vec(1, "4");
 

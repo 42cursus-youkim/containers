@@ -22,13 +22,3 @@ fclean: clean
 re:
 	$(MAKE) --no-print-directory clean
 	$(MAKE) --no-print-directory all
-
-leak: all
-	colour-valgrind --show-leak-kinds=all --leak-check=full ./$(TARGET)
-
-test-vec:
-	cd containers_test/ \
-	&& ./do.sh vector
-
-asan:
-	./$(TARGET)
