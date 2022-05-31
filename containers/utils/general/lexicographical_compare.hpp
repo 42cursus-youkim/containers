@@ -20,7 +20,8 @@ template <typename InputIterator1,
 static inline bool is_left_bigger(InputIterator1 it1,
                                   InputIterator2 it2,
                                   Compare        comp) {
-  return not is_right_bigger(it1, it2, comp);
+  /// result of comp(it2, it1) is same as it2 < it1
+  return comp(*it2, *it1);
 }
 
 /// default
