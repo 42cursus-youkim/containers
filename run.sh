@@ -18,3 +18,7 @@ time ./test_ft.out > ft.log
 
 section output diff
 diff std.log ft.log
+
+section check leak
+make CXXFLAGS='-D COUNT=4096' TARGET=test_ft.out re
+valgrind ./test_ft.out

@@ -19,6 +19,5 @@ clean:
 fclean: clean
 	$(RM) test.out
 
-re:
-	$(MAKE) --no-print-directory clean
+re: fclean
 	$(MAKE) --no-print-directory all
