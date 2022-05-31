@@ -1,13 +1,12 @@
-#include "test.hpp"
-
+#include <assert.h>
 #include <iostream>
 #include <string>
+#include "test.hpp"
 
+typedef NS::vector<std::string> vecStr;
 using std::string;
 
-typedef NS::vector<string> vecStr;
-
-void                       print_vector(vecStr v) {
+void print_vector(vecStr v) {
   for (vecStr::iterator it = v.begin(); it != v.end(); it++) {
     std::cout << *it << ", ";
   }
@@ -90,10 +89,9 @@ int main() {
     s.insert("hello");
     s.insert("world");
     s.insert("bye");
-    s.insert("yay");
-    s.insert("yay");
+    for (int i = 0; i < 10; i++)
+      s.insert("yay");
 
-    ;
     for (NS::set<string>::iterator it = s.begin(); it != s.end();
          it++) {
       std::cout << *it << '\n';

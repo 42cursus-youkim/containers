@@ -1,7 +1,6 @@
-# Tester
+# Test
 containers_test
-accuracy_tester
-efficiency_test
+*.log
 
 # Prerequisites
 *.d
