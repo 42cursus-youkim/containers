@@ -28,8 +28,10 @@ class map_iterator {
   /// Assignment Operator
   map_iterator& operator=(const map_iterator& other);
 
+  /// Getters
   Iterator      base();
 
+  /// Operators
   reference     operator*() const;
   pointer       operator->() const;
 
@@ -41,7 +43,6 @@ class map_iterator {
 
   bool          operator==(const map_iterator& other) const;
   bool          operator!=(const map_iterator& other) const;
-
 };
 
 }  // namespace ft

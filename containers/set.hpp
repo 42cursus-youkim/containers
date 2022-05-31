@@ -32,7 +32,10 @@ class set {
   typedef typename allocator_type::difference_type difference_type;
   typedef typename allocator_type::size_type       size_type;
 
-  typedef ft::rbtree<value_type, key_compare>      tree_type;
+ private:
+  typedef ft::rbtree<value_type, key_compare> tree_type;
+
+ public:
   typedef ft::set_iterator<typename tree_type::iterator> iterator;
   typedef ft::set_const_iterator<typename tree_type::const_iterator>
                                                const_iterator;

@@ -24,6 +24,12 @@ set_iterator<Iterator>& set_iterator<Iterator>::operator=(
   it_ = other.it_;
   return (*this);
 }
+
+template <typename Iterator>
+Iterator set_iterator<Iterator>::base() const {
+  return it_;
+}
+
 }  // namespace ft
 
 #endif  // ITER_SET_TPP

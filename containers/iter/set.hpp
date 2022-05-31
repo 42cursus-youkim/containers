@@ -31,8 +31,8 @@ class set_iterator {
   /// Copy Assignment Operator
   set_iterator& operator=(const set_iterator& other);
 
-  Iterator      base() const { return it_; }
-
+  Iterator      base() const;
+  
   /// Operators
   reference     operator*() const;
   pointer       operator->() const;
