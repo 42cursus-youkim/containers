@@ -22,8 +22,8 @@ namespace ft {
  *    6  9     |  (det.) /   |   /  \      |  6  9       |
  *             |       2     |  6   9      |             |
  */
-template <typename T, typename Compare>
-void rbtree<T, Compare>::rotate_right(node_pointer node) {
+template <typename T, typename Compare, typename Alloc>
+void rbtree<T, Compare, Alloc>::rotate_right(node_pointer node) {
   node_pointer left_child  = node->left;         //< <10>
   node_pointer grand_child = left_child->right;  //< (8)
 
@@ -61,8 +61,8 @@ void rbtree<T, Compare>::rotate_right(node_pointer node) {
  *  6  9       |   (det.) \  |    /  \     |    6  9     |
  *             |          12 |   6   9     |             |
  */
-template <typename T, typename Compare>
-void rbtree<T, Compare>::rotate_left(node_pointer node) {
+template <typename T, typename Compare, typename Alloc>
+void rbtree<T, Compare, Alloc>::rotate_left(node_pointer node) {
   node_pointer right_child = node->right;        //< <10>
   node_pointer grand_child = right_child->left;  //< (8)
 
@@ -83,8 +83,9 @@ void rbtree<T, Compare>::rotate_left(node_pointer node) {
   node->parent      = right_child;
 }
 
-template <typename T, typename Compare>
-void rbtree<T, Compare>::rebalance_tree(node_pointer new_node) {
+template <typename T, typename Compare, typename Alloc>
+void rbtree<T, Compare, Alloc>::rebalance_tree(
+    node_pointer new_node) {
   new_node->is_black = (new_node == root());
 
   while (new_node != root() and new_node->parent->is_red()) {
@@ -136,8 +137,8 @@ void rbtree<T, Compare>::rebalance_tree(node_pointer new_node) {
   }
 }
 
-template <typename T, typename Compare>
-void rbtree<T, Compare>::delete_node(const_reference value) {
+template <typename T, typename Compare, typename Alloc>
+void rbtree<T, Compare, Alloc>::delete_node(const_reference value) {
   node_pointer remove = where_to_attach(remove, value);
   if (remove != u_nullptr)
     remove_node(root(), remove);
@@ -145,8 +146,8 @@ void rbtree<T, Compare>::delete_node(const_reference value) {
 }
 
 /// recursively remove every node in the tree
-template <typename T, typename Compare>
-void rbtree<T, Compare>::delete_tree(node_pointer node) {
+template <typename T, typename Compare, typename Alloc>
+void rbtree<T, Compare, Alloc>::delete_tree(node_pointer node) {
   if (node == u_nullptr)
     return;
 
@@ -155,10 +156,10 @@ void rbtree<T, Compare>::delete_tree(node_pointer node) {
   deallocate_node(node);
 }
 
-template <typename T, typename Compare>
-typename rbtree<T, Compare>::node_pointer&
-rbtree<T, Compare>::where_to_attach(node_pointer&   parent,
-                                    const_reference data) {
+template <typename T, typename Compare, typename Alloc>
+typename rbtree<T, Compare, Alloc>::node_pointer&
+rbtree<T, Compare, Alloc>::where_to_attach(node_pointer&   parent,
+                                           const_reference data) {
   node_pointer  node     = root();
   node_pointer* node_ptr = rootPtr();
 
@@ -191,12 +192,12 @@ rbtree<T, Compare>::where_to_attach(node_pointer&   parent,
   }
 }
 
-template <typename T, typename Compare>
-typename rbtree<T, Compare>::node_pointer&
-rbtree<T, Compare>::where_to_attach(iterator        from,
-                                    node_pointer&   parent,
-                                    node_pointer&   dummy,
-                                    const_reference data) {
+template <typename T, typename Compare, typename Alloc>
+typename rbtree<T, Compare, Alloc>::node_pointer&
+rbtree<T, Compare, Alloc>::where_to_attach(iterator        from,
+                                           node_pointer&   parent,
+                                           node_pointer&   dummy,
+                                           const_reference data) {
   if (from == end() or comp_(data, *from)) {
     iterator prev = from;
     if (from == begin() or comp_(*--prev, data)) {

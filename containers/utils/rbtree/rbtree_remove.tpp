@@ -6,15 +6,15 @@
 namespace ft {
 
 /// @brief: naively deallocate a node from @b memory, not from tree
-template <typename T, typename Compare>
-void rbtree<T, Compare>::deallocate_node(node_pointer node) {
-  alloc_.destroy(node);
-  alloc_.deallocate(node, 1);
+template <typename T, typename Compare, typename Alloc>
+void rbtree<T, Compare, Alloc>::deallocate_node(node_pointer node) {
+  alloc_.destroy(&node->data);
+  node_alloc_.deallocate(node, 1);
 }
 
-template <typename T, typename Compare>
-typename rbtree<T, Compare>::iterator
-rbtree<T, Compare>::remove_node_pointer(node_pointer node) {
+template <typename T, typename Compare, typename Alloc>
+typename rbtree<T, Compare, Alloc>::iterator
+rbtree<T, Compare, Alloc>::remove_node_pointer(node_pointer node) {
   iterator it(node);
 
   ++it;
@@ -44,9 +44,9 @@ rbtree<T, Compare>::remove_node_pointer(node_pointer node) {
  *          /
  *      @b 38 <- <1>
  */
-template <typename T, typename Compare>
-void rbtree<T, Compare>::remove_node(node_pointer root,
-                                     node_pointer node) {
+template <typename T, typename Compare, typename Alloc>
+void rbtree<T, Compare, Alloc>::remove_node(node_pointer root,
+                                            node_pointer node) {
   node_pointer to_pop =
       node->has_both_child() ? next_node(node) : node;
   node_pointer succesor =
@@ -101,8 +101,8 @@ void rbtree<T, Compare>::remove_node(node_pointer root,
   fix_double_black_node(root, sibling, succesor);
 }
 
-template <typename T, typename Compare>
-void rbtree<T, Compare>::fix_double_black_node(
+template <typename T, typename Compare, typename Alloc>
+void rbtree<T, Compare, Alloc>::fix_double_black_node(
     node_pointer root,
     node_pointer sibling,
     node_pointer succesor) {

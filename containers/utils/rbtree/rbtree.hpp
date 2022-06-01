@@ -8,17 +8,19 @@
 #include <utils/rbtree/node.hpp>
 
 namespace ft {
-template <typename T, typename Compare>
+template <typename T,
+          typename Compare,
+          typename Alloc = std::allocator<T> >
 class rbtree {
  public:
-  typedef T                         value_type;
-  typedef T&                        reference;
-  typedef const T&                  const_reference;
-  typedef Compare                   compare_type;
-  typedef ft::rb_node<T>            node_type;
-  typedef node_type*                node_pointer;
+  typedef T              value_type;
+  typedef T&             reference;
+  typedef const T&       const_reference;
+  typedef Compare        compare_type;
+  typedef ft::rb_node<T> node_type;
+  typedef node_type*     node_pointer;
 
-  typedef std::allocator<node_type> allocator_type;
+  typedef Alloc          allocator_type;
   typedef typename allocator_type::template rebind<node_type>::other
                                              node_allocator_type;
   typedef typename allocator_type::size_type size_type;
@@ -30,11 +32,12 @@ class rbtree {
 
   /// implementaiton
  private:
-  node_pointer   begin_;
-  node_pointer   end_;
-  size_type      size_;
-  allocator_type alloc_;
-  compare_type   comp_;  //< whether a < b (less)
+  node_pointer        begin_;
+  node_pointer        end_;
+  size_type           size_;
+  allocator_type      alloc_;
+  node_allocator_type node_alloc_;
+  compare_type        comp_;  //< whether a < b (less)
 
  private:
   node_pointer  root() const;

@@ -5,9 +5,9 @@
 
 namespace ft {
 
-template <typename T, typename Compare>
-pair<typename rbtree<T, Compare>::iterator, bool>
-rbtree<T, Compare>::insert(const_reference data) {
+template <typename T, typename Compare, typename Alloc>
+pair<typename rbtree<T, Compare, Alloc>::iterator, bool>
+rbtree<T, Compare, Alloc>::insert(const_reference data) {
   node_pointer  Parent;
   node_pointer& dest     = where_to_attach(Parent, data);
   node_pointer  ret      = dest;
@@ -27,10 +27,10 @@ rbtree<T, Compare>::insert(const_reference data) {
   return pair<iterator, bool>(iterator(ret), inserted);
 }
 
-template <typename T, typename Compare>
-typename rbtree<T, Compare>::iterator rbtree<T, Compare>::insert(
-    iterator        from,
-    const_reference data) {
+template <typename T, typename Compare, typename Alloc>
+typename rbtree<T, Compare, Alloc>::iterator
+rbtree<T, Compare, Alloc>::insert(iterator        from,
+                                  const_reference data) {
   node_pointer  Parent;
   node_pointer  dummy;
   node_pointer& dest = where_to_attach(from, Parent, dummy, data);
@@ -49,10 +49,10 @@ typename rbtree<T, Compare>::iterator rbtree<T, Compare>::insert(
   return iterator(ret);
 }
 
-template <typename T, typename Compare>
+template <typename T, typename Compare, typename Alloc>
 template <typename InputIterator>
-void rbtree<T, Compare>::insert(InputIterator first,
-                                InputIterator last) {
+void rbtree<T, Compare, Alloc>::insert(InputIterator first,
+                                       InputIterator last) {
   for (; first != last; ++first)
     insert(*first);
 }

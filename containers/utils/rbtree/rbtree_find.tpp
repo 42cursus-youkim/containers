@@ -5,30 +5,30 @@
 
 namespace ft {
 
-template <typename T, typename Compare>
+template <typename T, typename Compare, typename Alloc>
 template <typename Key>
-typename rbtree<T, Compare>::iterator rbtree<T, Compare>::find(
-    const Key& k) {
+typename rbtree<T, Compare, Alloc>::iterator
+rbtree<T, Compare, Alloc>::find(const Key& k) {
   iterator it = lower_bound(k);
   if (it != end() and not comp_(k, *it))
     return it;
   return end();
 }
 
-template <typename T, typename Compare>
+template <typename T, typename Compare, typename Alloc>
 template <typename Key>
-typename rbtree<T, Compare>::const_iterator rbtree<T, Compare>::find(
-    const Key& k) const {
+typename rbtree<T, Compare, Alloc>::const_iterator
+rbtree<T, Compare, Alloc>::find(const Key& k) const {
   const_iterator it = lower_bound(k);
   if (it != end() and not comp_(k, *it))
     return it;
   return end();
 }
 
-template <typename T, typename Compare>
+template <typename T, typename Compare, typename Alloc>
 template <typename Key>
-typename rbtree<T, Compare>::iterator rbtree<T, Compare>::lower_bound(
-    const Key& k) {
+typename rbtree<T, Compare, Alloc>::iterator
+rbtree<T, Compare, Alloc>::lower_bound(const Key& k) {
   node_pointer root_node = root();
   node_pointer ret       = end_;
   while (root_node != u_nullptr) {
@@ -41,10 +41,10 @@ typename rbtree<T, Compare>::iterator rbtree<T, Compare>::lower_bound(
   return iterator(ret);
 }
 
-template <typename T, typename Compare>
+template <typename T, typename Compare, typename Alloc>
 template <typename Key>
-typename rbtree<T, Compare>::const_iterator
-rbtree<T, Compare>::lower_bound(const Key& k) const {
+typename rbtree<T, Compare, Alloc>::const_iterator
+rbtree<T, Compare, Alloc>::lower_bound(const Key& k) const {
   node_pointer root_node = root();
   node_pointer ret       = end_;
   while (root_node != u_nullptr) {
@@ -57,10 +57,10 @@ rbtree<T, Compare>::lower_bound(const Key& k) const {
   return const_iterator(ret);
 }
 
-template <typename T, typename Compare>
+template <typename T, typename Compare, typename Alloc>
 template <typename Key>
-typename rbtree<T, Compare>::iterator rbtree<T, Compare>::upper_bound(
-    const Key& k) {
+typename rbtree<T, Compare, Alloc>::iterator
+rbtree<T, Compare, Alloc>::upper_bound(const Key& k) {
   node_pointer root_node = root();
   node_pointer ret       = end_;
 
@@ -74,10 +74,10 @@ typename rbtree<T, Compare>::iterator rbtree<T, Compare>::upper_bound(
   return iterator(ret);
 }
 
-template <typename T, typename Compare>
+template <typename T, typename Compare, typename Alloc>
 template <typename Key>
-typename rbtree<T, Compare>::const_iterator
-rbtree<T, Compare>::upper_bound(const Key& k) const {
+typename rbtree<T, Compare, Alloc>::const_iterator
+rbtree<T, Compare, Alloc>::upper_bound(const Key& k) const {
   node_pointer root_node = root();
   node_pointer ret       = end_;
 

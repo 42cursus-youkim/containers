@@ -5,32 +5,38 @@
 
 namespace ft {
 /// Constructors & Destructor
-template <typename T, typename Compare>
-rbtree<T, Compare>::rbtree(const compare_type& comp)
-    : size_(0), alloc_(allocator_type()), comp_(comp) {
-  end_ = alloc_.allocate(1);
-  alloc_.construct(end_, node_type());
+template <typename T, typename Compare, typename Alloc>
+rbtree<T, Compare, Alloc>::rbtree(const compare_type& comp)
+    : size_(0),
+      alloc_(allocator_type()),
+      node_alloc_(node_allocator_type()),
+      comp_(comp) {
+  end_ = node_alloc_.allocate(1);
+  node_alloc_.construct(end_, node_type());
   begin_ = end_;
 }
 
-template <typename T, typename Compare>
-rbtree<T, Compare>::rbtree(const rbtree& other)
-    : size_(0), alloc_(other.alloc_), comp_(other.comp_) {
-  end_ = alloc_.allocate(1);
-  alloc_.construct(end_, node_type());
+template <typename T, typename Compare, typename Alloc>
+rbtree<T, Compare, Alloc>::rbtree(const rbtree& other)
+    : size_(0),
+      alloc_(other.alloc_),
+      node_alloc_(other.node_alloc_),
+      comp_(other.comp_) {
+  end_ = node_alloc_.allocate(1);
+  node_alloc_.construct(end_, node_type());
   begin_ = end_;
   *this  = other;
 }
 
-template <typename T, typename Compare>
-rbtree<T, Compare>::~rbtree() {
+template <typename T, typename Compare, typename Alloc>
+rbtree<T, Compare, Alloc>::~rbtree() {
   clear();
   deallocate_node(end_);
 }
 
 ///  Operators
-template <typename T, typename Compare>
-rbtree<T, Compare>& rbtree<T, Compare>::operator=(
+template <typename T, typename Compare, typename Alloc>
+rbtree<T, Compare, Alloc>& rbtree<T, Compare, Alloc>::operator=(
     const rbtree& other) {
   if (this != &other) {
     clear();
