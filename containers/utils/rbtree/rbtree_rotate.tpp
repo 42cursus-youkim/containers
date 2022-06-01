@@ -84,19 +84,21 @@ void rbtree<T, Compare>::rotate_left(node_pointer node) {
 }
 
 template <typename T, typename Compare>
-void rbtree<T, Compare>::rebuild_insert(node_pointer new_node) {
+void rbtree<T, Compare>::rebalance_tree(node_pointer new_node) {
   new_node->is_black = (new_node == root());
 
   while (new_node != root() and new_node->parent->is_red()) {
     if ((new_node->parent)->is_left_child()) {
       node_pointer uncle = new_node->parent->parent->right;
       if (uncle != u_nullptr and uncle->is_red()) {
+        // Recoloring
         new_node           = new_node->parent;
         new_node->is_black = true;
         new_node           = new_node->parent;
         new_node->is_black = new_node == root();
         uncle->is_black    = true;
       } else {
+        // Restructuring
         if (not new_node->is_left_child()) {
           new_node = new_node->parent;
           rotate_left(new_node);
@@ -111,12 +113,14 @@ void rbtree<T, Compare>::rebuild_insert(node_pointer new_node) {
     } else {
       node_pointer uncle = new_node->parent->parent->left;
       if (uncle != u_nullptr and uncle->is_red()) {
+        // Recoloring
         new_node           = new_node->parent;
         new_node->is_black = true;
         new_node           = new_node->parent;
         new_node->is_black = new_node == root();
         uncle->is_black    = true;
       } else {
+        // Restructuring
         if (new_node->is_left_child()) {
           new_node = new_node->parent;
           rotate_right(new_node);
@@ -134,7 +138,7 @@ void rbtree<T, Compare>::rebuild_insert(node_pointer new_node) {
 
 template <typename T, typename Compare>
 void rbtree<T, Compare>::delete_node(const_reference value) {
-  node_pointer remove = find_pos(remove, value);
+  node_pointer remove = where_to_attach(remove, value);
   if (remove != u_nullptr)
     remove_node(root(), remove);
   --size_;
@@ -153,8 +157,8 @@ void rbtree<T, Compare>::delete_tree(node_pointer node) {
 
 template <typename T, typename Compare>
 typename rbtree<T, Compare>::node_pointer&
-rbtree<T, Compare>::find_pos(node_pointer&   parent,
-                             const_reference data) {
+rbtree<T, Compare>::where_to_attach(node_pointer&   parent,
+                                    const_reference data) {
   node_pointer  node     = root();
   node_pointer* node_ptr = rootPtr();
 
@@ -189,13 +193,14 @@ rbtree<T, Compare>::find_pos(node_pointer&   parent,
 
 template <typename T, typename Compare>
 typename rbtree<T, Compare>::node_pointer&
-rbtree<T, Compare>::find_pos(iterator        from,
-                             node_pointer&   parent,
-                             node_pointer&   dummy,
-                             const_reference data) {
+rbtree<T, Compare>::where_to_attach(iterator        from,
+                                    node_pointer&   parent,
+                                    node_pointer&   dummy,
+                                    const_reference data) {
   if (from == end() or comp_(data, *from)) {
     iterator prev = from;
     if (from == begin() or comp_(*--prev, data)) {
+      // attach node to from
       if (not from.base()->has_left_child()) {
         parent = from.base();
         return parent->left;
@@ -204,11 +209,12 @@ rbtree<T, Compare>::find_pos(iterator        from,
         return prev.base()->right;
       }
     }
-    return find_pos(parent, data);
+    return where_to_attach(parent, data);
   } else if (comp_(*from, data)) {
     iterator next = from;
     ++next;
     if (next == end() or comp_(data, *next)) {
+      // attach node to from or next one
       if (not from.base()->has_right_child()) {
         parent = from.base();
         return from.base()->right;
@@ -217,7 +223,7 @@ rbtree<T, Compare>::find_pos(iterator        from,
         return parent->left;
       }
     }
-    return find_pos(parent, data);
+    return where_to_attach(parent, data);
   } else {
     parent = from.base();
     dummy  = from.base();

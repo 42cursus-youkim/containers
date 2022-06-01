@@ -49,7 +49,7 @@ class rbtree {
   void          rotate_right(node_pointer node);
   void          rotate_left(node_pointer node);
 
-  void          rebuild_insert(node_pointer new_node);
+  void          rebalance_tree(node_pointer new_node);
 
   // allocate
   node_pointer  create_node(const_reference data);
@@ -66,11 +66,12 @@ class rbtree {
   void          delete_node(const_reference value);
   void          delete_tree(node_pointer node);
 
-  node_pointer& find_pos(node_pointer& parent, const_reference data);
-  node_pointer& find_pos(iterator        from,
-                         node_pointer&   parent,
-                         node_pointer&   dummy,
-                         const_reference data);
+  node_pointer& where_to_attach(node_pointer&   parent,
+                                const_reference data);
+  node_pointer& where_to_attach(iterator        from,
+                                node_pointer&   parent,
+                                node_pointer&   dummy,
+                                const_reference data);
 
   /// interface
  public:
