@@ -61,7 +61,6 @@ void rbtree<T, Compare>::rotate_right(node_pointer node) {
  *  6  9       |   (det.) \  |    /  \     |    6  9     |
  *             |          12 |   6   9     |             |
  */
-// FIXME: wouldn't it crash if there were no grandchild?
 template <typename T, typename Compare>
 void rbtree<T, Compare>::rotate_left(node_pointer node) {
   node_pointer right_child = node->right;        //< <10>
@@ -156,7 +155,7 @@ template <typename T, typename Compare>
 typename rbtree<T, Compare>::node_pointer&
 rbtree<T, Compare>::find_pos(node_pointer&   parent,
                              const_reference data) {
-  node_pointer  node   = root();
+  node_pointer  node     = root();
   node_pointer* node_ptr = rootPtr();
 
   if (node == u_nullptr) {
@@ -168,7 +167,7 @@ rbtree<T, Compare>::find_pos(node_pointer&   parent,
     if (comp_(data, node->data)) {
       if (node->has_left_child()) {
         node_ptr = &(node->left);
-        node   = node->left;
+        node     = node->left;
       } else {
         parent = node;
         return parent->left;
@@ -176,7 +175,7 @@ rbtree<T, Compare>::find_pos(node_pointer&   parent,
     } else if (comp_(node->data, data)) {
       if (node->has_right_child()) {
         node_ptr = &node->right;
-        node   = node->right;
+        node     = node->right;
       } else {
         parent = node;
         return parent->right;
@@ -190,15 +189,15 @@ rbtree<T, Compare>::find_pos(node_pointer&   parent,
 
 template <typename T, typename Compare>
 typename rbtree<T, Compare>::node_pointer&
-rbtree<T, Compare>::find_pos(iterator        hint,
+rbtree<T, Compare>::find_pos(iterator        from,
                              node_pointer&   parent,
                              node_pointer&   dummy,
                              const_reference data) {
-  if (hint == end() or comp_(data, *hint)) {
-    iterator prev = hint;
-    if (hint == begin() or comp_(*--prev, data)) {
-      if (not hint.base()->has_left_child()) {
-        parent = hint.base();
+  if (from == end() or comp_(data, *from)) {
+    iterator prev = from;
+    if (from == begin() or comp_(*--prev, data)) {
+      if (not from.base()->has_left_child()) {
+        parent = from.base();
         return parent->left;
       } else {
         parent = prev.base();
@@ -206,13 +205,13 @@ rbtree<T, Compare>::find_pos(iterator        hint,
       }
     }
     return find_pos(parent, data);
-  } else if (comp_(*hint, data)) {
-    iterator next = hint;
+  } else if (comp_(*from, data)) {
+    iterator next = from;
     ++next;
     if (next == end() or comp_(data, *next)) {
-      if (not hint.base()->has_right_child()) {
-        parent = hint.base();
-        return hint.base()->right;
+      if (not from.base()->has_right_child()) {
+        parent = from.base();
+        return from.base()->right;
       } else {
         parent = next.base();
         return parent->left;
@@ -220,8 +219,8 @@ rbtree<T, Compare>::find_pos(iterator        hint,
     }
     return find_pos(parent, data);
   } else {
-    parent = hint.base();
-    dummy  = hint.base();
+    parent = from.base();
+    dummy  = from.base();
     return dummy;
   }
 }

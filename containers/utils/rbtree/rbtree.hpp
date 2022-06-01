@@ -67,7 +67,7 @@ class rbtree {
   void          delete_tree(node_pointer node);
 
   node_pointer& find_pos(node_pointer& parent, const_reference data);
-  node_pointer& find_pos(iterator        hint,
+  node_pointer& find_pos(iterator        from,
                          node_pointer&   parent,
                          node_pointer&   dummy,
                          const_reference data);
@@ -116,14 +116,12 @@ class rbtree {
   template <typename InputIterator>
   void insert(InputIterator first, InputIterator last);
   pair<iterator, bool> insert(const_reference data);
-  iterator             insert(iterator hint, const_reference data);
+  iterator             insert(iterator from, const_reference data);
 
   void                 swap(rbtree& other);
   void                 erase(iterator pos);
   void                 clear();
 };
-
-
 
 }  // namespace ft
 
@@ -131,6 +129,7 @@ class rbtree {
 #include "rbtree.tpp"
 #include "rbtree_find.tpp"
 #include "rbtree_impl.tpp"
+#include "rbtree_insert.tpp"
 #include "rbtree_iter.tpp"
 #include "rbtree_modifier.tpp"
 #include "rbtree_remove.tpp"
