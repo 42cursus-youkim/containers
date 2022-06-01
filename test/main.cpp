@@ -20,13 +20,12 @@ void print_map(NS::map<string, int> m) {
   }
 }
 
-int main() {
+void do_main() {
 #ifdef DO_STD
   std::cout << "This program is on DO_STD" << std::endl;
 #else
   std::cout << "This program is on FT" << std::endl;
 #endif
-
   {
     vecStr vec(1, "4");
 
@@ -99,5 +98,11 @@ int main() {
   }
 
   mandatory(0);
+}
+
+int main() {
+  do_main();
+  while (LOOP)
+    ;
   return (0);
 }

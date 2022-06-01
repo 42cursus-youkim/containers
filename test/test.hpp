@@ -7,6 +7,10 @@
 #define COUNT (MAX_RAM / (int)sizeof(Buffer))
 #endif
 
+#ifndef LOOP
+#define LOOP 0
+#endif
+
 void mandatory(unsigned int seed);
 
 struct Buffer {
